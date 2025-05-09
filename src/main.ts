@@ -2,6 +2,7 @@ import { Attendence } from './attendence'
 import { Patient } from './patient'
 import { PriorityQueue } from './priorityQueue'
 import { QueueEntry } from './queueEntry'
+import { RiskLevel } from './riskLevel'
 import { Triage } from './triage'
 
 const patient1: Patient = new Patient(1)
@@ -16,11 +17,15 @@ const attendence1: Attendence = new Attendence(1, patient1, triage1)
 const attendence2: Attendence = new Attendence(2, patient2, triage2)
 const attendence3: Attendence = new Attendence(3, patient3, triage3)
 
-const queueE1 = new QueueEntry(attendence1, attendence1.triage!.getRisk())
-const queueE2 = new QueueEntry(attendence2, attendence2.triage!.getRisk())
-const queueE3 = new QueueEntry(attendence3, attendence3.triage!.getRisk())
-const queueE4 = new QueueEntry(attendence3, attendence3.triage!.getRisk())
-const queueE5 = new QueueEntry(attendence3, attendence1.triage!.getRisk())
+const redRisk = RiskLevel.Red
+const yellowRisk = RiskLevel.Yellow
+const orangeRisk = RiskLevel.Orange
+
+const queueE1 = new QueueEntry(attendence1, redRisk)
+const queueE2 = new QueueEntry(attendence2, yellowRisk)
+const queueE3 = new QueueEntry(attendence3, orangeRisk)
+const queueE4 = new QueueEntry(attendence3, orangeRisk)
+const queueE5 = new QueueEntry(attendence3, redRisk)
 
 const queue: PriorityQueue = new PriorityQueue(5)
 

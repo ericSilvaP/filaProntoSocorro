@@ -1,4 +1,5 @@
 import { Attendence } from './attendence'
+import { RiskLevel } from './riskLevel'
 
 export class QueueEntry {
   public readonly maxWaitingTime: number
@@ -6,7 +7,7 @@ export class QueueEntry {
 
   constructor(
     private attendence: Attendence,
-    private priorityLevel: number,
+    private priorityLevel: RiskLevel | number,
   ) {
     this.maxWaitingTime = this.defineMaxWaitingTime()
     this.timestamp = new Date()

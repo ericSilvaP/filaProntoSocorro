@@ -1,4 +1,5 @@
 import { Patient } from './patient'
+import { RiskLevel } from './riskLevel'
 
 export class Triage {
   constructor(
@@ -13,14 +14,14 @@ export class Triage {
     // private date: Date,
     // private time: Date,
     // private symptoms: string[],
-    private risk: number,
+    private riskLevel?: RiskLevel | number,
   ) {}
 
-  getRisk(): number {
-    return this.risk
+  getRisk(): number | undefined {
+    return this.riskLevel
   }
 
-  setRisk(newRisk: number): void {
-    this.risk = newRisk
+  setRisk(newRisk: RiskLevel | number): void {
+    this.riskLevel = newRisk
   }
 }
