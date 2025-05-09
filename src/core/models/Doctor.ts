@@ -1,6 +1,6 @@
-import { Users } from './users'
+import { Users } from './Users'
 
-export class Recepcionist extends Users {
+export class Doctor extends Users {
   constructor(
     id: number,
     cpf: string,
@@ -10,6 +10,8 @@ export class Recepcionist extends Users {
     adress: string,
     username: string,
     password: string,
+    private crm: number,
+    private specialty: string,
     phoneNumber?: number[],
   ) {
     super(id, cpf, name, birthDate, gender, adress, username, password, phoneNumber)

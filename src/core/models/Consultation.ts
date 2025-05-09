@@ -1,5 +1,5 @@
-import { Attendence } from './attendence'
-import { Doctor } from './doctor'
+import { Attendence } from './Attendence'
+import { Doctor } from './Doctor'
 
 export class Consultation {
   constructor(

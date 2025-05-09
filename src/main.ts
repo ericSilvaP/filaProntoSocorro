@@ -1,9 +1,9 @@
-import { Attendence } from './attendence'
-import { Patient } from './patient'
-import { PriorityQueue } from './priorityQueue'
-import { QueueEntry } from './queueEntry'
-import { RiskLevel } from './riskLevel'
-import { Triage } from './triage'
+import { Attendence } from './core/models/Attendence'
+import { Patient } from './core/models/Patient'
+import { Triage } from './core/models/Triage'
+import { PriorityQueue } from './core/triage/priorityQueue'
+import { QueueEntry } from './core/triage/queueEntry'
+import { RiskLevel } from './types/riskLevel'
 
 const patient1: Patient = new Patient(1)
 const patient2: Patient = new Patient(2)

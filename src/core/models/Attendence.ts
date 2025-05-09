@@ -1,6 +1,6 @@
-import { Consultation } from './consultation'
-import { Patient } from './patient'
-import { Triage } from './triage'
+import { Consultation } from './Consultation'
+import { Patient } from './Patient'
+import { Triage } from './Triage'
 
 export class Attendence {
   public readonly start_time: Date

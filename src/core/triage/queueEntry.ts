@@ -1,5 +1,5 @@
-import { Attendence } from './attendence'
-import { RiskLevel } from './riskLevel'
+import { RiskLevel } from '../../types/riskLevel'
+import { Attendence } from '../models/Attendence'
 
 export class QueueEntry {
   public readonly maxWaitingTime: number

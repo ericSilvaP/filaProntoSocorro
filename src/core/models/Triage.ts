@@ -1,5 +1,5 @@
-import { Patient } from './patient'
-import { RiskLevel } from './riskLevel'
+import { Patient } from './Patient'
+import { RiskLevel } from '../../types/riskLevel'
 
 export class Triage {
   constructor(

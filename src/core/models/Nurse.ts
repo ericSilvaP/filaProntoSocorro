@@ -1,4 +1,4 @@
-import { Users } from './users'
+import { Users } from './Users'
 
 export class Nurse extends Users {
   constructor(
