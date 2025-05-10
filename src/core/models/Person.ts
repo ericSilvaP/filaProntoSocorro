@@ -8,4 +8,28 @@ export abstract class Person {
     // protected adress: string,
     // protected phoneNumber?: number[] | undefined
   ) {}
+
+  // getCpf(): void {
+  //   return this.cpf
+  // }
+
+  // getName(): void {
+  //   return this.name
+  // }
+
+  // getBDate(): void {
+  //   return this.birthDate
+  // }
+
+  // getGender(): void {
+  //   return this.gender
+  // }
+
+  // getAdress(): void {
+  //   return this.adress
+  // }
+
+  // getPhones(): void {
+  //   return this.phoneNumber
+  // }
 }

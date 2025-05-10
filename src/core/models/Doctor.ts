@@ -1,3 +1,5 @@
+import { AccessLevel } from '@/types/accessLevel'
+
 import { Users } from './Users'
 
 export class Doctor extends Users {
@@ -8,12 +10,13 @@ export class Doctor extends Users {
     birthDate: Date,
     gender: string,
     adress: string,
+    accessLevel: AccessLevel,
     username: string,
     password: string,
     private crm: number,
     private specialty: string,
     phoneNumber?: number[],
   ) {
-    super(id, cpf, name, birthDate, gender, adress, username, password, phoneNumber)
+    super(id, cpf, name, birthDate, gender, adress, accessLevel, username, password, phoneNumber)
   }
 }

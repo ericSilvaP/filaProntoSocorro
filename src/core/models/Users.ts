@@ -1,3 +1,5 @@
+import { AccessLevel } from '@/types/accessLevel'
+
 import { Person } from './Person'
 
 export abstract class Users extends Person {
@@ -8,6 +10,7 @@ export abstract class Users extends Person {
     birthDate: Date,
     gender: string,
     adress: string,
+    accessLevel: AccessLevel,
     protected username: string,
     protected password: string,
     phoneNumber?: number[],

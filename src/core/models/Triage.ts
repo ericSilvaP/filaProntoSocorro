@@ -1,27 +1,23 @@
 import { Patient } from './Patient'
+import { VitalSignals } from './VitalSignals'
 import { RiskLevel } from '../../types/riskLevel'
 
 export class Triage {
   constructor(
     private id: number,
     private patient: Patient,
-    // private blood_pressure: number,
-    // private heart_rate: number,
-    // private respiratory_rate: number,
-    // private temperature: number,
-    // private oxygen_saturation: number,
-    // private pain_level: number,
     // private date: Date,
-    // private time: Date,
-    // private symptoms: string[],
-    private riskLevel?: RiskLevel | number,
-  ) {}
+    private riskLevel?: RiskLevel,
+    private vitalSignals?: VitalSignals,
+  ) {
+    // this.date = new Date()
+  }
 
   getRisk(): number | undefined {
     return this.riskLevel
   }
 
-  setRisk(newRisk: RiskLevel | number): void {
+  setRisk(newRisk: RiskLevel): void {
     this.riskLevel = newRisk
   }
 }

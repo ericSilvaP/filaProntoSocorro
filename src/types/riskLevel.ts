@@ -1,4 +1,3 @@
-// src/types/RiskLevel.ts
 export enum RiskLevel {
   Red = 0, // Emergência imediata
   Orange = 1, // Muito urgente
