@@ -1,35 +1,39 @@
+import { Gender } from '@/types/gender'
+
 export abstract class Person {
   constructor(
     protected id: number,
-    // protected cpf: string,
-    // protected name: string,
-    // protected birthDate: Date,
-    // protected gender: string,
-    // protected adress: string,
-    // protected phoneNumber?: number[] | undefined
+    protected cpf: string,
+    protected name: string,
+    protected birthDate: Date,
+    protected gender: Gender,
+    protected adress: string,
+    protected phoneNumber?: number[] | undefined,
   ) {}
 
-  // getCpf(): void {
-  //   return this.cpf
-  // }
+  getCpf(): string {
+    return this.cpf
+  }
 
-  // getName(): void {
-  //   return this.name
-  // }
+  getName(): string {
+    return this.name
+  }
 
-  // getBDate(): void {
-  //   return this.birthDate
-  // }
+  getBDate(): Date {
+    return this.birthDate
+  }
 
-  // getGender(): void {
-  //   return this.gender
-  // }
+  getGender(): string {
+    return this.gender
+  }
 
-  // getAdress(): void {
-  //   return this.adress
-  // }
+  getAdress(): string {
+    return this.adress
+  }
 
-  // getPhones(): void {
-  //   return this.phoneNumber
-  // }
+  getPhones(): number[] | undefined {
+    return this.phoneNumber
+  }
+
+  abstract toString(): string
 }

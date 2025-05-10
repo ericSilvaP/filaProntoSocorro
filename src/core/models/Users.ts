@@ -1,4 +1,5 @@
 import { AccessLevel } from '@/types/accessLevel'
+import { Gender } from '@/types/gender'
 
 import { Person } from './Person'
 
@@ -8,14 +9,13 @@ export abstract class Users extends Person {
     cpf: string,
     name: string,
     birthDate: Date,
-    gender: string,
+    gender: Gender,
     adress: string,
-    accessLevel: AccessLevel,
+    protected accessLevel: AccessLevel,
     protected username: string,
     protected password: string,
     phoneNumber?: number[],
   ) {
-    super(id)
-    // super(id, cpf, name, birthDate, gender, adress, phoneNumber)
+    super(id, cpf, name, birthDate, gender, adress, phoneNumber)
   }
 }

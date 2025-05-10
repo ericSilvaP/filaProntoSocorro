@@ -17,4 +17,8 @@ export class Attendence {
   setEndTime(): void {
     this.end_time = new Date()
   }
+
+  toString(): string {
+    return `Id: ${this.id}, Hora de início ${this.start_time.toTimeString()}`
+  }
 }

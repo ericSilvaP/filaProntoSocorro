@@ -26,7 +26,7 @@ export class QueueEntry {
   }
 
   toString(): string {
-    return `Service ID: ${this.attendence}, Priority: ${this.priorityLevel}, Time: ${this.timestamp.toISOString()}`
+    return `Attendence ID: ${this.attendence}, Priority: ${this.priorityLevel}, Time: ${this.timestamp.toISOString()}`
   }
 
   defineMaxWaitingTime(): number {

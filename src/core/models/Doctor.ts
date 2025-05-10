@@ -1,4 +1,5 @@
 import { AccessLevel } from '@/types/accessLevel'
+import { Gender } from '@/types/gender'
 
 import { Users } from './Users'
 
@@ -8,7 +9,7 @@ export class Doctor extends Users {
     cpf: string,
     name: string,
     birthDate: Date,
-    gender: string,
+    gender: Gender,
     adress: string,
     accessLevel: AccessLevel,
     username: string,
@@ -18,5 +19,9 @@ export class Doctor extends Users {
     phoneNumber?: number[],
   ) {
     super(id, cpf, name, birthDate, gender, adress, accessLevel, username, password, phoneNumber)
+  }
+
+  toString(): string {
+    return `Id: ${this.id}, CRM ${this.crm}, Specialty: ${this.specialty},Name: ${this.name}, Data de Nascimento: ${this.birthDate.toLocaleDateString()}`
   }
 }
