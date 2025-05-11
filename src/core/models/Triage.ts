@@ -6,14 +6,11 @@ export class Triage {
   constructor(
     private id: number,
     private patient: Patient,
-    // private date: Date,
-    private riskLevel?: RiskLevel,
-    private vitalSignals?: VitalSignals,
-  ) {
-    // this.date = new Date()
-  }
+    private riskLevel: RiskLevel,
+    private vitalSignals: VitalSignals,
+  ) {}
 
-  getRisk(): number | undefined {
+  getRisk(): number {
     return this.riskLevel
   }
 

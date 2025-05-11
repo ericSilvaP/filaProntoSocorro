@@ -5,6 +5,9 @@ import { Gender } from '@/types/gender'
 import { Attendence } from './Attendence'
 import { Patient } from './Patient'
 import { Users } from './Users'
+import { LegalQueue } from '../triage/LegalQueue'
+import { PriorityQueue } from '../triage/priorityQueue'
+import { QueueEntry } from '../triage/queueEntry'
 
 export class Recepcionist extends Users {
   constructor(
@@ -39,6 +42,15 @@ export class Recepcionist extends Users {
 
   createAttendence(id: number, patient: Patient): Attendence {
     return new Attendence(id, patient)
+  }
+
+  enqueuePriorityQueue(priorityQueue: PriorityQueue, attendence: Attendence): void {
+    const queueEntry = new QueueEntry(attendence, attendence.getTriage()!.getRisk())
+    priorityQueue.enqueue(queueEntry)
+  }
+
+  nextLegalQueue(legalQueue: LegalQueue): number | null {
+    return legalQueue.dequeue()
   }
 
   toString(): string {
