@@ -1,7 +1,9 @@
 import { AccessLevel } from '@/types/accessLevel'
 import { Gender } from '@/types/gender'
 
+import { Patient } from './Patient'
 import { Users } from './Users'
+import { PriorityQueue } from '../triage/priorityQueue'
 
 export class Doctor extends Users {
   constructor(
@@ -19,6 +21,10 @@ export class Doctor extends Users {
     phoneNumber?: number[],
   ) {
     super(id, cpf, name, birthDate, gender, adress, accessLevel, username, password, phoneNumber)
+  }
+
+  nextPatient(prioQueue: PriorityQueue): Patient | undefined {
+    return prioQueue.dequeueNext()?.getAttendence().getPatient()
   }
 
   toString(): string {

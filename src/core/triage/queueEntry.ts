@@ -3,22 +3,16 @@ import { Attendence } from '../models/Attendence'
 
 export class QueueEntry {
   public readonly maxWaitingTime: number
-  private timestamp: Date
 
   constructor(
     private attendence: Attendence,
     private priorityLevel: RiskLevel | number,
   ) {
     this.maxWaitingTime = this.defineMaxWaitingTime()
-    this.timestamp = new Date()
   }
 
-  getService(): Attendence {
+  getAttendence(): Attendence {
     return this.attendence
-  }
-
-  getTimestamp(): Date {
-    return this.timestamp
   }
 
   getPriorityLevel(): number {
@@ -26,7 +20,7 @@ export class QueueEntry {
   }
 
   toString(): string {
-    return `Attendence ID: ${this.attendence}, Priority: ${this.priorityLevel}, Time: ${this.timestamp.toISOString()}`
+    return `Attendence ID: ${this.attendence}, Priority: ${this.priorityLevel}`
   }
 
   defineMaxWaitingTime(): number {
@@ -49,7 +43,7 @@ export class QueueEntry {
 
   elapsedTime(): number {
     const now = new Date().getTime()
-    const entryTime = this.timestamp.getTime()
+    const entryTime = this.attendence.getStartTime().getTime()
     return now - entryTime
   }
 

@@ -1,7 +1,6 @@
 import { AccessLevel } from '@/types/accessLevel'
 import { Gender } from '@/types/gender'
 
-import { Patient } from './Patient'
 import { Person } from './Person'
 
 export abstract class Users extends Person {

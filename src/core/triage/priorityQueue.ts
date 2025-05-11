@@ -28,11 +28,20 @@ export class PriorityQueue {
     this.queues[servicePriority].push(queueEntry)
   }
 
-  dequeueN(n: number): QueueEntry | undefined {
-    if (n > this.queues.length || n < 0) return undefined
-    const queue = this.queues[n]
-    return PriorityQueue.dequeue(queue)
+  dequeueNext(): QueueEntry | null {
+    for (let i = 0; i <= 2; i++) {
+      if (this.queues[i].length > 0) {
+        return this.queues[i].shift()!
+      }
+    }
+    return null
   }
+
+  // dequeueN(n: number): QueueEntry | undefined {
+  //   if (n > this.queues.length || n < 0) return undefined
+  //   const queue = this.queues[n]
+  //   return PriorityQueue.dequeue(queue)
+  // }
 
   static dequeue(queue: QueueEntry[]): QueueEntry | undefined {
     if (queue.length === 0) return undefined

@@ -3,12 +3,9 @@ import { Gender } from '@/types/gender'
 import { RiskLevel } from '@/types/riskLevel'
 
 import { Attendence } from './Attendence'
-import { Patient } from './Patient'
 import { Triage } from './Triage'
 import { Users } from './Users'
 import { VitalSignals } from './VitalSignals'
-import { PriorityQueue } from '../triage/priorityQueue'
-import { QueueEntry } from '../triage/queueEntry'
 
 export class Nurse extends Users {
   constructor(
