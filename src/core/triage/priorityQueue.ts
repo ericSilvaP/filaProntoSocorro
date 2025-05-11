@@ -36,7 +36,7 @@ export class PriorityQueue {
 
   static dequeue(queue: QueueEntry[]): QueueEntry | undefined {
     if (queue.length === 0) return undefined
-    return queue.splice(0, 1)[0]
+    return queue.shift()
   }
 
   verifyTimes(): void {

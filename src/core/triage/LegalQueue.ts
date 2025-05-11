@@ -23,16 +23,12 @@ export class LegalQueue {
     return true
   }
 
-  dequeue(queueI: number): number {
-    if (queueI >= this.queues.length) {
-      return -1
+  dequeue(): number | null {
+    for (let i = 0; i <= 2; i++) {
+      if (this.queues[i].length > 0) {
+        return this.queues[i].shift()!
+      }
     }
-
-    const queue = this.queues[queueI]
-    if (queue.length == 0) {
-      return -1
-    } else {
-      return queue.splice(0, 1)[0]
-    }
+    return null
   }
 }
