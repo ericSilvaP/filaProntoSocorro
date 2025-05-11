@@ -34,7 +34,3 @@ import { RiskLevel } from './types/riskLevel'
 // const entriesQueues = [queueE1, queueE2, queueE3, queueE4, queueE5]
 
 // for (let i of entriesQueues) queue.enqueue(i)
-const date = new Date()
-const nurse1 = new Nurse(1, '1234', 'José', date, Gender.Male, 'sohdgivd', 'Chico', '12234', 129876)
-
-console.log(nurse1.toString())
