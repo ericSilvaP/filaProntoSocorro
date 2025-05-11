@@ -1,3 +1,4 @@
+import { BloodType } from '@/types/bloodType'
 import { Gender } from '@/types/gender'
 
 import { Person } from './Person'
@@ -12,7 +13,7 @@ export class Patient extends Person {
     adress: string,
     private sus: number,
     private allergies: string[],
-    private blood_type: string,
+    private blood_type: BloodType,
     phoneNumber?: number[],
   ) {
     super(id, cpf, name, birthDate, gender, adress, phoneNumber)

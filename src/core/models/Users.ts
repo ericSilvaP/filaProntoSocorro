@@ -19,19 +19,4 @@ export abstract class Users extends Person {
   ) {
     super(id, cpf, name, birthDate, gender, adress, phoneNumber)
   }
-
-  registerPatient(
-    id: number,
-    cpf: string,
-    name: string,
-    birthDate: Date,
-    gender: Gender,
-    adress: string,
-    sus: number,
-    allergies: string[],
-    blood_type: string,
-    phoneNumber?: number[],
-  ): Patient {
-    return new Patient(id, cpf, name, birthDate, gender, adress, sus, allergies, blood_type, phoneNumber)
-  }
 }

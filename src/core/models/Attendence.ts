@@ -7,7 +7,7 @@ export class Attendence {
   constructor(
     private id: number,
     private patient: Patient,
-    public triage?: Triage,
+    private triage?: Triage,
     private consultation?: Consultation,
     private end_time?: Date,
   ) {
