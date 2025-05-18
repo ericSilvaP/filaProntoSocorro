@@ -6,7 +6,6 @@ export class VitalSignals {
     private temperature: number,
     private oxygen_saturation: number,
     private pain_level: number,
-    private symptoms: string[],
   ) {}
 
   // Blood Pressure

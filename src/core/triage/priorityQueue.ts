@@ -1,13 +1,18 @@
+import { RiskLevel } from '@/types/riskLevel'
+
 import { QueueEntry } from './queueEntry'
+import { Attendence } from '../models/Attendence'
 
 export class PriorityQueue {
   private queues: QueueEntry[][]
   private expiredQueue: QueueEntry[]
+  private attendenceMap: Map<number, Attendence>
 
   constructor(private nQueues: number) {
     this.queues = []
     this.expiredQueue = []
     this.addQueues(nQueues)
+    this.attendenceMap = new Map()
   }
 
   private addQueues(nQueues: number): void {
@@ -18,6 +23,17 @@ export class PriorityQueue {
     }
   }
 
+  getAttendenceId(id: number): number {
+    return this.attendenceMap.get(id)
+  }
+
+  changePriority(attendenceId: number, newRisk: RiskLevel) {
+    this.queues.forEach((q) => {
+      const index = q.indexOf(attendenceId)
+      if (index !== 1) q.splice(index, 1)
+    })
+  }
+
   enqueue(queueEntry: QueueEntry): void {
     const servicePriority: number = queueEntry.getPriorityLevel()
     if (servicePriority > this.nQueues - 1) {
@@ -26,6 +42,7 @@ export class PriorityQueue {
     }
 
     this.queues[servicePriority].push(queueEntry)
+    this.attendenceMap.set(queueEntry.getAttendence().getId(), queueEntry.getAttendence())
   }
 
   dequeueNext(): QueueEntry | null {
