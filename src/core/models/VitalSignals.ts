@@ -1,6 +1,6 @@
 export class VitalSignals {
   constructor(
-    private blood_pressure: number,
+    private blood_pressure: string,
     private heart_rate: number,
     private respiratory_rate: number,
     private temperature: number,
@@ -9,11 +9,11 @@ export class VitalSignals {
   ) {}
 
   // Blood Pressure
-  getBloodPressure(): number {
+  getBloodPressure(): string {
     return this.blood_pressure
   }
 
-  setBloodPressure(value: number): void {
+  setBloodPressure(value: string): void {
     this.blood_pressure = value
   }
 

@@ -12,8 +12,8 @@ export class Patient extends Person {
     gender: Gender,
     adress: string,
     private sus: number,
-    private allergies: string[],
     private blood_type: BloodType,
+    private allergies?: string[],
     phoneNumber?: number[],
   ) {
     super(id, cpf, name, birthDate, gender, adress, phoneNumber)

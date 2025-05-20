@@ -1,4 +1,4 @@
-import { AccessLevel } from '@/types/accessLevel'
+import { Roles } from '@/types/accessLevel'
 import { Gender } from '@/types/gender'
 import { RiskLevel } from '@/types/riskLevel'
 
@@ -20,7 +20,7 @@ export class Nurse extends Users {
     private coren: number,
     phoneNumber?: number[],
   ) {
-    super(id, cpf, name, birthDate, gender, adress, AccessLevel.L2, username, password, phoneNumber)
+    super(id, cpf, name, birthDate, gender, adress, Roles.NURSE, username, password, phoneNumber)
   }
 
   createTriage(id: number, attendence: Attendence, riskLevel: RiskLevel, vitalSignals: VitalSignals): Triage {

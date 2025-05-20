@@ -1,4 +1,4 @@
-import { AccessLevel } from '@/types/accessLevel'
+import { Roles } from '@/types/accessLevel'
 import { Gender } from '@/types/gender'
 
 import { Patient } from './Patient'
@@ -13,14 +13,13 @@ export class Doctor extends Users {
     birthDate: Date,
     gender: Gender,
     adress: string,
-    accessLevel: AccessLevel,
     username: string,
     password: string,
     private crm: number,
     private specialty: string,
     phoneNumber?: number[],
   ) {
-    super(id, cpf, name, birthDate, gender, adress, accessLevel, username, password, phoneNumber)
+    super(id, cpf, name, birthDate, gender, adress, Roles.DOCTOR, username, password, phoneNumber)
   }
 
   nextPatient(prioQueue: PriorityQueue): Patient | undefined {

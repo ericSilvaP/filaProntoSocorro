@@ -1,4 +1,4 @@
-import { AccessLevel } from '@/types/accessLevel'
+import { Roles } from '@/types/accessLevel'
 import { BloodType } from '@/types/bloodType'
 import { Gender } from '@/types/gender'
 
@@ -17,12 +17,11 @@ export class Recepcionist extends Users {
     birthDate: Date,
     gender: Gender,
     adress: string,
-    accesLevel: AccessLevel,
     username: string,
     password: string,
     phoneNumber?: number[],
   ) {
-    super(id, cpf, name, birthDate, gender, adress, accesLevel, username, password, phoneNumber)
+    super(id, cpf, name, birthDate, gender, adress, Roles.RECEPCIONIST, username, password, phoneNumber)
   }
 
   registerPatient(

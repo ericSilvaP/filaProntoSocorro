@@ -1,5 +1,6 @@
 import { Consultation } from './Consultation'
 import { Patient } from './Patient'
+import { Recepcionist } from './Receptionist'
 import { Triage } from './Triage'
 
 export class Attendence {
@@ -8,6 +9,7 @@ export class Attendence {
   constructor(
     private id: number,
     private patient: Patient,
+    private recepcionist: Recepcionist,
     private triage?: Triage,
     private consultation?: Consultation,
     private end_time?: Date,
@@ -51,6 +53,10 @@ export class Attendence {
 
   getEndTime(): Date | undefined {
     return this.end_time
+  }
+
+  getRecepcionist(): Recepcionist {
+    return this.recepcionist
   }
 
   // String representation

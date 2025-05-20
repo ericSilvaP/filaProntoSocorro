@@ -3,6 +3,8 @@ export class LegalQueue {
     queues[0] = prioridade especial
     queues[1] = prioridade legal
     queues[2] = normal
+
+    lastCalleds = senhas numéricas auto incrementais
   */
 
   private queues: number[][]
@@ -13,13 +15,13 @@ export class LegalQueue {
     this.lastCalleds = [0, 0, 0]
   }
 
-  enqueue(queueI: number): boolean {
-    if (queueI >= this.queues.length) {
+  enqueue(priority: number): boolean {
+    if (priority >= this.queues.length || priority < 0) {
       return false
     }
 
-    const queue = this.queues[queueI]
-    queue.push(this.lastCalleds[queueI] + 1)
+    const queue = this.queues[priority]
+    queue.push(this.lastCalleds[priority] + 1)
     return true
   }
 

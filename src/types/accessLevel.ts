@@ -1,5 +1,5 @@
-export enum AccessLevel {
-  L1 = 1,
-  L2 = 2,
-  L3 = 3,
+export enum Roles {
+  RECEPCIONIST = 1,
+  NURSE = 2,
+  DOCTOR = 3,
 }
