@@ -19,6 +19,10 @@ export class Patient extends Person {
     super(id, cpf, name, birthDate, gender, adress, phoneNumber)
   }
 
+  setName(newName: string): void {
+    this.name = newName
+  }
+
   toString(): string {
     return `Id: ${this.id}, Name: ${this.name}, Data de Nascimento: ${this.birthDate.toLocaleDateString()}`
   }

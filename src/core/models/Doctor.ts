@@ -1,7 +1,8 @@
-import { Roles } from '@/types/accessLevel'
 import { Gender } from '@/types/gender'
+import { Roles } from '@/types/roles'
 
-import { Patient } from './Patient'
+import { Attendence } from './Attendence'
+import { Consultation } from './Consultation'
 import { Users } from './Users'
 import { PriorityQueue } from '../triage/priorityQueue'
 
@@ -22,8 +23,12 @@ export class Doctor extends Users {
     super(id, cpf, name, birthDate, gender, adress, Roles.DOCTOR, username, password, phoneNumber)
   }
 
-  nextPatient(prioQueue: PriorityQueue): Patient | undefined {
-    return prioQueue.dequeueNext()?.getAttendence().getPatient()
+  createConsultation(id: number, attendence: Attendence): Consultation {
+    return new Consultation(id, this, attendence)
+  }
+
+  nextPatient(prioQueue: PriorityQueue): Attendence | undefined {
+    return prioQueue.dequeueNext()?.getAttendence()
   }
 
   toString(): string {

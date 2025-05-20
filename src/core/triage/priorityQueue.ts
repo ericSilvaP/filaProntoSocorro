@@ -1,5 +1,3 @@
-import { RiskLevel } from '@/types/riskLevel'
-
 import { QueueEntry } from './queueEntry'
 import { Attendence } from '../models/Attendence'
 
@@ -23,16 +21,16 @@ export class PriorityQueue {
     }
   }
 
-  getAttendenceId(id: number): number {
+  getAttendenceId(id: number): Attendence | undefined {
     return this.attendenceMap.get(id)
   }
 
-  changePriority(attendenceId: number, newRisk: RiskLevel) {
-    this.queues.forEach((q) => {
-      const index = q.indexOf(attendenceId)
-      if (index !== 1) q.splice(index, 1)
-    })
-  }
+  // changePriority(attendenceId: number, newRisk: RiskLevel) {
+  //   this.queues.forEach((q) => {
+  //     const index = q.indexOf(attendenceId)
+  //     if (index !== -1) q.splice(index, 1)
+  //   })
+  // }
 
   enqueue(queueEntry: QueueEntry): void {
     const servicePriority: number = queueEntry.getPriorityLevel()
@@ -46,11 +44,12 @@ export class PriorityQueue {
   }
 
   dequeueNext(): QueueEntry | null {
-    for (let i = 0; i <= 2; i++) {
+    for (let i = 0; i <= this.queues.length - 1; i++) {
       if (this.queues[i].length > 0) {
         return this.queues[i].shift()!
       }
     }
+    this.verifyTimes()
     return null
   }
 

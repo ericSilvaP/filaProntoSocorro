@@ -1,81 +1,115 @@
-import { Attendence } from './core/models/Attendence'
+import { Doctor } from './core/models/Doctor'
 import { Nurse } from './core/models/Nurse'
 import { Patient } from './core/models/Patient'
-import { Triage } from './core/models/Triage'
+import { Recepcionist } from './core/models/Receptionist'
 import { VitalSignals } from './core/models/VitalSignals'
 import { PriorityQueue } from './core/triage/priorityQueue'
-import { QueueEntry } from './core/triage/queueEntry'
 import { BloodType } from './types/bloodType'
 import { Gender } from './types/gender'
 import { RiskLevel } from './types/riskLevel'
 
-const patient1: Patient = new Patient(
+// Instanciação dos profissionais
+const recepcionist = new Recepcionist(
   1,
-  '100000000',
-  'Eric',
-  new Date(2005, 9, 12),
-  Gender.Male,
-  's',
-  123,
-  BloodType.A_NEGATIVE,
-  ['s', 'f'],
+  '123.456.789-00',
+  'Maria Recepcionista',
+  new Date('1980-01-01'),
+  Gender.FEMALE,
+  'Rua A, 123',
+  'maria.recep',
+  'senha123',
 )
-
-const patient2: Patient = new Patient(
+const nurse = new Nurse(
   2,
-  '100000000',
-  'Daniel',
-  new Date(2005, 9, 12),
-  Gender.Male,
-  's',
-  123,
-  BloodType.A_NEGATIVE,
-  ['s', 'f'],
+  '987.654.321-00',
+  'João Enfermeiro',
+  new Date('1975-05-20'),
+  Gender.MALE,
+  'Rua B, 456',
+  'joao.enf',
+  'senha456',
+  123456,
 )
-const patient3: Patient = new Patient(
+const doctor = new Doctor(
   3,
-  '100000000',
-  'Jurema',
-  new Date(2005, 9, 12),
-  Gender.Male,
-  's',
-  123,
-  BloodType.A_NEGATIVE,
-  ['s', 'f'],
+  '456.789.123-00',
+  'Dra. Ana Médica',
+  new Date('1970-12-12'),
+  Gender.FEMALE,
+  'Rua C, 789',
+  'ana.med',
+  'senha789',
+  654321,
+  'Clínico Geral',
 )
 
-const redRisk = RiskLevel.Red
-const yellowRisk = RiskLevel.Yellow
-const orangeRisk = RiskLevel.Orange
+// Pacientes a serem cadastrados
+const patientData = [
+  { name: 'Carlos Paciente', risk: RiskLevel.YELLOW },
+  { name: 'Pedro', risk: RiskLevel.ORANGE },
+  { name: 'José', risk: RiskLevel.GREEN },
+  { name: 'Frederica', risk: RiskLevel.ORANGE },
+  { name: 'Marcela', risk: RiskLevel.BLUE },
+  { name: 'Maria', risk: RiskLevel.RED },
+]
 
-const vitalSignals = new VitalSignals('100/70', 80, 15, 36, 97, 2)
+// Fila de prioridade
+const priorityQueue = new PriorityQueue(5)
 
-const triage1: Triage = new Triage(1, patient1, redRisk, vitalSignals)
-const triage2: Triage = new Triage(1, patient2, yellowRisk, vitalSignals)
-const triage3: Triage = new Triage(1, patient3, orangeRisk, vitalSignals)
+// Fluxo
+console.log('--- INICIANDO ATENDIMENTO ---')
 
-const attendence1: Attendence = new Attendence(1, patient1, triage1)
-const attendence2: Attendence = new Attendence(2, patient2, triage2)
-const attendence3: Attendence = new Attendence(3, patient3, triage3)
+// Etapas: Cadastro, atendimento, triagem, fila
+const attendances = patientData.map((data, index) => {
+  const patient = recepcionist.registerPatient(
+    index + 1,
+    `111.222.333-${index}0`,
+    data.name,
+    new Date('1990-03-15'),
+    Gender.MALE,
+    'Rua D, 101',
+    123456789 + index,
+    BloodType.O_POSITIVE,
+    ['Nenhuma'],
+  )
+  console.log(`📋 Paciente cadastrado: ${patient.getName()}`)
 
-const queueE1 = new QueueEntry(attendence1, redRisk)
-const queueE2 = new QueueEntry(attendence2, yellowRisk)
-const queueE3 = new QueueEntry(attendence3, orangeRisk)
-const queueE4 = new QueueEntry(attendence3, orangeRisk)
-const queueE5 = new QueueEntry(attendence3, redRisk)
+  const attendance = recepcionist.createAttendence(index + 1, patient)
+  console.log(`🕐 Atendimento criado para: ${patient.getName()}`)
 
-const queue: PriorityQueue = new PriorityQueue(5)
+  const vitalSigns = new VitalSignals('120/80', 80, 18, 36.5, 98, 2)
+  const triage = nurse.createTriage(index + 1, attendance, data.risk, vitalSigns)
+  attendance.setTriage(triage)
 
-const entriesQueues = [queueE1, queueE2, queueE3, queueE4, queueE5]
+  console.log(`🩺 Triagem realizada para ${patient.getName()}`)
+  console.log(
+    `📊 Sinais vitais: Pressão ${vitalSigns.getBloodPressure()}, FC ${vitalSigns.getHeartRate()}, Temp ${vitalSigns.getTemperature()}°C`,
+  )
+  console.log(`⚠️ Nível de risco: ${triage.getRisk()}`)
 
-// RECEPCIONISTA
-// 1 - registrar paciente, se necessário
-// 2 - puxar paciente do bd, criando uma instância do mesmo
-// 3 - criar atendimento com o respectivo paciente
-// ENFERMEIRO
-// 4 - colocar informações sobre a triagem no atendimento
-// SISTEMA
-// 5 - automaticamente colocar o paciente na fila de prioridade
-// MÉDICO
-// 6 - chamar próximo paciente
-// 7 - colocar as informações necessárias a consulta e encerrá-la
+  recepcionist.enqueuePriorityQueue(priorityQueue, attendance)
+  console.log(`📥 ${patient.getName()} adicionado à fila de prioridade.\n`)
+
+  return attendance
+})
+
+// Consulta médica
+while (true) {
+  const nextAttendence = doctor.nextPatient(priorityQueue)
+  if (nextAttendence) {
+    console.log(
+      `🏥 ${doctor.getName()} está atendendo ${nextAttendence.getPatient().getName()} - ${nextAttendence.getTriage()?.getRisk()}`,
+    )
+    const consultation = doctor.createConsultation(Date.now(), nextAttendence)
+    consultation.addDiagnosis('Gripe comum.')
+    consultation.endConsultation()
+    nextAttendence.setEndTime()
+    console.log(`✅ Consulta finalizada. Diagnóstico: ${consultation.getDiagnosis()}`)
+    console.log(`📤 Atendimento encerrado para: ${nextAttendence.getPatient().getName()}\n`)
+  } else {
+    console.log('⚠️ Nenhum paciente na fila para atendimento.\n')
+    break
+  }
+}
+
+console.log('--- FIM DO ATENDIMENTO ---')

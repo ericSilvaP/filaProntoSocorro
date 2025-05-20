@@ -1,6 +1,6 @@
-import { Roles } from '@/types/accessLevel'
 import { BloodType } from '@/types/bloodType'
 import { Gender } from '@/types/gender'
+import { Roles } from '@/types/roles'
 
 import { Attendence } from './Attendence'
 import { Patient } from './Patient'
@@ -21,7 +21,7 @@ export class Recepcionist extends Users {
     password: string,
     phoneNumber?: number[],
   ) {
-    super(id, cpf, name, birthDate, gender, adress, Roles.RECEPCIONIST, username, password, phoneNumber)
+    super(id, cpf, name, birthDate, gender, adress, Roles.RECEPTIONIST, username, password, phoneNumber)
   }
 
   registerPatient(
@@ -33,14 +33,14 @@ export class Recepcionist extends Users {
     adress: string,
     sus: number,
     blood_type: BloodType,
-    allergies: string[],
+    allergies?: string[],
     phoneNumber?: number[],
   ): Patient {
-    return new Patient(id, cpf, name, birthDate, gender, adress, sus, allergies, blood_type, phoneNumber)
+    return new Patient(id, cpf, name, birthDate, gender, adress, sus, blood_type, allergies, phoneNumber)
   }
 
   createAttendence(id: number, patient: Patient): Attendence {
-    return new Attendence(id, patient)
+    return new Attendence(id, patient, this)
   }
 
   enqueuePriorityQueue(priorityQueue: PriorityQueue, attendence: Attendence): void {

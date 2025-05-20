@@ -1,6 +1,6 @@
-import { Roles } from '@/types/accessLevel'
 import { Gender } from '@/types/gender'
 import { RiskLevel } from '@/types/riskLevel'
+import { Roles } from '@/types/roles'
 
 import { Attendence } from './Attendence'
 import { Triage } from './Triage'

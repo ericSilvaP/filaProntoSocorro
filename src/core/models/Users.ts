@@ -1,5 +1,5 @@
-import { Roles } from '@/types/accessLevel'
 import { Gender } from '@/types/gender'
+import { Roles } from '@/types/roles'
 
 import { Person } from './Person'
 

@@ -5,14 +5,13 @@ import { Triage } from './Triage'
 
 export class Attendence {
   public readonly start_time: Date
-
+  private end_time?: Date
   constructor(
     private id: number,
     private patient: Patient,
     private recepcionist: Recepcionist,
     private triage?: Triage,
     private consultation?: Consultation,
-    private end_time?: Date,
   ) {
     this.start_time = new Date()
   }
