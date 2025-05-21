@@ -4,6 +4,12 @@ import { Doctor } from './core/models/Doctor'
 import { Nurse } from './core/models/Nurse'
 import { Recepcionist } from './core/models/Receptionist'
 import { VitalSignals } from './core/models/VitalSignals'
+import {
+  getAverageAttendanceTime,
+  getNoShowRate,
+  getAttendanceRate,
+  getRiskLevelWaitTimes,
+} from './core/triage/Analytics'
 import { PriorityQueue } from './core/triage/priorityQueue'
 import { BloodType } from './types/bloodType'
 import { Gender } from './types/gender'
@@ -62,7 +68,7 @@ const priorityQueue = new PriorityQueue(5)
 console.log('--- INICIANDO ATENDIMENTO ---')
 
 // Etapas: Cadastro, atendimento, triagem, fila
-patientData.map((data, index) => {
+const attendances = patientData.map((data, index) => {
   const patient = recepcionist.registerPatient(
     index + 1,
     `111.222.333-${index}0`,
@@ -103,7 +109,7 @@ while (true) {
     // if (attendenceSearch) console.log(`Paciente ${attendenceSearch?.getPatient().getName()}\n`)
     // else console.log('Paciente não encontrado\n')
 
-    if (!doctor.patientCome(randomInt(-2, 2))) {
+    if (!doctor.patientCome(randomInt(1, 2))) {
       // se o paciente não comparecer uma vez é colocado no fim da fila. Se não novamente, é dispensado
       if (nextAttendence.getStatus() == Status.WAITING) {
         const risk = nextAttendence.getTriage()!.getRisk()
@@ -137,3 +143,17 @@ while (true) {
 }
 
 console.log('--- FIM DO ATENDIMENTO ---')
+
+const avgTime = getAverageAttendanceTime(attendances)
+console.log(`\n⏱️ Tempo médio de atendimento: ${(avgTime / 1000).toFixed(2)}s`)
+
+const noShow = getNoShowRate(attendances)
+console.log(`🚫 Taxa de desistência: ${noShow.toFixed(1)}%`)
+
+const attendanceRate = getAttendanceRate(attendances)
+console.log(`👥 Taxa de comparecimento: ${attendanceRate.toFixed(1)}%`)
+
+const waitTimes = getRiskLevelWaitTimes(attendances)
+for (const level in waitTimes) {
+  console.log(`⏳ Tempo médio de espera (${level}): ${(waitTimes[level] / 1000).toFixed(2)}s`)
+}

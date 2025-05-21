@@ -1,16 +1,16 @@
 import { RiskLevel } from '../../types/riskLevel'
-import { Attendence } from '../models/Attendence'
+import { Attendance } from '../models/Attendance'
 
 export class QueueEntry {
   public readonly maxWaitingTime: number
   constructor(
-    private attendence: Attendence,
+    private attendence: Attendance,
     private priorityLevel: RiskLevel | number,
   ) {
     this.maxWaitingTime = this.defineMaxWaitingTime()
   }
 
-  getAttendence(): Attendence {
+  getAttendence(): Attendance {
     return this.attendence
   }
 

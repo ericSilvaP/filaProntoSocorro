@@ -1,10 +1,10 @@
 import { QueueEntry } from './queueEntry'
-import { Attendence } from '../models/Attendence'
+import { Attendance } from '../models/Attendance'
 
 export class PriorityQueue {
   private queues: QueueEntry[][]
   private expiredQueue: QueueEntry[]
-  private attendenceMap: Map<string, Attendence>
+  private attendenceMap: Map<string, Attendance>
 
   constructor(private nQueues: number) {
     this.queues = []
@@ -78,7 +78,7 @@ export class PriorityQueue {
     }
   }
 
-  searchPatient(cpf: string): Attendence | undefined {
+  searchPatient(cpf: string): Attendance | undefined {
     return this.attendenceMap.get(cpf)
   }
 

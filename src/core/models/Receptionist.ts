@@ -2,7 +2,7 @@ import { BloodType } from '@/types/bloodType'
 import { Gender } from '@/types/gender'
 import { Roles } from '@/types/roles'
 
-import { Attendence } from './Attendence'
+import { Attendance } from './Attendance'
 import { Patient } from './Patient'
 import { Users } from './Users'
 import { LegalQueue } from '../triage/LegalQueue'
@@ -39,11 +39,11 @@ export class Recepcionist extends Users {
     return new Patient(id, cpf, name, birthDate, gender, adress, sus, blood_type, allergies, phoneNumber)
   }
 
-  createAttendence(id: number, patient: Patient): Attendence {
-    return new Attendence(id, patient, this)
+  createAttendence(id: number, patient: Patient): Attendance {
+    return new Attendance(id, patient, this)
   }
 
-  enqueuePriorityQueue(priorityQueue: PriorityQueue, attendence: Attendence): void {
+  enqueuePriorityQueue(priorityQueue: PriorityQueue, attendence: Attendance): void {
     const queueEntry = new QueueEntry(attendence, attendence.getTriage()!.getRisk())
     priorityQueue.enqueue(queueEntry)
   }

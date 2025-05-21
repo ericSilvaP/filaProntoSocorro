@@ -1,7 +1,7 @@
 import { Gender } from '@/types/gender'
 import { Roles } from '@/types/roles'
 
-import { Attendence } from './Attendence'
+import { Attendance } from './Attendance'
 import { Consultation } from './Consultation'
 import { Users } from './Users'
 import { PriorityQueue } from '../triage/priorityQueue'
@@ -23,11 +23,11 @@ export class Doctor extends Users {
     super(id, cpf, name, birthDate, gender, adress, Roles.DOCTOR, username, password, phoneNumber)
   }
 
-  createConsultation(id: number, attendence: Attendence): Consultation {
+  createConsultation(id: number, attendence: Attendance): Consultation {
     return new Consultation(id, this, attendence)
   }
 
-  nextPatient(prioQueue: PriorityQueue): Attendence | undefined {
+  nextPatient(prioQueue: PriorityQueue): Attendance | undefined {
     return prioQueue.dequeueNext()?.getAttendence()
   }
 

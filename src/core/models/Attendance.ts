@@ -5,7 +5,7 @@ import { Patient } from './Patient'
 import { Recepcionist } from './Receptionist'
 import { Triage } from './Triage'
 
-export class Attendence {
+export class Attendance {
   public readonly start_time: Date
   private end_time?: Date
   private status: number

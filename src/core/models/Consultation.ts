@@ -1,4 +1,4 @@
-import { Attendence } from './Attendence'
+import { Attendance } from './Attendance'
 import { Doctor } from './Doctor'
 
 export class Consultation {
@@ -7,7 +7,7 @@ export class Consultation {
   constructor(
     private id: number,
     private doctor: Doctor,
-    private attendence: Attendence,
+    private attendence: Attendance,
     private diagnosis?: string,
   ) {
     this.start_time = new Date()

@@ -2,7 +2,7 @@ import { Gender } from '@/types/gender'
 import { RiskLevel } from '@/types/riskLevel'
 import { Roles } from '@/types/roles'
 
-import { Attendence } from './Attendence'
+import { Attendance } from './Attendance'
 import { Triage } from './Triage'
 import { Users } from './Users'
 import { VitalSignals } from './VitalSignals'
@@ -23,7 +23,7 @@ export class Nurse extends Users {
     super(id, cpf, name, birthDate, gender, adress, Roles.NURSE, username, password, phoneNumber)
   }
 
-  createTriage(id: number, attendence: Attendence, riskLevel: RiskLevel, vitalSignals: VitalSignals): Triage {
+  createTriage(id: number, attendence: Attendance, riskLevel: RiskLevel, vitalSignals: VitalSignals): Triage {
     return new Triage(id, attendence.getPatient(), riskLevel, vitalSignals)
   }
 
