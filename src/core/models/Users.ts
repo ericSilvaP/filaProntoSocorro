@@ -1,7 +1,9 @@
 import { Gender } from '@/types/gender'
+import { RiskLevel } from '@/types/riskLevel'
 import { Roles } from '@/types/roles'
 
 import { Person } from './Person'
+import { PriorityQueue } from '../triage/priorityQueue'
 
 export abstract class Users extends Person {
   constructor(
@@ -20,4 +22,13 @@ export abstract class Users extends Person {
   }
 
   login(): void {}
+
+  changePriority(prioQueue: PriorityQueue, cpf: string, newRisk: RiskLevel): boolean {
+    const attendence = prioQueue.searchPatient(cpf)
+    if (!attendence) return false
+    const triage = attendence.getTriage()
+    if (!triage) return false
+    triage.setRisk(newRisk)
+    return true
+  }
 }

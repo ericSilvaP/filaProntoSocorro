@@ -21,13 +21,6 @@ export class PriorityQueue {
     }
   }
 
-  // changePriority(attendenceId: number, newRisk: RiskLevel) {
-  //   this.queues.forEach((q) => {
-  //     const index = q.indexOf(attendenceId)
-  //     if (index !== -1) q.splice(index, 1)
-  //   })
-  // }
-
   enqueue(queueEntry: QueueEntry): void {
     const servicePriority: number = queueEntry.getPriorityLevel()
     if (servicePriority > this.nQueues - 1) {
@@ -51,12 +44,6 @@ export class PriorityQueue {
     }
     return null
   }
-
-  // dequeueN(n: number): QueueEntry | undefined {
-  //   if (n > this.queues.length || n < 0) return undefined
-  //   const queue = this.queues[n]
-  //   return PriorityQueue.dequeue(queue)
-  // }
 
   static dequeue(queue: QueueEntry[]): QueueEntry | undefined {
     if (queue.length === 0) return undefined
@@ -89,8 +76,4 @@ export class PriorityQueue {
   getExpiredQueue(): QueueEntry[] {
     return this.expiredQueue
   }
-
-  // getAttendenceId(id: str): Attendence | undefined {
-  //   return this.attendenceMap.get(id)
-  // }
 }
