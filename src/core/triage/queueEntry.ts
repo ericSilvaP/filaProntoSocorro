@@ -3,7 +3,6 @@ import { Attendence } from '../models/Attendence'
 
 export class QueueEntry {
   public readonly maxWaitingTime: number
-
   constructor(
     private attendence: Attendence,
     private priorityLevel: RiskLevel | number,

@@ -1,3 +1,5 @@
+import { Status } from '@/types/status'
+
 import { Consultation } from './Consultation'
 import { Patient } from './Patient'
 import { Recepcionist } from './Receptionist'
@@ -6,6 +8,7 @@ import { Triage } from './Triage'
 export class Attendence {
   public readonly start_time: Date
   private end_time?: Date
+  private status: number
   constructor(
     private id: number,
     private patient: Patient,
@@ -14,6 +17,7 @@ export class Attendence {
     private consultation?: Consultation,
   ) {
     this.start_time = new Date()
+    this.status = Status.WAITING
   }
 
   // Setters
@@ -27,6 +31,10 @@ export class Attendence {
 
   setEndTime(): void {
     this.end_time = new Date()
+  }
+
+  setStatus(newStatus: Status): void {
+    this.status = newStatus
   }
 
   // Getters
@@ -56,6 +64,10 @@ export class Attendence {
 
   getRecepcionist(): Recepcionist {
     return this.recepcionist
+  }
+
+  getStatus(): number {
+    return this.status
   }
 
   // String representation

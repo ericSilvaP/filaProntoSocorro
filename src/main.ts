@@ -1,12 +1,14 @@
+import { randomInt } from 'crypto'
+
 import { Doctor } from './core/models/Doctor'
 import { Nurse } from './core/models/Nurse'
-import { Patient } from './core/models/Patient'
 import { Recepcionist } from './core/models/Receptionist'
 import { VitalSignals } from './core/models/VitalSignals'
 import { PriorityQueue } from './core/triage/priorityQueue'
 import { BloodType } from './types/bloodType'
 import { Gender } from './types/gender'
 import { RiskLevel } from './types/riskLevel'
+import { Status } from './types/status'
 
 // Instanciação dos profissionais
 const recepcionist = new Recepcionist(
@@ -97,6 +99,23 @@ const attendances = patientData.map((data, index) => {
 while (true) {
   const nextAttendence = doctor.nextPatient(priorityQueue)
   if (nextAttendence) {
+    if (!doctor.patientCome(randomInt(-2, 2))) {
+      // se o paciente não comparecer uma vez é colocado no fim da fila. Se não novamente, é dispensado
+      if (nextAttendence.getStatus() == Status.WAITING) {
+        const risk = nextAttendence.getTriage()!.getRisk()
+
+        console.log(`Paciente ${nextAttendence.getPatient().getName()} não compareceu uma vez.\n`)
+        nextAttendence.setStatus(Status.CALLEDONCE)
+
+        if (risk < priorityQueue.getQueues().length - 1) nextAttendence.getTriage()?.setRisk(risk + 1)
+
+        recepcionist.enqueuePriorityQueue(priorityQueue, nextAttendence)
+      } else if (nextAttendence.getStatus() == Status.CALLEDONCE) {
+        console.log(`Paciente ${nextAttendence.getPatient().getName()} não compareceu segunda vez.\n`)
+        nextAttendence.setStatus(Status.DIDNOTATTEND)
+      }
+      continue
+    }
     console.log(
       `🏥 ${doctor.getName()} está atendendo ${nextAttendence.getPatient().getName()} - ${nextAttendence.getTriage()?.getRisk()}`,
     )
@@ -106,6 +125,7 @@ while (true) {
     nextAttendence.setEndTime()
     console.log(`✅ Consulta finalizada. Diagnóstico: ${consultation.getDiagnosis()}`)
     console.log(`📤 Atendimento encerrado para: ${nextAttendence.getPatient().getName()}\n`)
+    nextAttendence.setStatus(Status.FINISHED)
   } else {
     console.log('⚠️ Nenhum paciente na fila para atendimento.\n')
     break

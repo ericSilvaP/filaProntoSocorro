@@ -31,6 +31,11 @@ export class Doctor extends Users {
     return prioQueue.dequeueNext()?.getAttendence()
   }
 
+  patientCome(n: number): boolean {
+    if (n >= 0) return true
+    else return false
+  }
+
   toString(): string {
     return `Id: ${this.id}, CRM ${this.crm}, Specialty: ${this.specialty},Name: ${this.name}, Data de Nascimento: ${this.birthDate.toLocaleDateString()}`
   }
