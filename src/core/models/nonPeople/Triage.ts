@@ -1,6 +1,6 @@
 import { Patient } from './Patient'
 import { VitalSignals } from './VitalSignals'
-import { RiskLevel } from '../../types/riskLevel'
+import { RiskLevel } from '../../../types/riskLevel'
 
 export class Triage {
   constructor(

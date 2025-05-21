@@ -3,7 +3,7 @@ import { RiskLevel } from '@/types/riskLevel'
 import { Roles } from '@/types/roles'
 
 import { Person } from './Person'
-import { PriorityQueue } from '../triage/priorityQueue'
+import { PriorityQueue } from '../../queueManagement/priorityQueue'
 
 export abstract class Users extends Person {
   constructor(

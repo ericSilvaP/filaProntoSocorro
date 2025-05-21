@@ -2,10 +2,10 @@ import { Gender } from '@/types/gender'
 import { RiskLevel } from '@/types/riskLevel'
 import { Roles } from '@/types/roles'
 
-import { Attendance } from './Attendance'
-import { Triage } from './Triage'
 import { Users } from './Users'
-import { VitalSignals } from './VitalSignals'
+import { Attendance } from '../nonPeople/Attendance'
+import { Triage } from '../nonPeople/Triage'
+import { VitalSignals } from '../nonPeople/VitalSignals'
 
 export class Nurse extends Users {
   constructor(

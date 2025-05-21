@@ -1,16 +1,16 @@
 import { randomInt } from 'crypto'
 
-import { Doctor } from './core/models/Doctor'
-import { Nurse } from './core/models/Nurse'
-import { Recepcionist } from './core/models/Receptionist'
-import { VitalSignals } from './core/models/VitalSignals'
+import { VitalSignals } from './core/models/nonPeople/VitalSignals'
+import { Doctor } from './core/models/people/Doctor'
+import { Nurse } from './core/models/people/Nurse'
+import { Recepcionist } from './core/models/people/Receptionist'
 import {
   getAverageAttendanceTime,
   getNoShowRate,
   getAttendanceRate,
   getRiskLevelWaitTimes,
-} from './core/triage/Analytics'
-import { PriorityQueue } from './core/triage/priorityQueue'
+} from './core/queueManagement/Analytics'
+import { PriorityQueue } from './core/queueManagement/priorityQueue'
 import { BloodType } from './types/bloodType'
 import { Gender } from './types/gender'
 import { RiskLevel } from './types/riskLevel'
@@ -109,7 +109,7 @@ while (true) {
     // if (attendenceSearch) console.log(`Paciente ${attendenceSearch?.getPatient().getName()}\n`)
     // else console.log('Paciente não encontrado\n')
 
-    if (!doctor.patientCome(randomInt(1, 2))) {
+    if (!doctor.patientCome(randomInt(-3, 2))) {
       // se o paciente não comparecer uma vez é colocado no fim da fila. Se não novamente, é dispensado
       if (nextAttendence.getStatus() == Status.WAITING) {
         const risk = nextAttendence.getTriage()!.getRisk()

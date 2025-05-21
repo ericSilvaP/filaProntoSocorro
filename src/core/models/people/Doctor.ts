@@ -1,10 +1,10 @@
+import { PriorityQueue } from '@/core/queueManagement/priorityQueue'
 import { Gender } from '@/types/gender'
 import { Roles } from '@/types/roles'
 
-import { Attendance } from './Attendance'
-import { Consultation } from './Consultation'
 import { Users } from './Users'
-import { PriorityQueue } from '../triage/priorityQueue'
+import { Attendance } from '../nonPeople/Attendance'
+import { Consultation } from '../nonPeople/Consultation'
 
 export class Doctor extends Users {
   constructor(

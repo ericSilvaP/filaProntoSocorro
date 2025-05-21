@@ -1,5 +1,5 @@
 import { QueueEntry } from './queueEntry'
-import { Attendance } from '../models/Attendance'
+import { Attendance } from '../models/nonPeople/Attendance'
 
 export class PriorityQueue {
   private queues: QueueEntry[][]

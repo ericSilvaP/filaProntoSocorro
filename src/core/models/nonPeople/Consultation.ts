@@ -1,5 +1,5 @@
 import { Attendance } from './Attendance'
-import { Doctor } from './Doctor'
+import { Doctor } from '../people/Doctor'
 
 export class Consultation {
   private start_time: Date

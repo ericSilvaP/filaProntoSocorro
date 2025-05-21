@@ -1,6 +1,6 @@
 import { Status } from '@/types/status'
 
-import { Attendance } from '../models/Attendance'
+import { Attendance } from '../models/nonPeople/Attendance'
 
 export function getAverageAttendanceTime(attendances: Attendance[]): number {
   const finished = attendances.filter((a) => a.getStatus() === Status.FINISHED)

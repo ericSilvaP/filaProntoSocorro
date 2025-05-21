@@ -2,8 +2,8 @@ import { Status } from '@/types/status'
 
 import { Consultation } from './Consultation'
 import { Patient } from './Patient'
-import { Recepcionist } from './Receptionist'
 import { Triage } from './Triage'
+import { Recepcionist } from '../people/Receptionist'
 
 export class Attendance {
   public readonly start_time: Date

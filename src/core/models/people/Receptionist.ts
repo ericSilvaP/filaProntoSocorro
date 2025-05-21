@@ -2,12 +2,12 @@ import { BloodType } from '@/types/bloodType'
 import { Gender } from '@/types/gender'
 import { Roles } from '@/types/roles'
 
-import { Attendance } from './Attendance'
 import { Patient } from './Patient'
 import { Users } from './Users'
-import { LegalQueue } from '../triage/LegalQueue'
-import { PriorityQueue } from '../triage/priorityQueue'
-import { QueueEntry } from '../triage/queueEntry'
+import { LegalQueue } from '../../queueManagement/LegalQueue'
+import { PriorityQueue } from '../../queueManagement/priorityQueue'
+import { QueueEntry } from '../../queueManagement/queueEntry'
+import { Attendance } from '../nonPeople/Attendance'
 
 export class Recepcionist extends Users {
   constructor(
