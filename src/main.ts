@@ -62,7 +62,7 @@ const priorityQueue = new PriorityQueue(5)
 console.log('--- INICIANDO ATENDIMENTO ---')
 
 // Etapas: Cadastro, atendimento, triagem, fila
-const attendances = patientData.map((data, index) => {
+patientData.map((data, index) => {
   const patient = recepcionist.registerPatient(
     index + 1,
     `111.222.333-${index}0`,
@@ -99,6 +99,10 @@ const attendances = patientData.map((data, index) => {
 while (true) {
   const nextAttendence = doctor.nextPatient(priorityQueue)
   if (nextAttendence) {
+    // const attendenceSearch = priorityQueue.searchPatient('111.222.333-10')
+    // if (attendenceSearch) console.log(`Paciente ${attendenceSearch?.getPatient().getName()}\n`)
+    // else console.log('Paciente não encontrado\n')
+
     if (!doctor.patientCome(randomInt(-2, 2))) {
       // se o paciente não comparecer uma vez é colocado no fim da fila. Se não novamente, é dispensado
       if (nextAttendence.getStatus() == Status.WAITING) {

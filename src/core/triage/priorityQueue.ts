@@ -4,7 +4,7 @@ import { Attendence } from '../models/Attendence'
 export class PriorityQueue {
   private queues: QueueEntry[][]
   private expiredQueue: QueueEntry[]
-  private attendenceMap: Map<number, Attendence>
+  private attendenceMap: Map<string, Attendence>
 
   constructor(private nQueues: number) {
     this.queues = []
@@ -19,10 +19,6 @@ export class PriorityQueue {
       this.queues.push([])
       i++
     }
-  }
-
-  getAttendenceId(id: number): Attendence | undefined {
-    return this.attendenceMap.get(id)
   }
 
   // changePriority(attendenceId: number, newRisk: RiskLevel) {
@@ -40,16 +36,19 @@ export class PriorityQueue {
     }
 
     this.queues[servicePriority].push(queueEntry)
-    this.attendenceMap.set(queueEntry.getAttendence().getId(), queueEntry.getAttendence())
+    this.attendenceMap.set(queueEntry.getAttendence().getPatient().getCpf(), queueEntry.getAttendence())
   }
 
   dequeueNext(): QueueEntry | null {
+    this.verifyTimes()
+    if (this.expiredQueue.length > 0) return this.expiredQueue.shift()!
     for (let i = 0; i <= this.queues.length - 1; i++) {
       if (this.queues[i].length > 0) {
-        return this.queues[i].shift()!
+        const attendenceDel = this.queues[i].shift()!
+        this.attendenceMap.delete(attendenceDel.getAttendence().getPatient().getCpf())
+        return attendenceDel
       }
     }
-    this.verifyTimes()
     return null
   }
 
@@ -79,6 +78,10 @@ export class PriorityQueue {
     }
   }
 
+  searchPatient(cpf: string): Attendence | undefined {
+    return this.attendenceMap.get(cpf)
+  }
+
   getQueues(): QueueEntry[][] {
     return this.queues
   }
@@ -86,4 +89,8 @@ export class PriorityQueue {
   getExpiredQueue(): QueueEntry[] {
     return this.expiredQueue
   }
+
+  // getAttendenceId(id: str): Attendence | undefined {
+  //   return this.attendenceMap.get(id)
+  // }
 }
