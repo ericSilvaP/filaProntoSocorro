@@ -17,12 +17,11 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 ## 🎓 Disciplinas envolvidas
 
 - **Banco de Dados** – Prof. Rocha  
-- **Estruturas de Dados** – Prof. Dario  
+- **Estruturas de Dados** – Prof. Dario Calçada
 - **Programação Orientada a Objetos (POO)** – Prof. Eyder Rios
 
 ## 📋 Funcionalidades
 
-* Definição de número de filas operando
 * Cadastro de pacientes pela recepção
 * Atribuição de triagem ao atendimento por enfermeiros
 * Fila de prioridade de atendimentos com base no risco da triagem atribuída
@@ -32,10 +31,10 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 
 ## 🧰 Tecnologias utilizadas
 
-* TypeScript
-* Express
-* Next
-* MySQL
+* [TypeScript][typescript]
+* [Express][express]
+* [NextJS][nextjs]
+* [MySQL][mysql]
 
 ## 🚀 Como executar o projeto
 
@@ -64,8 +63,9 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 
 ## 📈 Melhorias futuras
 
-* Integração com banco de dados PostgreSQL
-* Interface gráfica para uso em tempo real por hospitais
+* Definição de número de filas operando
+* Integração com banco de dados MySQL
+* Interface gráfica para uso em tempo real
 * API REST para comunicação com front-end
 * Autenticação de usuários por cargo (médico, enfermeiro, recepcionista)
 * Dashboard com gráficos e relatórios
@@ -76,4 +76,9 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 
 ## 🧑‍💻 Autor
 
-Desenvolvido por [Eric Silva](https://github.com/ericSilvaP)
+Desenvolvido por [Eric Silva](https://github.com/ericSilvaP), [Kauã Neres](https://github.com/Kaua-cel) e Francisco Osmar
+
+[typescript]: https://www.typescriptlang.org/
+[express]: https://expressjs.com/
+[nextjs]: https://nextjs.org/
+[mysql]: https://www.mysql.com/
