@@ -9,7 +9,7 @@ import { PriorityQueue } from '../../queueManagement/priorityQueue'
 import { QueueEntry } from '../../queueManagement/queueEntry'
 import { Attendance } from '../nonPeople/Attendance'
 
-export class Recepcionist extends Users {
+export class Receptionist extends Users {
   constructor(
     id: number,
     cpf: string,
@@ -39,12 +39,12 @@ export class Recepcionist extends Users {
     return new Patient(id, cpf, name, birthDate, gender, adress, sus, blood_type, allergies, phoneNumber)
   }
 
-  createAttendence(id: number, patient: Patient): Attendance {
+  createAttendance(id: number, patient: Patient): Attendance {
     return new Attendance(id, patient, this)
   }
 
-  enqueuePriorityQueue(priorityQueue: PriorityQueue, attendence: Attendance): void {
-    const queueEntry = new QueueEntry(attendence, attendence.getTriage()!.getRisk())
+  enqueuePriorityQueue(priorityQueue: PriorityQueue, attendance: Attendance): void {
+    const queueEntry = new QueueEntry(attendance, attendance.getTriage()!.getRisk())
     priorityQueue.enqueue(queueEntry)
   }
 

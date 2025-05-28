@@ -21,6 +21,14 @@ export class Consultation {
     this.end_time = new Date()
   }
 
+  getStartTime(): Date {
+    return this.start_time
+  }
+
+  getEndTime(): Date | undefined {
+    return this.end_time
+  }
+
   getDiagnosis(): string | undefined {
     return this.diagnosis
   }

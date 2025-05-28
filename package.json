@@ -23,9 +23,11 @@
         "rimraf": "^4"
     },
     "dependencies": {
-        "dotenv": "^16"
+        "dotenv": "^16",
+        "express": "^5.1.0"
     },
     "devDependencies": {
+        "@types/express": "^5.0.2",
         "@types/jest": "^29",
         "@types/node": "^22",
         "@typescript-eslint/eslint-plugin": "^8",
@@ -46,7 +48,7 @@
         "prettier": "^3",
         "ts-jest": "^29",
         "ts-node": "^10.9.2",
-        "ts-node-dev": "^2",
+        "ts-node-dev": "^2.0.0",
         "tsc-alias": "^1",
         "tsconfig-paths": "^4",
         "typescript": "^5",

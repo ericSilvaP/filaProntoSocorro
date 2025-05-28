@@ -76,4 +76,16 @@ export class PriorityQueue {
   getExpiredQueue(): QueueEntry[] {
     return this.expiredQueue
   }
+
+  toString(): string {
+    let result: string[] = [`=== FILA ===\n`]
+    let cont: number = 0
+    for (let i of this.queues) {
+      for (let j of i) {
+        cont++
+        result.push(`${cont}° - ${j.getAttendence().getPatient().getName()}\n`)
+      }
+    }
+    return result.join('')
+  }
 }
