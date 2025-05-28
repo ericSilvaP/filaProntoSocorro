@@ -37,3 +37,11 @@ build
 
 # ignore yarn.lock
 yarn.lock
+
+#jest
+jest.config.ts
+jest.coverage.config.ts
+
+# lint
+eslint.config.mjs
+lint-staged.config.mjs
