@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 Fila de Pronto Socorro
 
-## Getting Started
+<p align="center">
+  <img src="https://img.shields.io/github/languages/top/ericSilvaP/filaProntoSocorro" />
+  <img src="https://img.shields.io/github/commit-activity/m/ericSilvaP/filaProntoSocorro" />
+  <img src="https://img.shields.io/github/repo-size/ericSilvaP/filaProntoSocorro" />
+  <img src="https://img.shields.io/github/license/ericSilvaP/filaProntoSocorro" />
+  <img src="https://img.shields.io/github/last-commit/ericSilvaP/filaProntoSocorro" />
+</p>
 
-First, run the development server:
+Sistema de triagem hospitalar para gerenciamento de atendimentos em prontos-socorros, com foco em priorização dinâmica de pacientes e análise de desempenho.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computação (TSC)** na **UESPI**.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🎓 Disciplinas envolvidas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Banco de Dados** – Prof. Rocha  
+- **Estruturas de Dados** – Prof. Dario Calçada
+- **Programação Orientada a Objetos (POO)** – Prof. Eyder Rios
 
-## Learn More
+## 📋 Funcionalidades
 
-To learn more about Next.js, take a look at the following resources:
+* Cadastro de pacientes pela recepção
+* Atribuição de triagem ao atendimento por enfermeiros
+* Fila de prioridade de atendimentos com base no risco da triagem atribuída
+* Atribuição de consultas por médicos
+* Registro completo de atendimentos
+* Geração de métricas de desempenho
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧰 Tecnologias utilizadas
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+* [TypeScript][typescript]
+* [Express][express]
+* [NextJS][nextjs]
+* [MySQL][mysql]
 
-## Deploy on Vercel
+## 🚀 Como executar o projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+> Requisitos: Node.js 18+ e TypeScript instalados globalmente
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Clone o repositório:
+
+   ```bash
+   git clone https://github.com/ericSilvaP/filaProntoSocorro.git
+   cd filaProntoSocorro
+   ```
+
+2. Instale as dependências:
+
+   ```bash
+   npm install ts-node
+   ```
+
+3. Execute o projeto:
+
+   ```bash
+   npm run dev
+   ```
+
+> Obs: O banco de dados será integrado nas próximas versões.
+
+## 📈 Melhorias futuras
+
+* Definição de número de filas operando
+* Integração com banco de dados MySQL
+* Interface gráfica para uso em tempo real
+* API REST para comunicação com front-end
+* Autenticação de usuários por cargo (médico, enfermeiro, recepcionista)
+* Dashboard com gráficos e relatórios
+
+## 📄 Licença
+
+Este projeto está licenciado sob a [MIT License](LICENSE).
+
+## 🧑‍💻 Autor
+
+Desenvolvido por [Eric Silva](https://github.com/ericSilvaP), [Kauã Neres](https://github.com/Kaua-cel) e Francisco Osmar
+
+[typescript]: https://www.typescriptlang.org/
+[express]: https://expressjs.com/
+[nextjs]: https://nextjs.org/
+[mysql]: https://www.mysql.com/
