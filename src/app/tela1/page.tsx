@@ -4,9 +4,9 @@ export default function Tela1() {
 
     return (
         <div className="">
-            <main className="flex pt-32 px-10 gap-10 justify-center">
+            <main className="flex pt-32 px-10 gap-10 justify-center flex-col md:flex-row">
                 <section className="flex flex-col gap-5">
-                    <div>
+                    <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Fila de Prioridade</h3>
                         <div className="flex flex-col w-[300px] bg-[rgb(56,163,165)] rounded p-5 gap-5">
                             <div className="p-1.5 bg-white rounded-2xl flex items-center gap-1">
@@ -14,7 +14,7 @@ export default function Tela1() {
                                     search
                                 </span>
                                 <span>
-                                    <input type="text" name="" id="" placeholder="Pesquisar paciente"/>
+                                    <input type="text" name="" id="" placeholder="Pesquisar paciente" className="focus:border-0"/>
                                 </span>
                             </div>
                             <div className="p-1.5 bg-white rounded-2xl px-4">
@@ -22,7 +22,7 @@ export default function Tela1() {
                             </div>
                         </div>
                     </div>
-                    <div>
+                    <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Pacientes Cadastrados</h3>
                         <div className="flex flex-col w-[300px] bg-[rgb(56,163,165)] rounded p-5 gap-5">
                             <div className="p-1.5 bg-white rounded-2xl flex items-center gap-1">
@@ -41,9 +41,9 @@ export default function Tela1() {
                         </div>
                     </div>
                 </section>
-                <section>
+                <section className="flex flex-col items-center justify-center">
                     <h3 className="text-center font-bold">Atendidos Recentemente</h3>
-                    <div className="flex flex-col p-5 justify-center items-center bg-[rgb(128,237,153)] gap-8">
+                    <div className="flex flex-col p-5 justify-center items-center bg-[rgb(128,237,153)] gap-8 w-[300px] md:w-auto">
                         {[1,2,3,4,5].map(n => (
                             <div key={n} className="flex justify-center w-full gap-3 items-center">
                               <Person n={n}/>
@@ -51,9 +51,9 @@ export default function Tela1() {
                         ))}
                     </div>
                 </section>
-                <section className="">
+                <section className="flex flex-col items-center">
                     <h3 className="font-bold text-center">Próximo</h3>
-                    <div className="bg-[rgb(56,163,165)] p-5 items-center justify-between rounded flex gap-3">
+                    <div className="bg-[rgb(56,163,165)] p-5 items-center justify-between rounded flex gap-3 w-[300px] md:w-auto">
                       
                       <Person n={1}/>
                       
