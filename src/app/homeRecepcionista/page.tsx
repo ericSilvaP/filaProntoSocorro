@@ -1,4 +1,5 @@
 import { Person } from "@/components/person";
+import { SearchBar } from "@/components/searchBar";
 
 export default function Tela1() {
 
@@ -9,14 +10,7 @@ export default function Tela1() {
                     <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Fila de Prioridade</h3>
                         <div className="flex flex-col w-[300px] bg-[rgb(56,163,165)] rounded p-5 gap-5">
-                            <div className="p-1.5 bg-white rounded-2xl flex items-center gap-1">
-                                <span className="material-symbols-outlined ">
-                                    search
-                                </span>
-                                <span>
-                                    <input type="text" name="" id="" placeholder="Pesquisar paciente" className="focus:border-0"/>
-                                </span>
-                            </div>
+                            <SearchBar />
                             <div className="p-1.5 bg-white rounded-2xl px-4">
                                 Paciente 1 <br /> Paciente 2 <br /> Paciente 3
                             </div>
@@ -25,14 +19,7 @@ export default function Tela1() {
                     <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Pacientes Cadastrados</h3>
                         <div className="flex flex-col w-[300px] bg-[rgb(56,163,165)] rounded p-5 gap-5">
-                            <div className="p-1.5 bg-white rounded-2xl flex items-center gap-1">
-                                <span className="material-symbols-outlined ">
-                                    search
-                                </span>
-                                <span>
-                                    <input type="text" name="" id="" placeholder="Pesquisar paciente"/>
-                                </span>
-                            </div>
+                            <SearchBar />
                             <div className="p-1.5 px-4 justify-center flex">
                                 <button className="bg-[rgb(128,237,153)] p-1.5 rounded font-bold cursor-pointer">
                                     Cadastrar paciente
