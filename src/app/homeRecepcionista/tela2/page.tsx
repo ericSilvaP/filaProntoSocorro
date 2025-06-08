@@ -38,10 +38,13 @@ export default function Tela2() {
               </div>
 
               <div className="flex flex-col gap-4">
-                <select name="" id="" value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)} className="text-white flex items-center gap-2">
-                  <option value="f" className="text-black">FEM</option>
-                  <option value="m" className="text-black">MASC</option>
-                </select>
+                <div className="flex text-white gap-2 items-center">
+                  Sexo:
+                  <select name="" id="" value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)} className="flex items-center gap-2 p-1.5 rounded bg-white text-black">
+                    <option value="f" className="text-black">FEM</option>
+                    <option value="m" className="text-black">MASC</option>
+                  </select>
+                </div>
                 <Field fieldName="RG" fieldInfo="492.719.478-78"/>
               </div>
             </div>
