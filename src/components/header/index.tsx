@@ -6,7 +6,7 @@ export function Header() {
         <div>
             <header className='flex justify-between px-5 py-2 bg-[rgb(56,163,165)]'>
               
-                <Image src="sistemal.svg" alt="" width={60} height={60} className='text-white'/>
+                <Image src="/sistemal.svg" alt="" width={60} height={60} className='text-white'/>
 
                 <div className='flex gap-2 items-center relative'>
                     <div className='h-[45px] w-[45px] -translate-y-1 cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex items-center justify-center'>

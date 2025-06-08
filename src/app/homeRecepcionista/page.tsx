@@ -1,11 +1,12 @@
 import { Person } from "@/components/person";
 import { SearchBar } from "@/components/searchBar";
+import Link from "next/link";
 
 export default function Tela1() {
 
     return (
         <div className="">
-            <main className="flex pt-32 px-10 gap-10 justify-center flex-col md:flex-row">
+            <main className="flex mt-[5rem] px-10 gap-10 justify-center flex-col md:flex-row">
                 <section className="flex flex-col gap-5">
                     <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Fila de Prioridade</h3>
@@ -21,9 +22,12 @@ export default function Tela1() {
                         <div className="flex flex-col w-[300px] bg-[rgb(56,163,165)] rounded p-5 gap-5">
                             <SearchBar />
                             <div className="p-1.5 px-4 justify-center flex">
+                              <Link href="./homeRecepcionista/tela2/">
                                 <button className="bg-[rgb(128,237,153)] p-1.5 rounded font-bold cursor-pointer">
                                     Cadastrar paciente
                                 </button>
+                              </Link>
+                                
                             </div>
                         </div>
                     </div>
