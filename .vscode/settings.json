@@ -21,6 +21,7 @@
   "files.exclude": {
     "**/coverage": false,
     "**/node_modules": true
-  }
+  },
+  "editor.wordWrap": "on"
 }
 

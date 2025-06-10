@@ -3,3 +3,21 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.custom-input {
+  background-color: white;
+  color: black;
+  font-weight: 500;             /* font-medium */
+  padding: 0.375rem;            /* p-1.5 = 6px */
+  border-radius: 0.25rem;       /* rounded = 4px */
+  white-space: nowrap;          /* whitespace-nowrap */
+  overflow: hidden;
+  text-overflow: ellipsis;      /* truncate */
+  letter-spacing: 0.025em;
+}
+
+.custom-input.error {
+  outline-width: 2px;
+  outline-color: #ef4444; /* Tailwind red-500 */
+  outline-style: solid;
+}

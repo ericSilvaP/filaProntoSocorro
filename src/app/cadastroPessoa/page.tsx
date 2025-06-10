@@ -2,199 +2,241 @@
 
 import { useState } from "react"
 
-
 export default function CadastroPessoa() {
-  const [value, setValue] = useState("")
-  const [isValid, setIsValid] = useState<boolean | null>(null)
+
+  const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let input = e.target.value.replace(/\D/g, "") // remove tudo que não for número
+
+    if (input.length > 8) input = input.slice(0, 8) // limita a 8 dígitos (DDMMYYYY)
+
+    // adiciona barras automaticamente
+    if (input.length > 4) {
+      input = `${input.slice(0, 2)}/${input.slice(2, 4)}/${input.slice(4)}`
+    } else if (input.length > 2) {
+      input = `${input.slice(0, 2)}/${input.slice(2)}`
+    }
+
+    setFormData((prev) => ({ ...prev, birthDate: input }))
+  }
 
   const [formData, setFormData] = useState({
     name: "",
     birthDate: "",
-    civilStatus: "",
+    civilStatus: "0",
     sus: "",
     cpf: "",
     rg: "",
     mother: "",
     father: "",
-    sex: "",
+    sex: "0",
     address: "",
     cep: "",
     phone: "",
-    contact: "",
   })
 
-  const validateCPF = (cpf: string) => {
-    cpf = cpf.replace(/\D/g, "");
-    if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
+  const [errors, setErrors] = useState({
+    name: false,
+    birthDate: false,
+    civilStatus: false,
+    sus: false,
+    cpf: false,
+    rg: false,
+    mother: false,
+    father: false,
+    sex: false,
+    address: false,
+    cep: false,
+    phone: false,
+  })
 
-    let sum = 0;
-    for (let i = 0; i < 9; i++) {
-      sum += parseInt(cpf[i]) * (10 - i);
-    }
-    let firstCheck = 11 - (sum % 11);
-    if (firstCheck > 9) firstCheck = 0;
-    if (firstCheck !== parseInt(cpf[9])) return false;
+  function handleSubmit() {
+    let formIsValid = true
 
-    sum = 0;
-    for (let i = 0; i < 10; i++) {
-      sum += parseInt(cpf[i]) * (11 - i);
-    }
-    let secondCheck = 11 - (sum % 11);
-    if (secondCheck > 9) secondCheck = 0;
-
-    return secondCheck === parseInt(cpf[10]);
-  }
-
-  const [errors, setErrors] = useState<{ [key: string]: string }>({})
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-  }
-
-  const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const raw = e.target.value.replace(/\D/g, "");
-    setValue(raw);
-
-    if (raw.length === 11) {
-      setIsValid(validateCPF(raw));
-    } else if (raw.length >= 7 && raw.length <= 9) {
-      setIsValid(true); // RG geralmente tem 7 a 9 dígitos, sem validação exata
+    Object.entries(formData).forEach(([key, value]) => {
+    if (!value.trim() || value === "0") {
+      setErrors((prev) => ({ ...prev, [key]: true}))
+      formIsValid = false
     } else {
-      setIsValid(null);
+      setErrors((prev) => ({...prev, [key]: false}))
     }
+  })
+    
+    const date = formData.birthDate
+    if ()
+
+    if (!formIsValid) return
+
+    alert(JSON.stringify(formData))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    const newErrors: { [key: string]: string } = {}
-
-    for (const key in formData) {
-      if (!formData[key as keyof typeof formData]) {
-        newErrors[key] = "Campo obrigatório"
-      }
-    }
-
-    if (formData.cpf && !validateCPF(formData.cpf)) {
-      newErrors.cpf = "CPF inválido"
-    }
-
-    if (formData.cep && !/^\d{5}-?\d{3}$/.test(formData.cep)) {
-      newErrors.cep = "CEP inválido"
-    }
-
-    if (formData.phone && !/^\(?\d{2}\)?[\s-]?\d{4,5}-?\d{4}$/.test(formData.phone)) {
-      newErrors.phone = "Telefone inválido"
-    }
-
-    if (formData.birthDate && !/^\d{2}\/\d{2}\/\d{4}$/.test(formData.birthDate)) {
-      newErrors.birthDate = "Data inválida (DD/MM/AAAA)"
-    }
-
-    setErrors(newErrors)
-
-    if (Object.keys(newErrors).length === 0) {
-      alert("Formulário válido!")
-      // aqui você pode enviar os dados para o backend
-    }
-  }
 
   return (
-    <div className="flex justify-center mt-[5rem]">
+    <div className="flex items-center mt-[5rem] flex-col">
+      
+      <div className="flex flex-col px-10">
+        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[65rem]">
 
-      <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap">
+          <h2 className="text-center w-full font-extrabold text-2xl">IDENTIFICAÇÃO DO PACIENTE</h2>
 
-        <form onSubmit={handleSubmit} className="flex gap-5 flex-col">
-          <h2 className="text-xl font-bold w-full text-center">Identificação do paciente</h2>
+          <div className="w-full">
 
-          <div className="flex gap-5">
+            <div className="flex gap-2 items-center">
+              <label>Nome: </label>
+              <input 
+                type="text" 
+                value={formData.name}
+                className={`custom-input ${errors.name ? 'error' : ''} w-full`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+              />
+            </div>
+          </div>
 
-            <div className="flex items-center gap-2"> {/* nome */}
-              Nome:
-              <input name="name" value={formData.name} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
+          <div className="w-full">
+
+            <div className="flex gap-2 items-center">
+              <label>Nome da mãe: </label>
+              <input 
+                type="text" 
+                value={formData.mother}
+                className={`custom-input ${errors.mother ? 'error' : ''} w-full`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, mother: e.target.value }))}
+              />
+            </div>
+          </div>
+
+          <div className="w-full">
+
+            <div className="flex gap-2 items-center">
+              <label>Nome do pai: </label>
+              <input 
+                type="text" 
+                value={formData.father}
+                className={`custom-input ${errors.father ? 'error' : ''} w-full`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, father: e.target.value }))}
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-between w-full gap-7">
+
+            <div className="flex gap-2 items-center">
+              <label>Data de nascimento: </label>
+              <input 
+                type="text" 
+                value={formData.birthDate}
+                className={`custom-input ${errors.birthDate ? 'error' : ''} w-[7.5rem]`}
+                onChange={handleChangeDate}
+              />
             </div>
 
-            <div className="flex items-center gap-2"> {/* data de nascimento */}
-              Data de Nascimento
-              <input name="birthDate" placeholder="DD/MM/AAAA" value={formData.birthDate} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
+            <div className="flex gap-2 items-center">
+              <label>Estado civil: </label>
+              <select 
+                value={formData.civilStatus}
+                className={`custom-input ${errors.civilStatus ? 'error' : ''}`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, civilStatus: e.target.value }))}
+              >
+                <option value="0">Selecione uma opção</option>
+                <option value="c">Casado</option>
+                <option value="s">Solteiro</option>
+              </select>
             </div>
             
-            <div className="flex items-center gap-2"> {/* estado civil */}
-              Estado Civil
-              <input name="civilStatus" placeholder="Estado civil" value={formData.civilStatus} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
-            </div>
-          </div>
-
-          <div className="flex gap-5">
-
-            <div className="flex items-center gap-2"> {/* SUS */}
-              SUS:
-              <input name="sus" placeholder="SUS" value={formData.sus} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
-            </div>
-
-            <div className="flex items-center gap-2"> {/* CPF */}
-              CPF:
-              <input name="cpf" placeholder="CPF" value={formData.cpf} onChange={handleChangeCPF} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
-            </div>
-
-            <div className="flex items-center gap-2"> {/* RG */}
-              RG:
-              <input name="rg" placeholder="RG" value={formData.rg} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
+            <div className="flex gap-2 items-center">
+              <label>Sexo: </label>
+              <select
+                value={formData.sex}
+                className={`custom-input ${errors.sex ? 'error' : ''}`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, sex: e.target.value }))}
+              >
+                <option value="0">Selecione uma opção</option>
+                <option value="m">Masculino</option>
+                <option value="f">Feminino</option>
+                <option value="i">Indefinido</option>
+              </select>
             </div>
 
           </div>
 
-          <div className="flex gap-2">
-
-            <div className="flex items-center gap-2"> {/* nome da mãe*/}
-              Nome da Mãe:
-              <input name="mother" placeholder="Nome da mãe" value={formData.mother} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
+          <div className="flex justify-between w-full gap-7">
+            <div className="flex gap-2 items-center w-full">
+              <label>CPF: </label>
+              <input
+                type="text" 
+                value={formData.cpf}
+                className={`custom-input ${errors.cpf ? 'error' : ''} w-full`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, cpf: e.target.value }))}
+              />
             </div>
 
-            <div className="flex items-center gap-2"> {/* nome do pai */}
-              Nome do Pai:
-              <input name="father" placeholder="Nome do pai" value={formData.father} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
+            <div className="flex gap-2 items-center w-full">
+              <label>RG: </label>
+              <input
+                type="text" 
+                value={formData.rg}
+                className={`custom-input ${errors.rg ? 'error' : ''} w-full`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, rg: e.target.value }))}
+              />
             </div>
 
-            <div className="flex items-center gap-2"> {/* sexo */}
-              Sexo:
-              <input name="sex" placeholder="Sexo" value={formData.sex} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
+            <div className="flex gap-2 items-center w-full">
+              <label>SUS: </label>
+              <input
+                type="text" 
+                value={formData.sus}
+                className={`custom-input ${errors.sus ? 'error' : ''} w-full`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, sus: e.target.value }))}
+              />
+            </div>
+          </div>
+
+          <div className="w-full">
+
+            <div className="flex gap-2 items-center">
+              <label>Endereço: </label>
+              <input 
+                type="text" 
+                value={formData.address}
+                className={`custom-input ${errors.address ? 'error' : ''} w-full`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, address: e.target.value }))}
+              />
+            </div>
+          </div>
+
+          <div className="flex justify-between w-full gap-7">
+
+            <div className="flex gap-2 items-center">
+              <label>Telefone: </label>
+              <input 
+                type="text" 
+                value={formData.phone}
+                className={`custom-input ${errors.phone ? 'error' : ''}`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+              />
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <label>CEP: </label>
+              <input 
+                type="text" 
+                value={formData.phone}
+                className={`custom-input ${errors.cep ? 'error' : ''}`}
+                onChange={(e) => setFormData((prev) => ({ ...prev, cep: e.target.value }))}
+              />
             </div>
 
           </div>
 
-          <div className="flex gap-2">
+        </main>
 
-            <div className="flex items-center gap-2"> {/* Endereço */}
-              Endereço: 
-              <input name="address" placeholder="Endereço" value={formData.address} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
-            </div>
-
-            <div className="flex items-center gap-2"> {/* cep */}
-              CEP: 
-              <input name="cep" placeholder="CEP" value={formData.cep} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
-            </div>
-
-            <div className="flex items-center gap-2"> {/* telefone */}
-              Telefone:
-              <input name="phone" placeholder="Telefone" value={formData.phone} onChange={handleChange} className="flex-1 bg-white text-black font-medium p-1.5 rounded w-[7.5rem] truncate whitespace-nowrap overflow-hidden tracking-wide" />
-            </div>
-
-          </div>
-
-          <input name="contact" placeholder="Contato" value={formData.contact} onChange={handleChange} className="text-black p-1 rounded" />
-
-          {/* Erros */}
-          <div className="text-red-300 text-sm">
-            {Object.entries(errors).map(([key, msg]) => (
-              <div key={key}>{key.toUpperCase()}: {msg}</div>
-            ))}
-          </div>
-
-          <button type="submit" className="self-end mt-4 bg-teal-500 text-white font-bold px-4 py-2 rounded hover:bg-teal-600">
-            Próximo →
+        <div className="flex justify-end w-full mt-5">
+          <button 
+          className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded" 
+          onClick={handleSubmit}>
+            Próximo
           </button>
-        </form>
-      </main>
+        </div>
+      </div>
     </div>
   )
 }
