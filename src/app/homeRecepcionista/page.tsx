@@ -6,11 +6,11 @@ export default function Tela1() {
 
     return (
         <div className="">
-            <main className="flex mt-[5rem] px-10 gap-10 justify-center flex-col md:flex-row">
+            <main className="flex mt-[5rem] px-10 gap-17 justify-center flex-col md:flex-row text-2xl">
                 <section className="flex flex-col gap-5">
                     <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Fila de Prioridade</h3>
-                        <div className="flex flex-col w-[300px] bg-[rgb(56,163,165)] rounded p-5 gap-5">
+                        <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5">
                             <SearchBar />
                             <div className="p-1.5 bg-white rounded-2xl px-4">
                                 Paciente 1 <br /> Paciente 2 <br /> Paciente 3
@@ -19,7 +19,7 @@ export default function Tela1() {
                     </div>
                     <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Pacientes Cadastrados</h3>
-                        <div className="flex flex-col w-[300px] bg-[rgb(56,163,165)] rounded p-5 gap-5">
+                        <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5">
                             <SearchBar />
                             <div className="p-1.5 px-4 justify-center flex">
                               <Link href="./homeRecepcionista/tela2/">
@@ -34,23 +34,21 @@ export default function Tela1() {
                 </section>
                 <section className="flex flex-col items-center justify-center">
                     <h3 className="text-center font-bold">Atendidos Recentemente</h3>
-                    <div className="flex flex-col p-5 justify-center items-center bg-[rgb(128,237,153)] gap-8 w-[300px] md:w-auto">
+                    <div className="flex flex-col p-8 justify-center items-center bg-[rgb(128,237,153)] gap-8 md:w-auto">
                         {[1,2,3,4,5].map(n => (
                             <div key={n} className="flex justify-center w-full gap-3 items-center">
-                              <Person n={n}/>
+                              <Person name={`Pessoa ${n}`}/>
                             </div>
                         ))}
                     </div>
                 </section>
                 <section className="flex flex-col items-center">
                     <h3 className="font-bold text-center">Próximo</h3>
-                    <div className="bg-[rgb(56,163,165)] p-5 items-center justify-between rounded flex gap-3 w-[300px] md:w-auto">
+                    <div className="bg-[rgb(56,163,165)] p-8 items-center justify-between rounded flex gap-3 md:w-auto">
                       
-                      <Person n={1}/>
+                      <Person name={`Pessoa 1`}/>
                       
-                      <span className="material-symbols-outlined">
-                        more_vert
-                      </span>
+                      
                     </div>
                 </section>
             </main>

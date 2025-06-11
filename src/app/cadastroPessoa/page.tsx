@@ -1,17 +1,16 @@
 'use client'
 
-import { first, sum } from "lodash"
-import { stringify } from "querystring"
-import { useState } from "react"
+import React, { useState } from "react"
 
 export default function CadastroPessoa() {
 
+  // formatação em tempo real
   const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value.replace(/\D/g, "") // remove tudo que não for número
 
     if (input.length > 8) input = input.slice(0, 8) // limita a 8 dígitos (DDMMYYYY)
 
-    // adiciona barras automaticamente
+    // adiciona barras
     if (input.length > 4) {
       input = `${input.slice(0, 2)}/${input.slice(2, 4)}/${input.slice(4)}`
     } else if (input.length > 2) {
@@ -21,28 +20,57 @@ export default function CadastroPessoa() {
     setFormData((prev) => ({ ...prev, birthDate: input }))
   }
 
-  function replaceOnlyNumbers(sentence: string): string {
-    let input = sentence.replace(/\D/g, "").slice(0,11)
-
-    input = input.replace(/(\d{3})(\d)/, "$1.$2")
-    input = input.replace(/(\d{3})(\d)/, "$1.$2")
-    input = input.replace(/(\d{3})(\d)/, "$1-$2")
-
-    return input
-  }
-
   const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let input = replaceOnlyNumbers(e.target.value)
+    let input = formatCPF(replaceOnlyNumbers(e.target.value).slice(0,11))
 
     setFormData((prev) => ({...prev, cpf: input}))
   }
 
   const handleChangeRG = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let input = replaceOnlyNumbers(e.target.value)
+    let input = formatCPF(replaceOnlyNumbers(e.target.value).slice(0,11))
 
     setFormData((prev) => ({...prev, rg: input}))
   }
 
+  const handleChangeSUS = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let input = replaceOnlyNumbers(e.target.value).slice(0,15)
+
+    setFormData((prev) => ({...prev, sus: input}))
+  }
+
+  const handleChangeCEP = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let input = replaceOnlyNumbers(e.target.value).slice(0,8)
+
+    input = input.replace(/(\d{2})(\d)/, "$1.$2")
+    input = input.replace(/(\d{3})(\d)/, "$1-$2")
+
+    setFormData((prev) => ({...prev, cep: input}))
+  }
+
+  const handleChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let input = replaceOnlyNumbers(e.target.value).slice(0,11)
+
+    input = input.replace(/(\d{2})(\d)/, "($1) $2")
+    input = input.replace(/(\d{5})(\d)/, "$1-$2")
+
+    setFormData((prev) => ({...prev, phone: input}))
+  }
+
+  function replaceOnlyNumbers(sentence: string): string {
+    return sentence.replace(/\D/g, "")
+  }
+
+  function replaceOnlyName(sentence: string): string {
+    return sentence.replace(/[^A-Za-zÀ-ÿ\-'\s]/g, "")
+  } 
+
+  function formatCPF(cpfStr: string) {
+    cpfStr = cpfStr.replace(/(\d{3})(\d)/, "$1.$2")
+    cpfStr = cpfStr.replace(/(\d{3})(\d)/, "$1.$2")
+    cpfStr = cpfStr.replace(/(\d{3})(\d)/, "$1-$2")
+
+    return cpfStr
+  }
 
   const [formData, setFormData] = useState({
     name: "",
@@ -86,6 +114,7 @@ export default function CadastroPessoa() {
   function handleSubmit() {
     let formIsValid = true
 
+    // verificação campos vazios
     Object.entries(formData).forEach(([key, value]) => {
     if (!value.trim() || value === "0") {
       setErrors((prev) => ({ ...prev, [key]: true}))
@@ -95,6 +124,7 @@ export default function CadastroPessoa() {
     }
   })
     
+    // validação data de nascimento
     if (formData.birthDate.length === 10) {
       if (!isValidDate(formData.birthDate)) {
         setErrors((prev) => ({ ...prev, birthDate: true}))
@@ -107,6 +137,7 @@ export default function CadastroPessoa() {
         formIsValid = false
     }
 
+    // validação cpf
     if (formData.cpf.length === 14) {
       if (!isValidCPF(formData.cpf)) {
         setErrors((prev) => ({...prev, cpf: true}))
@@ -114,6 +145,32 @@ export default function CadastroPessoa() {
       } else {
         setErrors((prev) => ({ ...prev, cpf: false}))
       }
+    }
+
+    // validação rg
+    if (formData.rg.length === 14) {
+      if (!isValidCPF(formData.rg)) {
+        setErrors((prev) => ({...prev, rg: true}))
+        formIsValid = false
+      } else {
+        setErrors((prev) => ({ ...prev, rg: false}))
+      }
+    }
+
+    // validação cep
+    if (formData.cep.length !== 10) {
+      setErrors((prev) => ({ ...prev, cep: true}))
+      formIsValid = false
+    } else {
+      setErrors((prev) => ({ ...prev, cep: false }))
+    }
+
+    // validação telefone
+    if (formData.phone.length !== 15) {
+      setErrors((prev) => ({ ...prev, phone: true}))
+      formIsValid = false
+    } else {
+      setErrors((prev) => ({ ...prev, phone: false }))
     }
 
     if (!formIsValid) return
@@ -156,7 +213,7 @@ export default function CadastroPessoa() {
     <div className="flex items-center mt-[5rem] flex-col">
       
       <div className="flex flex-col px-10">
-        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[65rem]">
+        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
 
           <h2 className="text-center w-full font-extrabold text-2xl">IDENTIFICAÇÃO DO PACIENTE</h2>
 
@@ -168,7 +225,10 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.name}
                 className={`custom-input ${errors.name ? 'error' : ''} w-full`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                onChange={(e) => {
+                  setFormData((prev) => ({ ...prev, name: e.target.value }))
+                  e.target.value = replaceOnlyName(e.target.value)
+              }}
               />
             </div>
           </div>
@@ -181,7 +241,10 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.mother}
                 className={`custom-input ${errors.mother ? 'error' : ''} w-full`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, mother: e.target.value }))}
+                onChange={(e) => {
+                  setFormData((prev) => ({ ...prev, mother: e.target.value }))
+                  e.target.value = replaceOnlyName(e.target.value)
+              }}
               />
             </div>
           </div>
@@ -194,7 +257,10 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.father}
                 className={`custom-input ${errors.father ? 'error' : ''} w-full`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, father: e.target.value }))}
+                onChange={(e) => {
+                  setFormData((prev) => ({ ...prev, father: e.target.value }))
+                  e.target.value = replaceOnlyName(e.target.value)
+              }}
               />
             </div>
           </div>
@@ -206,7 +272,7 @@ export default function CadastroPessoa() {
               <input 
                 type="text" 
                 value={formData.birthDate}
-                className={`custom-input ${errors.birthDate ? 'error' : ''} w-[7.5rem]`}
+                className={`custom-input ${errors.birthDate ? 'error' : ''} w-[9rem]`}
                 onChange={handleChangeDate}
                 placeholder="DD/MM/AAAA"
               />
@@ -268,20 +334,7 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.sus}
                 className={`custom-input ${errors.sus ? 'error' : ''} w-full`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, sus: e.target.value }))}
-              />
-            </div>
-          </div>
-
-          <div className="w-full">
-
-            <div className="flex gap-2 items-center">
-              <label>Endereço: </label>
-              <input 
-                type="text" 
-                value={formData.address}
-                className={`custom-input ${errors.address ? 'error' : ''} w-full`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, address: e.target.value }))}
+                onChange={handleChangeSUS}
               />
             </div>
           </div>
@@ -294,7 +347,7 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.phone}
                 className={`custom-input ${errors.phone ? 'error' : ''}`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+                onChange={handleChangePhone}
               />
             </div>
 
@@ -304,7 +357,7 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.cep}
                 className={`custom-input ${errors.cep ? 'error' : ''}`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, cep: e.target.value }))}
+                onChange={handleChangeCEP}
               />
             </div>
 

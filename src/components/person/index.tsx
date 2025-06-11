@@ -1,19 +1,15 @@
+import Image from 'next/image'
 
-interface PersonProps {
-  n: number
-}
 
-export function Person({ n }: PersonProps) {
+export function Person({ name }: { name: string }) {
   return (
     <div className="flex  w-full gap-3">
 
-      <div className="flex justify-center items-center bg-white rounded-full w-[40px] h-[40px]">
-        <span className="material-symbols-outlined text-4xl">
-          person
-        </span>
+      <div className="flex justify-center items-center bg-white rounded-full p-2">
+        <Image src={"/person_black.svg"} alt='' height={40} width={40}/>
       </div>
       <div className="font-bold flex justify-center items-center">
-        Pessoa {n}
+        {name}
       </div>
     </div>
   )
