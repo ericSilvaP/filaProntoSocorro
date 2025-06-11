@@ -49,6 +49,15 @@ export default function CadastroPessoa() {
     phone: false,
   })
 
+  function isValidDate(datestring: string): boolean {
+    const [day, month, year] = datestring.split("/").map(Number)
+
+    if (day < 1 || month < 1 || month > 12) return false
+
+    const lastDayMonth = new Date(year, month, 0).getDate()
+    return day <= lastDayMonth
+  }
+
   function handleSubmit() {
     let formIsValid = true
 
@@ -61,8 +70,18 @@ export default function CadastroPessoa() {
     }
   })
     
-    const date = formData.birthDate
-    if ()
+    if (formData.birthDate.length === 10) {
+      if (!isValidDate(formData.birthDate)) {
+        setErrors((prev) => ({ ...prev, birthDate: true}))
+        formIsValid = false
+      } else {
+        setErrors((prev) => ({ ...prev, birthDate: false}))
+      }
+    } else {
+        setErrors((prev) => ({ ...prev, birthDate: true}))
+        formIsValid = false
+    }
+
 
     if (!formIsValid) return
 
