@@ -1,5 +1,7 @@
 'use client'
 
+import { first, sum } from "lodash"
+import { stringify } from "querystring"
 import { useState } from "react"
 
 export default function CadastroPessoa() {
@@ -18,6 +20,29 @@ export default function CadastroPessoa() {
 
     setFormData((prev) => ({ ...prev, birthDate: input }))
   }
+
+  function replaceOnlyNumbers(sentence: string): string {
+    let input = sentence.replace(/\D/g, "").slice(0,11)
+
+    input = input.replace(/(\d{3})(\d)/, "$1.$2")
+    input = input.replace(/(\d{3})(\d)/, "$1.$2")
+    input = input.replace(/(\d{3})(\d)/, "$1-$2")
+
+    return input
+  }
+
+  const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let input = replaceOnlyNumbers(e.target.value)
+
+    setFormData((prev) => ({...prev, cpf: input}))
+  }
+
+  const handleChangeRG = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let input = replaceOnlyNumbers(e.target.value)
+
+    setFormData((prev) => ({...prev, rg: input}))
+  }
+
 
   const [formData, setFormData] = useState({
     name: "",
@@ -82,12 +107,50 @@ export default function CadastroPessoa() {
         formIsValid = false
     }
 
+    if (formData.cpf.length === 14) {
+      if (!isValidCPF(formData.cpf)) {
+        setErrors((prev) => ({...prev, cpf: true}))
+        formIsValid = false
+      } else {
+        setErrors((prev) => ({ ...prev, cpf: false}))
+      }
+    }
 
     if (!formIsValid) return
 
     alert(JSON.stringify(formData))
   }
 
+  function isValidCPF(cpf: string): boolean {
+
+    let cleanCPF = cpf.replace(/\D/g, "")
+
+    if (cleanCPF.length !== 11) return false
+
+    let nineFirstDigits = cleanCPF.slice(0,9).split("")
+
+    let sum = nineFirstDigits.reduce((acc, n, i) => {
+      return Number(acc) + Number(n) * (10 - i)
+      }, 0
+    )
+
+    let remainder = sum % 11
+
+    let firstDigit = remainder < 2 ? 0 : 11 - remainder
+    
+    sum = nineFirstDigits.reduce((acc, n, i) => {
+      const multiplicationFactor = 11 - i
+      return Number(acc) + Number(n) * multiplicationFactor
+      }, 0
+    ) + firstDigit * 2
+  
+    remainder = sum % 11
+    let secondDigit = remainder < 2 ? 0 : 11 - remainder
+    
+    const lastTwoDigits = cleanCPF.slice(9)
+
+    return Number(`${firstDigit}${secondDigit}`) === Number(lastTwoDigits)
+  }
 
   return (
     <div className="flex items-center mt-[5rem] flex-col">
@@ -145,6 +208,7 @@ export default function CadastroPessoa() {
                 value={formData.birthDate}
                 className={`custom-input ${errors.birthDate ? 'error' : ''} w-[7.5rem]`}
                 onChange={handleChangeDate}
+                placeholder="DD/MM/AAAA"
               />
             </div>
 
@@ -184,7 +248,7 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.cpf}
                 className={`custom-input ${errors.cpf ? 'error' : ''} w-full`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, cpf: e.target.value }))}
+                onChange={handleChangeCPF}
               />
             </div>
 
@@ -194,7 +258,7 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.rg}
                 className={`custom-input ${errors.rg ? 'error' : ''} w-full`}
-                onChange={(e) => setFormData((prev) => ({ ...prev, rg: e.target.value }))}
+                onChange={handleChangeRG}
               />
             </div>
 
@@ -238,7 +302,7 @@ export default function CadastroPessoa() {
               <label>CEP: </label>
               <input 
                 type="text" 
-                value={formData.phone}
+                value={formData.cep}
                 className={`custom-input ${errors.cep ? 'error' : ''}`}
                 onChange={(e) => setFormData((prev) => ({ ...prev, cep: e.target.value }))}
               />
