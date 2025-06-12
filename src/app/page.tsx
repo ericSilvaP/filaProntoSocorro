@@ -1,23 +1,25 @@
 'use client'
 
 import Image from 'next/image'
-import { useState } from 'react'
-
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { isEmail } from 'validator'
 
 export default function Home() {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  })
 
-  const [errors, setErros] = useState({
-    email: false,
-    password: false,
-  })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors }
+  } = useForm()
+
+  const onSubmit = (data: unknown) => {
+    alert(JSON.stringify(data));
+  }
 
   return (
-    <div className='flex justify-center items-center mt-[10rem]'>
-      <div className='bg-[rgb(56,163,165)] flex flex-col p-10 flex-wrap gap-20 rounded-2xl items-center'>
+    <div className='flex justify-center items-center mt-[6rem]'>
+      <div className='bg-[rgb(56,163,165)] flex flex-col p-10 flex-wrap gap-20 rounded-2xl items-center shadow-2xl'>
         <div className='flex flex-col'>
           <div className='flex justify-center'>
             <Image src="/systemLogoShadow.svg" alt='' height={150} width={150}/>
@@ -26,32 +28,38 @@ export default function Home() {
         </div>
 
         <div className='flex flex-col items-center gap-5'>
-          <div className='bg-white flex items-center p-6 gap-2 w-full'>
+          <div className={`bg-white flex items-center p-4 gap-5 w-full ${errors.email ? 'outline-3 outline-[rgb(240,101,58)]' : ""}`}>
             <Image src={"/mail_32_black.svg"} alt='' height={30} width={30} />
-            <label className='text-2xl'>Email</label>
+            <label className='flex text-[20px] h-full items-center translate-y-[1.5px]'>Email</label>
             <input 
             type="text" 
-            value={formData.email}
-            className='focus-within:outline-0 h-full text-2xl tracking-wide'
-            onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
+            className='focus-within:outline-0 h-full text-[20px] tracking-wide  '
+            {...register("email", { 
+              required: true,
+              validate: (value) => isEmail(value)
+            })}
             />
           </div>
 
-          <div className='bg-white flex items-center p-6 gap-2 w-full'>
+          <div className={`bg-white flex items-center p-4 gap-5 w-full ${errors.password ? 'outline-3 outline-[rgb(240,101,58)]' : ""}`}>
             <Image src={"/lock_32_black.svg"} alt='' height={30} width={30} />
-            <label className='text-2xl'>Senha</label>
+            <label className='text-[20px]'>Senha</label>
             <input 
-            type="text" 
-            value={formData.password}
-            className='focus-within:outline-0 h-full text-2xl tracking-wide'
-            onChange={(e) => setFormData((prev) => ({ ...prev, password: e.target.value }))}
+            type="password" 
+            className={`focus-within:outline-0 h-full text-[20px] tracking-wide`}
+            {...register("password", { required: true })}
             />
           </div>
 
         </div>
 
         <div>
-          <button className='bg-[rgb(128,237,153)] shadow-2xs py-3 px-10 font-semibold text-2xl rounded'>Entrar</button>
+          <button 
+          className='bg-[rgb(128,237,153)] shadow-2xl py-3 px-10 font-semibold text-2xl rounded cursor-pointer hover:brightness-110 transition-all duration-150'
+          onClick={() => handleSubmit(onSubmit)()}
+          >
+            Entrar
+          </button>
         </div>
       </div>
     </div>
