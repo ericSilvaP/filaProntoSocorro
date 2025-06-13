@@ -18,7 +18,7 @@ export default function Home() {
   }
 
   return (
-    <div className='flex justify-center items-center mt-[6rem]'>
+    <div className='flex absolute justify-center items-center h-full w-full -translate-y-[5rem] -z-1000'>
       <div className='bg-[rgb(56,163,165)] flex flex-col p-10 flex-wrap gap-20 rounded-2xl items-center shadow-2xl'>
         <div className='flex flex-col'>
           <div className='flex justify-center'>
@@ -32,8 +32,8 @@ export default function Home() {
             <Image src={"/mail_32_black.svg"} alt='' height={30} width={30} />
             <label className='flex text-[20px] h-full items-center translate-y-[1.5px]'>Email</label>
             <input 
-            type="text" 
-            className='focus-within:outline-0 h-full text-[20px] tracking-wide  '
+            type="text"
+            className='focus-within:outline-0 h-full text-[20px] tracking-wide'
             {...register("email", { 
               required: true,
               validate: (value) => isEmail(value)
