@@ -1,12 +1,18 @@
 'use client'
 
+import { Modal } from "@/components/modal"
+import { SuccesModal } from "@/components/sucessModal"
 import { BloodType } from "@/types/bloodType"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 export default function CadastroPessoa() {
 
+  const router = useRouter()
   const bloodTypes = Object.values(BloodType)
+  const [showModal, setShowModal] = useState(false)
 
   const {
       register,
@@ -15,7 +21,10 @@ export default function CadastroPessoa() {
   } = useForm()
 
   const onSubmit = (data: unknown) => {
-    alert(JSON.stringify(data))
+    setShowModal(true)
+    setTimeout(() => {
+      router.push("/")
+    }, 2500)
   }
 
   return (
@@ -82,6 +91,7 @@ export default function CadastroPessoa() {
           </Link>
           
           <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded" onClick={() => handleSubmit(onSubmit)()}>Cadastrar Paciente</button>
+          {showModal && <SuccesModal message="Paciente Cadastrado!"/>}
         </div>
       </div>
     </div>
