@@ -1,9 +1,11 @@
 'use client'
 
-import Link from "next/link"
+import { useRouter } from "next/navigation"
 import React, { useState } from "react"
 
 export default function CadastroPessoa() {
+
+  const router = useRouter()
 
   // formatação em tempo real
   const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,7 +85,6 @@ export default function CadastroPessoa() {
     mother: "",
     father: "",
     sex: "0",
-    address: "",
     cep: "",
     phone: "",
   })
@@ -98,7 +99,6 @@ export default function CadastroPessoa() {
     mother: false,
     father: false,
     sex: false,
-    address: false,
     cep: false,
     phone: false,
   })
@@ -115,18 +115,20 @@ export default function CadastroPessoa() {
   }
 
   function handleSubmit() {
+    
     let formIsValid = true
-
+    
     // verificação campos vazios
     Object.entries(formData).forEach(([key, value]) => {
-    if (!value.trim() || value === "0") {
-      setErrors((prev) => ({ ...prev, [key]: true}))
-      formIsValid = false
-    } else {
-      setErrors((prev) => ({...prev, [key]: false}))
-    }
-  })
+      if (!value.trim() || value === "0") {
+        setErrors((prev) => ({ ...prev, [key]: true}))
+        formIsValid = false
+      } else {
+        setErrors((prev) => ({...prev, [key]: false}))
+      }
+    })
     
+
     // validação data de nascimento
     if (formData.birthDate.length === 10) {
       if (!isValidDate(formData.birthDate)) {
@@ -176,11 +178,12 @@ export default function CadastroPessoa() {
       setErrors((prev) => ({ ...prev, phone: false }))
     }
 
-    if (!formIsValid) return
 
-    setCanProceed(true)
+    if (!formIsValid) return
     alert(JSON.stringify(formData))
+    router.push("/cadastroPessoa2")
   }
+
 
   function isValidCPF(cpf: string): boolean {
 
@@ -230,8 +233,8 @@ export default function CadastroPessoa() {
                 value={formData.name}
                 className={`custom-input ${errors.name ? 'error' : ''} w-full`}
                 onChange={(e) => {
-                  setFormData((prev) => ({ ...prev, name: e.target.value }))
-                  e.target.value = replaceOnlyName(e.target.value)
+                  const cleanValue = replaceOnlyName(e.target.value)
+                  setFormData((prev) => ({ ...prev, name: cleanValue }))
               }}
               />
             </div>
@@ -246,8 +249,8 @@ export default function CadastroPessoa() {
                 value={formData.mother}
                 className={`custom-input ${errors.mother ? 'error' : ''} w-full`}
                 onChange={(e) => {
-                  setFormData((prev) => ({ ...prev, mother: e.target.value }))
-                  e.target.value = replaceOnlyName(e.target.value)
+                  const cleanValue = replaceOnlyName(e.target.value)
+                  setFormData((prev) => ({ ...prev, mother: cleanValue }))
               }}
               />
             </div>
@@ -262,8 +265,8 @@ export default function CadastroPessoa() {
                 value={formData.father}
                 className={`custom-input ${errors.father ? 'error' : ''} w-full`}
                 onChange={(e) => {
-                  setFormData((prev) => ({ ...prev, father: e.target.value }))
-                  e.target.value = replaceOnlyName(e.target.value)
+                  const cleanValue = replaceOnlyName(e.target.value)
+                  setFormData((prev) => ({ ...prev, father: cleanValue }))
               }}
               />
             </div>
@@ -372,15 +375,10 @@ export default function CadastroPessoa() {
         <div className="flex justify-end w-full mt-5">
           <button 
           className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded" 
+    
           onClick={handleSubmit}>
             Próximo
           </button>
-          {
-            canProceed &&
-            <Link href="/cadastroPessoa2">
-              a
-            </Link>
-          }
         </div>
       </div>
     </div>

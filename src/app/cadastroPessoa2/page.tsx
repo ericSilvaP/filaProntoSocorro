@@ -2,6 +2,7 @@ import { BloodType } from "@/types/bloodType"
 import Link from "next/link"
 
 export default function CadastroPessoa() {
+
   const bloodTypes = Object.values(BloodType)
 
   return (
