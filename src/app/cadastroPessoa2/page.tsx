@@ -1,9 +1,22 @@
+'use client'
+
 import { BloodType } from "@/types/bloodType"
 import Link from "next/link"
+import { useForm } from "react-hook-form"
 
 export default function CadastroPessoa() {
 
   const bloodTypes = Object.values(BloodType)
+
+  const {
+      register,
+      handleSubmit,
+      formState: { errors }
+  } = useForm()
+
+  const onSubmit = (data: unknown) => {
+    alert(JSON.stringify(data))
+  }
 
   return (
     <div className="flex items-center py-[5rem] flex-col">
@@ -17,7 +30,11 @@ export default function CadastroPessoa() {
             <div className="">Alergias:</div>
             <div className="w-[750px] h-[150px]">
               <textarea 
-              className="bg-white text-black h-full w-full resize-none font-extralight"
+              className={`bg-white text-black h-full w-full resize-none font-extralight ${errors.allergies && 'outline-2 outline-[rgb(240,101,58)]'} px-2`}
+              {...register( "allergies", {
+                required: true
+              }
+              )}
               />
             </div>
           </div>
@@ -25,7 +42,10 @@ export default function CadastroPessoa() {
             <div className="">Doenças:</div>
             <div className="w-[750px] h-[150px]">
               <textarea 
-              className="bg-white text-black h-full w-full resize-none font-extralight"
+              className={`bg-white text-black h-full w-full resize-none font-extralight ${errors.illness && 'outline-2 outline-[rgb(240,101,58)]'} px-2`}
+              {...register("illness", {
+                required: true
+              })}
               />
             </div>
           </div>
@@ -33,20 +53,23 @@ export default function CadastroPessoa() {
             <div className="">Uso de medicamentos: </div>
             <div className="w-[750px] h-[150px]">
               <textarea 
-              className="bg-white text-black h-full w-full resize-none font-extralight"
+              className={`bg-white text-black h-full w-full resize-none font-extralight px-2 ${errors.medications && 'outline-2 outline-[rgb(240,101,58)]'}`}
+              {...register("medications", {
+                required: true
+              })}
               />
             </div>
           </div>
           <div className="flex justify-end w-full gap-10">
             <div>Tipo de sangue:</div>
-            <div className="w-2xl flex gap-8">
+            <div className="w-[750px] flex gap-8">
               {
                 bloodTypes.map(bt => (
-                  <label className="flex gap-2">
-                    <input type="radio" name="blood-type" value={bt} key={bt} className="scale-150" />
+                  <label className="flex gap-2" key={bt}>
+                    <input type="radio" value={bt} className="scale-150" {...register("bloodType", {required: true})}/>
                     <div>
                       {bt}
-                    </div>
+                    </div>  
                   </label>
                 ))
               }
@@ -57,10 +80,8 @@ export default function CadastroPessoa() {
           <Link href={"/cadastroPessoa"}>
             <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded">Voltar</button>
           </Link>
-          <Link href={"/"}>
           
-            <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded">Cadastrar Paciente</button>
-          </Link>
+          <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded" onClick={() => handleSubmit(onSubmit)()}>Cadastrar Paciente</button>
         </div>
       </div>
     </div>
