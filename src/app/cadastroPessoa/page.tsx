@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link"
 import React, { useState } from "react"
 
 export default function CadastroPessoa() {
@@ -102,6 +103,8 @@ export default function CadastroPessoa() {
     phone: false,
   })
 
+  const [canProceed, setCanProceed] = useState(false)
+
   function isValidDate(datestring: string): boolean {
     const [day, month, year] = datestring.split("/").map(Number)
 
@@ -175,6 +178,7 @@ export default function CadastroPessoa() {
 
     if (!formIsValid) return
 
+    setCanProceed(true)
     alert(JSON.stringify(formData))
   }
 
@@ -371,6 +375,12 @@ export default function CadastroPessoa() {
           onClick={handleSubmit}>
             Próximo
           </button>
+          {
+            canProceed &&
+            <Link href="/cadastroPessoa2">
+              a
+            </Link>
+          }
         </div>
       </div>
     </div>

@@ -18,8 +18,8 @@ export default function Home() {
   }
 
   return (
-    <div className='flex absolute justify-center items-center h-full w-full -translate-y-[5rem] -z-1000'>
-      <div className='bg-[rgb(56,163,165)] flex flex-col p-10 flex-wrap gap-20 rounded-2xl items-center shadow-2xl'>
+    <div className='flex absolute justify-center items-center h-full w-full -z-1000'>
+      <div className='bg-[rgb(56,163,165)] flex flex-col p-[2.5rem] flex-wrap gap-20 rounded-2xl items-center shadow-2xl md:max-w-500px'>
         <div className='flex flex-col'>
           <div className='flex justify-center'>
             <Image src="/systemLogoShadow.svg" alt='' height={150} width={150}/>
