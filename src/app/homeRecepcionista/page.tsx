@@ -22,12 +22,11 @@ export default function Tela1() {
                         <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5">
                             <SearchBar />
                             <div className="p-1.5 px-4 justify-center flex">
-                              <Link href="./homeRecepcionista/tela2/">
-                                <button className="bg-[rgb(128,237,153)] p-1.5 rounded font-bold cursor-pointer">
+                                <Link href="./homeRecepcionista/tela2/">
+                                    <button className="bg-[rgb(110,146,118)] p-1.5 rounded font-bold cursor-pointer">
                                     Cadastrar paciente
-                                </button>
-                              </Link>
-                                
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     </div>
@@ -37,7 +36,7 @@ export default function Tela1() {
                     <div className="flex flex-col p-8 justify-center items-center bg-[rgb(128,237,153)] gap-8 md:w-auto">
                         {[1,2,3,4,5].map(n => (
                             <div key={n} className="flex justify-center w-full gap-3 items-center">
-                              <Person name={`Pessoa ${n}`}/>
+                                <Person name={`Pessoa ${n}`}/>
                             </div>
                         ))}
                     </div>
@@ -45,10 +44,7 @@ export default function Tela1() {
                 <section className="flex flex-col items-center">
                     <h3 className="font-bold text-center">Próximo</h3>
                     <div className="bg-[rgb(56,163,165)] p-8 items-center justify-between rounded flex gap-3 md:w-auto">
-                      
-                      <Person name={`Pessoa 1`}/>
-                      
-                      
+                        <Person name={`Pessoa 1`}/>
                     </div>
                 </section>
             </main>

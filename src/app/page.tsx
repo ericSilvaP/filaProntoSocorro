@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
 
@@ -17,20 +17,25 @@ export default function Home() {
     alert(JSON.stringify(data));
   }
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    
+  })
+
   return (
-    <div className='flex absolute justify-center items-center h-full w-full -z-1000'>
+    <div className={`flex justify-center items-center h-full mt-[3rem]`}>
       <div className='bg-[rgb(56,163,165)] flex flex-col p-[2.5rem] flex-wrap gap-20 rounded-2xl items-center shadow-2xl md:max-w-500px'>
         <div className='flex flex-col'>
           <div className='flex justify-center'>
-            <Image src="/systemLogoShadow.svg" alt='' height={150} width={150}/>
+            <Image src="/systemLogoShadow.svg" alt='' height={150} width={150} className='select-none'/>
           </div>
           <label className='text-[rgb(34,87,122)] font-bold text-4xl text-center'>MedLink</label>
         </div>
 
         <div className='flex flex-col items-center gap-5'>
-          <div className={`bg-white flex items-center p-4 gap-5 w-full ${errors.email ? 'outline-3 outline-[rgb(240,101,58)]' : ""}`}>
-            <Image src={"/mail_32_black.svg"} alt='' height={30} width={30} />
-            <label className='flex text-[20px] h-full items-center translate-y-[1.5px]'>Email</label>
+          <label className={`bg-white flex items-center p-4 gap-5 w-full ${errors.email ? 'outline-3 outline-[rgb(240,101,58)]' : ""}`}>
+            <Image src={"/mail_32_black.svg"} alt='' height={30} width={30} className='select-none' />
+            <div className='flex text-[20px] h-full items-center translate-y-[1.5px]'>Email</div>
             <input 
             type="text"
             className='focus-within:outline-0 h-full text-[20px] tracking-wide'
@@ -39,17 +44,17 @@ export default function Home() {
               validate: (value) => isEmail(value)
             })}
             />
-          </div>
+          </label>
 
-          <div className={`bg-white flex items-center p-4 gap-5 w-full ${errors.password ? 'outline-3 outline-[rgb(240,101,58)]' : ""}`}>
-            <Image src={"/lock_32_black.svg"} alt='' height={30} width={30} />
+          <label className={`bg-white flex items-center p-4 gap-5 w-full ${errors.password ? 'outline-3 outline-[rgb(240,101,58)]' : ""}`}>
+            <Image src={"/lock_32_black.svg"} alt='' height={30} width={30} className='select-none'/>
             <label className='text-[20px]'>Senha</label>
             <input 
             type="password" 
             className={`focus-within:outline-0 h-full text-[20px] tracking-wide`}
             {...register("password", { required: true })}
             />
-          </div>
+          </label>
 
         </div>
 
