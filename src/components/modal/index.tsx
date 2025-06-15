@@ -2,19 +2,9 @@
 
 import { useState } from "react"
 
-interface ModalProps {
-    isOpen: boolean,
-    toggleModal: () => void
-}
-
-
-export function Modal() {
+export function Modal({ message, toggleModal }: { message: string, toggleModal: () => void }) {
 
     const [isOpen, setIsOpen] = useState(true)
-
-    function toggleModal() {
-        setIsOpen(!isOpen)
-    }
 
     return (
         <div className={`${isOpen ? "flex" : "hidden"} h-[100vh] w-[100vw] bg-[rgba(0,0,0,0.5)] absolute justify-center items-center left-0 top-0`} onClick={toggleModal}>
