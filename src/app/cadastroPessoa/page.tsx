@@ -156,13 +156,15 @@ export default function CadastroPessoa() {
     }
 
     // validação rg
-    if (formData.rg.length === 14) {
-      if (!isValidCPF(formData.rg)) {
-        setErrors((prev) => ({...prev, rg: true}))
+    if (formData.rg.length !== 9) {
+      if (formData.rg.length !== 11) {
+        setErrors((prev) => ({ ...prev, rg: true}))
         formIsValid = false
       } else {
         setErrors((prev) => ({ ...prev, rg: false}))
       }
+    } else {
+        setErrors((prev) => ({ ...prev, rg: false}))
     }
 
     // validação cep
