@@ -183,6 +183,14 @@ export default function CadastroPessoa() {
       setErrors((prev) => ({ ...prev, phone: false }))
     }
 
+    // validação sus
+    if (formData.sus.length !== 15) {
+      setErrors((prev) => ({ ...prev, sus: true}))
+      formIsValid = false
+    } else {
+      setErrors((prev) => ({ ...prev, sus: false}))
+    }
+
 
     if (!formIsValid) return
     alert(JSON.stringify(formData))
@@ -359,7 +367,6 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.phone}
                 className={`custom-input ${errors.phone ? 'error' : ''}`}
-                placeholder="(XX) XXXXX-XXXX"
                 onChange={handleChangePhone}
               />
             </div>
