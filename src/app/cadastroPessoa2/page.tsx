@@ -19,7 +19,7 @@ export default function CadastroPessoa() {
       formState: { errors }
   } = useForm()
 
-  const onSubmit = (data: unknown) => {
+  const onSubmit = () => {
     setShowModal(true)
     setTimeout(() => {
       router.push("/")
