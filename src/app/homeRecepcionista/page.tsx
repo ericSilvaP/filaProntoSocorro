@@ -22,7 +22,7 @@ export default function Tela1() {
                         <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5">
                             <SearchBar />
                             <div className="p-1.5 px-4 justify-center flex">
-                                <Link href="./homeRecepcionista/tela2/">
+                                <Link href="/cadastroPessoa">
                                     <button className="bg-[rgb(110,146,118)] p-1.5 rounded font-bold cursor-pointer">
                                     Cadastrar paciente
                                     </button>

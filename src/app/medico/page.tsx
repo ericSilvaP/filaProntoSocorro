@@ -1,6 +1,5 @@
 'use client'
 
-import { Modal } from '@/components/modal'
 import { Person } from '@/components/person'
 import Image from 'next/image'
 import { useState } from 'react'
@@ -120,7 +119,7 @@ export default function Medico() {
 
         <div className={`${showModalPatientOff ? "flex" : "hidden"} h-[100vh] w-[100vw] bg-[rgba(0,0,0,0.5)] absolute justify-center items-center left-0 top-0`} onClick={toggleModal}>
             <div 
-              className="bg-white h-[230px] w-[450px] relative flex justify-center items-center rounded flex-wrap"
+              className="bg-white h-[230px] w-[450px] relative flex justify-center items-center rounded flex-wrap shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
               <p className='text-[1.2rem] font-medium'>Dispensar Paciente 2?</p>

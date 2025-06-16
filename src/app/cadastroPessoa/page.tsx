@@ -24,13 +24,18 @@ export default function CadastroPessoa() {
   }
 
   const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let input = formatCPF(replaceOnlyNumbers(e.target.value).slice(0,11))
-
+    let input = formatCPF(replaceOnlyNumbers(e.target.value.slice(0,14)))
     setFormData((prev) => ({...prev, cpf: input}))
   }
 
   const handleChangeRG = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let input = formatCPF(replaceOnlyNumbers(e.target.value).slice(0,11))
+    let input = e.target.value.toUpperCase()
+
+    input = input.replace(/[^\dX]/g, "")
+
+    if (input.length > 9 ) {
+      input = replaceOnlyNumbers(e.target.value.slice(0,11))
+    }
 
     setFormData((prev) => ({...prev, rg: input}))
   }
@@ -102,8 +107,6 @@ export default function CadastroPessoa() {
     cep: false,
     phone: false,
   })
-
-  const [canProceed, setCanProceed] = useState(false)
 
   function isValidDate(datestring: string): boolean {
     const [day, month, year] = datestring.split("/").map(Number)
@@ -354,6 +357,7 @@ export default function CadastroPessoa() {
                 type="text" 
                 value={formData.phone}
                 className={`custom-input ${errors.phone ? 'error' : ''}`}
+                placeholder="(XX) XXXXX-XXXX"
                 onChange={handleChangePhone}
               />
             </div>

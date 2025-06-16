@@ -4,7 +4,7 @@ import Link from 'next/link'
 export function Header() {
 
     return (
-        <div id="header">
+        <div id="header absolute">
             <header className='flex justify-between px-5 py-3 bg-[rgb(56,163,165)]'>
 
                 <Image src="/systemLogo.svg" alt="" width={50} height={50} className='text-white select-none '/>
