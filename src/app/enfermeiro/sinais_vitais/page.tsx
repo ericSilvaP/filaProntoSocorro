@@ -1,8 +1,11 @@
 'use client'
 
+import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 
 export default function SinaisVitais() {
+    const router = useRouter()
+
     const {
         register,
         handleSubmit,
@@ -19,8 +22,8 @@ export default function SinaisVitais() {
 
     const pain_levels = Object.values(pain_level)
 
-    function onSubmit(data: unknown) {
-        alert(JSON.stringify(data))
+    function onSubmit() {
+        router.push("/enfermeiro/risco")
     }
 
     function replaceNumbersNPoint(data: string) {
@@ -32,6 +35,8 @@ export default function SinaisVitais() {
             <div className="flex flex-col gap-10">
                 <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl font-bold">
                     <h1 className="text-center w-full font-extrabold text-2xl tracking-wider">Sinais Vitais</h1>
+
+                    {/* Frequência Cardíaca */}
                     <div className="flex items-center">
                         <div className="text-white flex-5">
                             Frequência Cardíaca (bpm):
@@ -41,7 +46,6 @@ export default function SinaisVitais() {
                             control={control}
                             rules={{ required: true }}
                             render={({ field }) => (
-
                                 <input
                                     {...field}
                                     onChange={(e) => {
@@ -49,10 +53,15 @@ export default function SinaisVitais() {
                                         field.onChange(formatted)
                                     }}
                                     value={field.value}
-                                    type="text" className={`custom-input flex-5 ${errors.heart_rate && 'outline-2 outline-[rgb(240,101,58)]'}`}
+                                    type="text"
+                                    autoComplete="off"
+                                    className={`custom-input flex-5 ${errors.heart_rate && 'outline-3 outline-[rgb(240,101,58)]'}`}
                                 />
-                            )} />
+                            )}
+                        />
                     </div>
+
+                    {/* Frequência Respiratória */}
                     <div className="flex items-center">
                         <div className="text-white flex-5">
                             Frequência Respiratória (bpm):
@@ -69,10 +78,15 @@ export default function SinaisVitais() {
                                         field.onChange(formatted)
                                     }}
                                     value={field.value}
-                                    type="text" className={`custom-input flex-5 ${errors.respiratory_rate && 'outline-2 outline-[rgb(240,101,58)]'}`}
+                                    type="text"
+                                    autoComplete="off"
+                                    className={`custom-input flex-5 ${errors.respiratory_rate && 'outline-3 outline-[rgb(240,101,58)]'}`}
                                 />
-                            )} />
+                            )}
+                        />
                     </div>
+
+                    {/* Pressão Arterial */}
                     <div className="flex items-center">
                         <div className="text-white flex-5">
                             Pressão Arterial (mmHg):
@@ -89,10 +103,15 @@ export default function SinaisVitais() {
                                         field.onChange(formatted)
                                     }}
                                     value={field.value}
-                                    type="text" className={`custom-input flex-5 ${errors.blood_pressure && 'outline-2 outline-[rgb(240,101,58)]'}`}
+                                    type="text"
+                                    autoComplete="off"
+                                    className={`custom-input flex-5 ${errors.blood_pressure && 'outline-3 outline-[rgb(240,101,58)]'}`}
                                 />
-                            )} />
+                            )}
+                        />
                     </div>
+
+                    {/* Temperatura */}
                     <div className="flex items-center">
                         <div className="text-white flex-5">
                             Temperatura Corporal (°C):
@@ -109,10 +128,15 @@ export default function SinaisVitais() {
                                         field.onChange(formatted)
                                     }}
                                     value={field.value}
-                                    type="text" className={`custom-input flex-5 ${errors.temperature && 'outline-2 outline-[rgb(240,101,58)]'}`}
+                                    type="text"
+                                    autoComplete="off"
+                                    className={`custom-input flex-5 ${errors.temperature && 'outline-3 outline-[rgb(240,101,58)]'}`}
                                 />
-                            )} />
+                            )}
+                        />
                     </div>
+
+                    {/* Saturação de Oxigênio */}
                     <div className="flex items-center">
                         <div className="text-white flex-5">
                             Saturação O² (%):
@@ -122,7 +146,6 @@ export default function SinaisVitais() {
                             control={control}
                             rules={{ required: true }}
                             render={({ field }) => (
-
                                 <input
                                     {...field}
                                     onChange={(e) => {
@@ -130,23 +153,26 @@ export default function SinaisVitais() {
                                         field.onChange(formatted)
                                     }}
                                     value={field.value}
-                                    type="text" className={`custom-input flex-5 ${errors.oxygen_saturation && 'outline-2 outline-[rgb(240,101,58)]'}`}
+                                    type="text"
+                                    autoComplete="off"
+                                    className={`custom-input flex-5 ${errors.oxygen_saturation && 'outline-3 outline-[rgb(240,101,58)]'}`}
                                 />
-                            )} />
+                            )}
+                        />
                     </div>
-                    <div className="flex items-center gap-8">
-                        <div className="text-white flex-5">
-                            Nível de Dor:
-                        </div>
-                        <div className="flex justify-between gap-6 flex-5">
+
+                    {/* Nível de Dor */}
+                    <div className="flex items-center flex-wrap gap-2">
+                        <div className="text-white w-full">Nível de Dor:</div>
+                        <div className="flex justify-between gap-6">
                             {
                                 pain_levels.map((pl, i) => (
                                     <label className="flex gap-3" key={pl}>
-                                        <input 
-                                        type="radio" 
-                                        value={i} 
-                                        className="scale-200"
-                                        {...register("pain_level", { required: true })}
+                                        <input
+                                            type="radio"
+                                            value={i}
+                                            className="scale-200"
+                                            {...register("pain_level", { required: true })}
                                         />
                                         <div>{pl}</div>
                                     </label>
@@ -155,6 +181,8 @@ export default function SinaisVitais() {
                         </div>
                     </div>
                 </main>
+
+                {/* Botões */}
                 <div className="flex justify-evenly">
                     <div>
                         <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl  font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150" onClick={() => handleSubmit(onSubmit)()}>Voltar</button>
@@ -164,7 +192,6 @@ export default function SinaisVitais() {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }

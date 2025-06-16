@@ -1,6 +1,7 @@
 'use client'
 
 import { SuccesModal } from "@/components/sucessModal"
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -25,7 +26,7 @@ export default function Risco() {
     return (
         <div className="mt-[3rem] flex justify-center">
             <div className="flex flex-col gap-10">
-                <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl font-bold">
+                <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl font-bold shadow-2xl">
                     <h1 className="text-center w-full font-extrabold text-2xl tracking-wider">Classificação de Risco</h1>
                     { errors.risk_level && <div className="text-red-500 text-center font-normal">Selecione um risco</div> }
                     <div className="flex flex-col gap-4">
@@ -92,7 +93,9 @@ export default function Risco() {
                 </main>
                 <div className="flex justify-evenly">
                     <div>
-                        <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl  font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150" onClick={() => handleSubmit(onSubmit)()}>Voltar</button>
+                        <Link href="/enfermeiro/sinais_vitais">
+                            <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl  font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150">Voltar</button>
+                        </Link>
                     </div>
                     <div>
                         <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150" onClick={() => handleSubmit(onSubmit)()}>Finalizar</button>
