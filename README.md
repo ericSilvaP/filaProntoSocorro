@@ -32,9 +32,8 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 ## 🧰 Tecnologias utilizadas
 
 * [TypeScript][typescript]
-* [Express][express]
 * [NextJS][nextjs]
-* [MySQL][mysql]
+* [SQLite][sqlite]
 
 ## 🚀 Como executar o projeto
 
@@ -79,6 +78,5 @@ Este projeto está licenciado sob a [MIT License](LICENSE).
 Desenvolvido por [Eric Silva](https://github.com/ericSilvaP), [Kauã Neres](https://github.com/Kaua-cel) e Francisco Osmar
 
 [typescript]: https://www.typescriptlang.org/
-[express]: https://expressjs.com/
 [nextjs]: https://nextjs.org/
-[mysql]: https://www.mysql.com/
+[sqlite]: https://www.sqlite.org/
