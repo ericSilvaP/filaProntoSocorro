@@ -42,7 +42,7 @@ export default function FichaPaciente() {
                 </div>
 
                 <div className='flex justify-between'>
-                    <div ></div>
+                    <div></div>
                 </div>
 
                 <div>

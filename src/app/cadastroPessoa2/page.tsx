@@ -1,6 +1,5 @@
 'use client'
 
-import { Modal } from "@/components/modal"
 import { SuccesModal } from "@/components/sucessModal"
 import { BloodType } from "@/types/bloodType"
 import Link from "next/link"
