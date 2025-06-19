@@ -38,9 +38,7 @@ export default function CriarMedico() {
 
   
   const onSubmit = () => {
-    setTimeout(() => {
-      router.push("/")
-    }, 2500)
+    router.push("/admin/criarLogin")
   }
 
   return (

@@ -39,9 +39,7 @@ export default function CriarEnfermeiro() {
 
   
   const onSubmit = () => {
-    setTimeout(() => {
-      router.push("/")
-    }, 2500)
+    router.push("/admin/criarLogin")
   }
 
   return (
