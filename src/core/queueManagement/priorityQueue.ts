@@ -34,6 +34,7 @@ export class PriorityQueue {
 
   dequeueNext(): QueueEntry | null {
     this.verifyTimes()
+
     if (this.expiredQueue.length > 0) return this.expiredQueue.shift()!
     for (let i = 0; i <= this.queues.length - 1; i++) {
       if (this.queues[i].length > 0) {
@@ -42,6 +43,7 @@ export class PriorityQueue {
         return attendenceDel
       }
     }
+
     return null
   }
 

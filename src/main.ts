@@ -113,9 +113,15 @@ while (true) {
     // if (attendenceSearch) console.log(`Paciente ${attendenceSearch?.getPatient().getName()}\n`)
     // else console.log('Paciente não encontrado\n')
 
-    if (!doctor.patientCome(randomInt(-3, 2))) {
+    if (nextAttendence.getTriage()?.getRisk() === RiskLevel.RED) {
+      console.log("Paciente vermelho. URGÊNCIA")
+      nextAttendence.setEndTime()
+      nextAttendence.setStatus(Status.FINISHED)
+    }
+
+    else if (!doctor.patientCome(randomInt(-3, 2))) {
       // se o paciente não comparecer uma vez é colocado no fim da fila. Se não novamente, é dispensado
-      if (nextAttendence.getStatus() == Status.WAITING) {
+      if (nextAttendence.getStatus() === Status.WAITINGCALL) {
         const risk = nextAttendence.getTriage()!.getRisk()
 
         console.log(`🚫 Paciente ${nextAttendence.getPatient().getName()} não compareceu uma vez.\n`)
@@ -126,12 +132,16 @@ while (true) {
         recepcionist.enqueuePriorityQueue(priorityQueue, nextAttendence)
       } else if (nextAttendence.getStatus() == Status.CALLEDONCE) {
         console.log(`🚫 Paciente ${nextAttendence.getPatient().getName()} não compareceu segunda vez.\n`)
+      } else if (nextAttendence.getStatus() === Status.CALLEDTWICE) {
+        console.log(`🚫 Paciente ${nextAttendence.getPatient().getName()} não compareceu segunda vez.\n`)
         nextAttendence.setStatus(Status.DIDNOTATTEND)
       }
       console.log(priorityQueue.toString())
 
       continue
     }
+
+    // ATENDIMENTO
     console.log(
       `🏥 ${doctor.getName()} está atendendo ${nextAttendence.getPatient().getName()}\n⭐ Prioridade - ${numberToColor(nextAttendence.getTriage()!.getRisk())}`,
     )

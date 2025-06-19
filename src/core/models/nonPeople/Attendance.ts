@@ -9,6 +9,7 @@ export class Attendance {
   public readonly start_time: Date
   private end_time?: Date
   private status: number
+
   constructor(
     private id: number,
     private patient: Patient,
@@ -17,12 +18,13 @@ export class Attendance {
     private consultation?: Consultation,
   ) {
     this.start_time = new Date()
-    this.status = Status.WAITING
+    this.status = Status.WAITINGTRIAGE
   }
 
   // Setters
   setTriage(triage: Triage): void {
     this.triage = triage
+    this.status = Status.WAITINGCALL
   }
 
   setConsultation(consultation: Consultation): void {
