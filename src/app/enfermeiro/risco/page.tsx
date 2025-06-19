@@ -24,7 +24,7 @@ export default function Risco() {
     } 
 
     return (
-        <div className="mt-[3rem] flex justify-center">
+        <div className="mt-[3rem] flex justify-center font-[family-name:var(--font-gabarito)]">
             <div className="flex flex-col gap-10">
                 <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl font-bold shadow-2xl">
                     <h1 className="text-center w-full font-extrabold text-2xl tracking-wider">Classificação de Risco</h1>

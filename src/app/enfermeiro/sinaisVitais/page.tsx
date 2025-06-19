@@ -31,9 +31,9 @@ export default function SinaisVitais() {
     }
 
     return (
-        <div className="mt-[3rem] flex justify-center">
+        <div className="mt-[3rem] flex justify-center font-[family-name:var(--font-gabarito)]">
             <div className="flex flex-col gap-10">
-                <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl font-bold">
+                <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl">
                     <h1 className="text-center w-full font-extrabold text-2xl tracking-wider">Sinais Vitais</h1>
 
                     {/* Frequência Cardíaca */}

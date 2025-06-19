@@ -36,7 +36,7 @@ export default function CriarAtendimento() {
   }
 
   return (
-    <div className="flex justify-center mt-[3rem]">
+    <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
       <div className="flex flex-col items-center w-[80vw] lg:w-[60vw] gap-6">
         <h1 className="text-center font-bold text-[20px]">PACIENTES CADASTRADOS</h1>
         <div className="flex flex-col bg-[#1f5c77] p-6 gap-2 w-full shadow-2xl">

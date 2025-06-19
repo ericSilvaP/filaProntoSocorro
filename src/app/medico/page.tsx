@@ -13,7 +13,7 @@ export default function Medico() {
   }
 
   return (
-    <div className='flex justify-center gap-3 lg:gap-50 mt-[3rem]'>
+    <div className='flex justify-center gap-3 lg:gap-50 mt-[3rem] font-[family-name:var(--font-gabarito)]'>
       <div className='flex flex-col gap-10'>
 
         <div className=''>

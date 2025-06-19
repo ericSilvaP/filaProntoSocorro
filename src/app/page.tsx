@@ -23,13 +23,13 @@ export default function Home() {
   })
 
   return (
-    <div className={`flex justify-center items-center h-full mt-[3rem]`}>
+    <div className={`flex justify-center items-center h-full mt-[3rem] font-[family-name:var(--font-gabarito)]`}>
       <div className='bg-[rgb(56,163,165)] flex flex-col p-[2.5rem] flex-wrap gap-20 rounded-2xl items-center shadow-2xl md:max-w-500px'>
         <div className='flex flex-col'>
           <div className='flex justify-center'>
             <Image src="/systemLogoShadow.svg" alt='' height={150} width={150} className='select-none'/>
           </div>
-          <label className='text-[rgb(34,87,122)] font-bold text-4xl text-center'>MedLink</label>
+          <label className={`text-[rgb(34,87,122)] font-bold text-4xl text-center`}>MedLink</label>
         </div>
 
         <div className='flex flex-col items-center gap-5'>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { gabarito } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,7 +17,7 @@ export default function RootLayout({
     <html lang="pt-br">
 
       <body
-        className={`antialiased bg-white`}
+        className={`antialiased bg-white ${gabarito.variable}`}
       >
         <Header />
         {children}

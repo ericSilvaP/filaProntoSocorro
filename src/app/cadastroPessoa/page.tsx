@@ -230,7 +230,7 @@ export default function CadastroPessoa() {
   }
 
   return (
-    <div className="flex items-center mt-[5rem] flex-col">
+    <div className="flex items-center mt-[5rem] flex-col font-[family-name:var(--font-gabarito)]">
 
       <div className="flex flex-col px-10">
         <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">

@@ -7,7 +7,7 @@ export default function Tela1() {
 
     return (
         <div className="">
-            <main className="flex mt-[5rem] px-10 gap-17 justify-center flex-col md:flex-row text-2xl">
+            <main className="flex mt-[5rem] px-10 gap-17 justify-center flex-col md:flex-row text-2xl font-[family-name:var(--font-gabarito)]">
                 <div className="flex flex-col gap-5">
                     <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Fila de Prioridade</h3>

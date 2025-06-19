@@ -3,7 +3,7 @@ import Image from 'next/image'
 export default function FichaPaciente() {
 
     return (
-        <div className="flex justify-center mt-[3rem]">
+        <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
             <div className="bg-[rgb(56,163,165)] h-[50rem] w-[35rem] text-white p-6">
                 <h1 className="text-center w-full font-extrabold text-2xl mb-5">Informações Pessoais</h1>
                 <div className='flex gap-2 flex-3'>

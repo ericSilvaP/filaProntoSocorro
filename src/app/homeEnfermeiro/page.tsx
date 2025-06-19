@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function HomeEnfermeiro() {
     return (
-        <div className='flex justify-center gap-3 lg:gap-50 mt-[3rem]'>
+        <div className='flex justify-center gap-3 lg:gap-50 mt-[3rem] font-[family-name:var(--font-gabarito)]'>
             <div className='flex flex-col gap-10 justify-center'>
 
                 <div className=''>
