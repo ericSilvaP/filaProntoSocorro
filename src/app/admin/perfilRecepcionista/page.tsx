@@ -18,6 +18,15 @@ export const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>): string
   return input
 }
 
+export const handleChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
+  let input = replaceOnlyNumbers(e.target.value).slice(0, 11)
+
+  input = input.replace(/(\d{2})(\d)/, "($1) $2")
+  input = input.replace(/(\d{5})(\d)/, "$1-$2")
+
+  return input
+}
+
 export const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = replaceOnlyNumbers(e.target.value.slice(0, 14))
   
@@ -245,12 +254,16 @@ export default function CriarRecepcionista() {
               <Controller 
                 name="phone"
                 control={control}
-                rules={{ required: true }}
+                rules={{ 
+                  required: true,
+                  minLength: { value: 15, message: "Tamanho Telefone insuficiente" },
+                }}
                 render={({ field }) => (
                   <input
                     {...field}
                     type="text"
                     autoComplete="off"
+                    onChange={(e) => setValue("phone", handleChangePhone(e))}
                     className={`custom-input ${errors.phone && 'outline-3 outline-[rgb(240,101,58)]'}`}
                   />
                 )}
