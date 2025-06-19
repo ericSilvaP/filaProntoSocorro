@@ -30,7 +30,7 @@ export default function CriarAtendimento() {
 
   function searchPatient() {
     setSearchTerm(searchInput.trim())
-    setValue("patient", "")
+    setValue("patient", "") // reseta valor de pacientes no formulario
     setNoSearchResult(false)
     if (filteredPatients.length === 0 || searchInput.length === 0) setNoSearchResult(true)
   }

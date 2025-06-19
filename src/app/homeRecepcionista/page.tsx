@@ -1,7 +1,7 @@
 import { Person } from "@/components/person";
 import { SearchBar } from "@/components/searchBar";
 
-export default function Tela1() {
+export default function Home() {
 
   let patients = ['Paciente 1', 'Paciente 2', 'Paciente 3', 'Paciente 4', 'Paciente 5', 'Paciente 6', 'Paciente 7', 'Paciente 8', 'Paciente 9', 'Paciente 10',]
 

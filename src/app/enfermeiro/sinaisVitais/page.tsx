@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Controller, useForm } from "react-hook-form"
 
@@ -185,7 +186,9 @@ export default function SinaisVitais() {
                 {/* Botões */}
                 <div className="flex justify-evenly">
                     <div>
+                      <Link href="/enfermeiro">
                         <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl  font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150" onClick={() => handleSubmit(onSubmit)()}>Voltar</button>
+                      </Link>
                     </div>
                     <div>
                         <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150" onClick={() => handleSubmit(onSubmit)()}>Próximo</button>
