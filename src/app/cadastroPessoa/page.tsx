@@ -2,10 +2,51 @@
 
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
+import { handleChangeCPF } from "../admin/perfilRecepcionista/page"
 
 export function replaceOnlyNumbers(sentence: string): string {
   return sentence.replace(/\D/g, "")
 }
+
+export function isValidDate(datestring: string): boolean {
+  const [day, month, year] = datestring.split("/").map(Number)
+
+  if (day < 1 || month < 1 || month > 12) return false
+
+  const lastDayMonth = new Date(year, month, 0).getDate()
+  return day <= lastDayMonth
+}
+
+export function isValidCPF(cpf: string): boolean {
+
+    let cleanCPF = cpf.replace(/\D/g, "")
+
+    if (cleanCPF.length !== 11) return false
+
+    let nineFirstDigits = cleanCPF.slice(0, 9).split("")
+
+    let sum = nineFirstDigits.reduce((acc, n, i) => {
+      return Number(acc) + Number(n) * (10 - i)
+    }, 0
+    )
+
+    let remainder = sum % 11
+
+    let firstDigit = remainder < 2 ? 0 : 11 - remainder
+
+    sum = nineFirstDigits.reduce((acc, n, i) => {
+      const multiplicationFactor = 11 - i
+      return Number(acc) + Number(n) * multiplicationFactor
+    }, 0
+    ) + firstDigit * 2
+
+    remainder = sum % 11
+    let secondDigit = remainder < 2 ? 0 : 11 - remainder
+
+    const lastTwoDigits = cleanCPF.slice(9)
+
+    return Number(`${firstDigit}${secondDigit}`) === Number(lastTwoDigits)
+  }
 
 export default function CadastroPessoa() {
 
@@ -25,11 +66,6 @@ export default function CadastroPessoa() {
     }
 
     setFormData((prev) => ({ ...prev, birthDate: input }))
-  }
-
-  const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let input = formatCPF(replaceOnlyNumbers(e.target.value.slice(0, 14)))
-    setFormData((prev) => ({ ...prev, cpf: input }))
   }
 
   const handleChangeRG = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,14 +108,6 @@ export default function CadastroPessoa() {
     return sentence.replace(/[^A-Za-zÀ-ÿ\-'\s]/g, "")
   }
 
-  function formatCPF(cpfStr: string) {
-    cpfStr = cpfStr.replace(/(\d{3})(\d)/, "$1.$2")
-    cpfStr = cpfStr.replace(/(\d{3})(\d)/, "$1.$2")
-    cpfStr = cpfStr.replace(/(\d{3})(\d)/, "$1-$2")
-
-    return cpfStr
-  }
-
   const [formData, setFormData] = useState({
     name: "",
     birthDate: "",
@@ -107,15 +135,6 @@ export default function CadastroPessoa() {
     cep: false,
     phone: false,
   })
-
-  function isValidDate(datestring: string): boolean {
-    const [day, month, year] = datestring.split("/").map(Number)
-
-    if (day < 1 || month < 1 || month > 12) return false
-
-    const lastDayMonth = new Date(year, month, 0).getDate()
-    return day <= lastDayMonth
-  }
 
   function handleSubmit() {
 
@@ -195,38 +214,6 @@ export default function CadastroPessoa() {
     if (!formIsValid) return
     alert(JSON.stringify(formData))
     router.push("/cadastroPessoa2")
-  }
-
-
-  function isValidCPF(cpf: string): boolean {
-
-    let cleanCPF = cpf.replace(/\D/g, "")
-
-    if (cleanCPF.length !== 11) return false
-
-    let nineFirstDigits = cleanCPF.slice(0, 9).split("")
-
-    let sum = nineFirstDigits.reduce((acc, n, i) => {
-      return Number(acc) + Number(n) * (10 - i)
-    }, 0
-    )
-
-    let remainder = sum % 11
-
-    let firstDigit = remainder < 2 ? 0 : 11 - remainder
-
-    sum = nineFirstDigits.reduce((acc, n, i) => {
-      const multiplicationFactor = 11 - i
-      return Number(acc) + Number(n) * multiplicationFactor
-    }, 0
-    ) + firstDigit * 2
-
-    remainder = sum % 11
-    let secondDigit = remainder < 2 ? 0 : 11 - remainder
-
-    const lastTwoDigits = cleanCPF.slice(9)
-
-    return Number(`${firstDigit}${secondDigit}`) === Number(lastTwoDigits)
   }
 
   return (
