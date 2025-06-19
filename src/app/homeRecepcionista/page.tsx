@@ -11,7 +11,7 @@ export default function Tela1() {
                 <div className="flex flex-col gap-5">
                     <div className="flex flex-col items-center justify-center">
                         <h3 className="text-center font-bold">Fila de Prioridade</h3>
-                        <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5">
+                        <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5 shadow-2xl">
                             <SearchBar />
                             <div className="flex flex-col p-1.5 bg-white rounded-2xl px-4 gap-2">
                                 {patients.map((p, i) => (i === 0 ?
@@ -29,7 +29,7 @@ export default function Tela1() {
                 </div>
                 <div className="flex flex-col items-center justify-center h-full">
                     <h3 className="text-center font-bold">Atendidos Recentemente</h3>
-                    <div className="flex flex-col p-8 justify-center items-center bg-[rgb(128,237,153)] gap-8 md:w-auto h-full">
+                    <div className="flex flex-col p-8 justify-center items-center bg-[rgb(128,237,153)] gap-8 md:w-auto h-full shadow-2xl">
                         {[1,2,3,4,5].map(n => (
                             <div key={n} className="flex justify-center w-full gap-3 items-center">
                                 <Person name={`Pessoa ${n}`}/>
