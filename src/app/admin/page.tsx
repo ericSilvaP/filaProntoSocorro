@@ -25,41 +25,30 @@ export default function Admin() {
           <h1 className="text-center w-full font-extrabold text-2xl tracking-wider">Criar perfil</h1>
           { errors.risk_level && <div className="text-red-500 text-center font-normal">Selecione um risco</div> }
           <div className="flex flex-col gap-4">
+            <Link href={"/admin/criarEnfermeiro"}>
               <label className="cursor-pointer flex">
-                  <input
-                      type="radio"
-                      value={0}
-                      className="peer hidden"
-                      {...register("risk_level", { required: true })}
-                  />
-                  <span className="bg-[#ef233c] rounded py-3 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
+                  <span className="bg-[#ef233c] rounded py-3 px-6 hover:opacity-90 transition duration-150 flex-1 text-center">
                       Enfermeiro
                   </span>
               </label>
+            </Link>
 
+
+            <Link href={"/admin/criarRecepcionista"}>
               <label className="cursor-pointer flex">
-                  <input
-                      type="radio"
-                      value={2}
-                      className="peer hidden"
-                      {...register("risk_level", { required: true })}
-                  />
-                  <span className="bg-[#ffba08] rounded py-3 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
+                  <span className="bg-[#ffba08] rounded py-3 px-6 hover:opacity-90 transition duration-150 flex-1 text-center">
                       Recepcionista
                   </span>
               </label>
+            </Link>
 
+            <Link href={"/admin/criarMedico"}>
               <label className="cursor-pointer flex">
-                  <input
-                      type="radio"
-                      value={3}
-                      className="peer hidden"
-                      {...register("risk_level", { required: true })}
-                  />
-                  <span className="bg-[#7cb518] rounded py-3 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
+                  <span className="bg-[#7cb518] rounded py-3 px-6 hover:opacity-90 transition duration-150 flex-1 text-center">
                       Médico
                   </span>
               </label>
+            </Link>
 
           </div>
         </div>

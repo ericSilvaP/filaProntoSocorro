@@ -1,59 +1,32 @@
 'use client'
 
-import { isValidCPF, isValidDate, replaceOnlyNumbers } from "@/app/cadastroPessoa/page"
-import { SuccesModal } from "@/components/sucessModal"
+import { isValidCPF, isValidDate } from "@/app/cadastroPessoa/page"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
+import { handleChangeDate, handleChangeCPF, handleChangeRG, handleChangePhone } from "../criarRecepcionista/page"
 
-export const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>): string => {
-  let input = e.target.value.replace(/\D/g, "") // remove tudo que não for número
-
-  if (input.length > 8) input = input.slice(0, 8) // limita a 8 dígitos (DDMMYYYY)
-
-  // adiciona barras
-  if (input.length > 4) {
-    input = `${input.slice(0, 2)}/${input.slice(2, 4)}/${input.slice(4)}`
-  } else if (input.length > 2) {
-    input = `${input.slice(0, 2)}/${input.slice(2)}`
-  }
-
-  return input
-}
-
-export const handleChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
-  let input = replaceOnlyNumbers(e.target.value).slice(0, 11)
-
-  input = input.replace(/(\d{2})(\d)/, "($1) $2")
-  input = input.replace(/(\d{5})(\d)/, "$1-$2")
-
-  return input
-}
-
-export const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>): string => {
-  let input = replaceOnlyNumbers(e.target.value.slice(0, 14))
-  
-  input = input.replace(/(\d{3})(\d)/, "$1.$2")
-  input = input.replace(/(\d{3})(\d)/, "$1.$2")
-  input = input.replace(/(\d{3})(\d)/, "$1-$2")
-
-  return input
-}
-
-export const handleChangeRG = (e: React.ChangeEvent<HTMLInputElement>): string => {
+const handleChangeCRM = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = e.target.value.toUpperCase()
 
-  input = input.replace(/[^\dX]/g, "")
+  input = input.replace(/[^A-Z0-9]/g, "")
 
-  if (input.length > 9) {
-    input = replaceOnlyNumbers(e.target.value.slice(0, 11))
-  }
+  if (input.length < 3) input = input.replace(/[^A-Z]/, "")
 
-  return input
+  const match = input.match(/^([A-Z]{0,2})(\d{0,6})/)
+
+  if (!match) return input
+
+  const [, uf, number] = match
+
+  let formatted = uf
+  if (number) formatted += `-${number}`
+
+  return formatted.trim()
 }
 
-export default function CriarRecepcionista() {
+export default function CriarMedico() {
   const router = useRouter()
 
   const {
@@ -65,20 +38,17 @@ export default function CriarRecepcionista() {
 
   
   const onSubmit = () => {
-    setShowModal(true)
     setTimeout(() => {
       router.push("/")
     }, 2500)
   }
-
-  const [showModal, setShowModal] = useState(false)
 
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
       <div className="flex flex-col gap-10">
 
       <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
-          <h2 className="text-center w-full font-extrabold text-2xl uppercase">Criar Recepcionista</h2>
+          <h2 className="text-center w-full font-extrabold text-2xl uppercase">Criar Enfermeiro</h2>
 
           {/* Nome */}
           <div className="w-full">
@@ -211,7 +181,7 @@ export default function CriarRecepcionista() {
             </div>
           </div>
 
-          {/* CPF, RG */}
+          {/* CPF, RG, telefone */}
           <div className="flex justify-between w-full gap-7">
             {/* CPF */}
             <div className="flex gap-2 items-center w-full">
@@ -278,6 +248,28 @@ export default function CriarRecepcionista() {
                 )}
               />
             </div>
+
+            {/* CRM */}
+            <div className="flex gap-2 items-center">
+              <label>CRM: </label>
+              <Controller 
+                name="crm"
+                control={control}
+                rules={{ 
+                  required: true,
+                  minLength: { value: 9, message: "Tamanho CRM insuficiente" },
+                }}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    autoComplete="off"
+                    onChange={(e) => setValue("crm", handleChangeCRM(e))}
+                    className={`custom-input ${errors.crm && 'outline-3 outline-[rgb(240,101,58)]'}`}
+                  />
+                )}
+              />
+            </div>
           </div>
         </main>
 
@@ -286,12 +278,9 @@ export default function CriarRecepcionista() {
             <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">Voltar</button>
           </Link>
           
-          <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer" onClick={() => handleSubmit(onSubmit)()}>Criar Recepcionista</button>
-
-          
+          <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer" onClick={() => handleSubmit(onSubmit)()}>Próximo</button>
         </div>
       </div>
-      {showModal && <SuccesModal message="Recepcionista Criado!"/>}
       
     </div>
   )

@@ -17,8 +17,13 @@ export default function HomeEnfermeiro() {
     formState: { errors }
   } = useForm()
 
-  function onSubmit() {
-    router.push("/enfermeiro/sinaisVitais")
+  function onSubmit(data: any) {
+
+    const query = new URLSearchParams({
+      name: data.patient
+    }).toString()
+
+    router.push(`/enfermeiro/sinaisVitais?${query}`)
   }
 
   const [searchInput, setSearchInput] = useState("")

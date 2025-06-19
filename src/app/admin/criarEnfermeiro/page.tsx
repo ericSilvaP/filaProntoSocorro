@@ -1,17 +1,18 @@
 'use client'
 
 import { isValidCPF, isValidDate, replaceOnlyNumbers } from "@/app/cadastroPessoa/page"
-import { SuccesModal } from "@/components/sucessModal"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { handleChangeDate, handleChangeCPF, handleChangeRG, handleChangePhone } from "../perfilRecepcionista/page"
+import { handleChangeDate, handleChangeCPF, handleChangeRG, handleChangePhone } from "../criarRecepcionista/page"
 
 const handleChangeCOREN = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = e.target.value.toUpperCase()
 
   input = input.replace(/[^A-Z0-9]/g, "")
+
+  if (input.length < 3) input = input.replace(/[^A-Z]/, "")
 
   const match = input.match(/^([A-Z]{0,2})(\d{0,6})([A-Z]{0,2})/)
 
@@ -38,13 +39,10 @@ export default function CriarEnfermeiro() {
 
   
   const onSubmit = () => {
-    setShowModal(true)
     setTimeout(() => {
       router.push("/")
     }, 2500)
   }
-
-  const [showModal, setShowModal] = useState(false)
 
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
@@ -184,7 +182,7 @@ export default function CriarEnfermeiro() {
             </div>
           </div>
 
-          {/* CPF, RG */}
+          {/* CPF, RG, telefone */}
           <div className="flex justify-between w-full gap-7">
             {/* CPF */}
             <div className="flex gap-2 items-center w-full">
@@ -281,12 +279,9 @@ export default function CriarEnfermeiro() {
             <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">Voltar</button>
           </Link>
           
-          <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer" onClick={() => handleSubmit(onSubmit)()}>Criar Enfermeiro</button>
-
-          
+          <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer" onClick={() => handleSubmit(onSubmit)()}>Próximo</button>
         </div>
       </div>
-      {showModal && <SuccesModal message="Enfermeiro Criado!"/>}
       
     </div>
   )
