@@ -6,54 +6,27 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
+import { handleChangeDate, handleChangeCPF, handleChangeRG, handleChangePhone } from "../perfilRecepcionista/page"
 
-export const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>): string => {
-  let input = e.target.value.replace(/\D/g, "") // remove tudo que não for número
-
-  if (input.length > 8) input = input.slice(0, 8) // limita a 8 dígitos (DDMMYYYY)
-
-  // adiciona barras
-  if (input.length > 4) {
-    input = `${input.slice(0, 2)}/${input.slice(2, 4)}/${input.slice(4)}`
-  } else if (input.length > 2) {
-    input = `${input.slice(0, 2)}/${input.slice(2)}`
-  }
-
-  return input
-}
-
-export const handleChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
-  let input = replaceOnlyNumbers(e.target.value).slice(0, 11)
-
-  input = input.replace(/(\d{2})(\d)/, "($1) $2")
-  input = input.replace(/(\d{5})(\d)/, "$1-$2")
-
-  return input
-}
-
-export const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>): string => {
-  let input = replaceOnlyNumbers(e.target.value.slice(0, 14))
-  
-  input = input.replace(/(\d{3})(\d)/, "$1.$2")
-  input = input.replace(/(\d{3})(\d)/, "$1.$2")
-  input = input.replace(/(\d{3})(\d)/, "$1-$2")
-
-  return input
-}
-
-export const handleChangeRG = (e: React.ChangeEvent<HTMLInputElement>): string => {
+const handleChangeCOREN = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = e.target.value.toUpperCase()
 
-  input = input.replace(/[^\dX]/g, "")
+  input = input.replace(/[^A-Z0-9]/g, "")
 
-  if (input.length > 9) {
-    input = replaceOnlyNumbers(e.target.value.slice(0, 11))
-  }
+  const match = input.match(/^([A-Z]{0,2})(\d{0,6})([A-Z]{0,2})/)
 
-  return input
+  if (!match) return input
+
+  const [, uf, number, category] = match
+
+  let formatted = uf
+  if (number) formatted += `-${number}`
+  if (category) formatted += ` ${category}`
+
+  return formatted.trim()
 }
 
-export default function CriarRecepcionista() {
+export default function CriarEnfermeiro() {
   const router = useRouter()
 
   const {
@@ -78,7 +51,7 @@ export default function CriarRecepcionista() {
       <div className="flex flex-col gap-10">
 
       <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
-          <h2 className="text-center w-full font-extrabold text-2xl uppercase">Criar Recepcionista</h2>
+          <h2 className="text-center w-full font-extrabold text-2xl uppercase">Criar Enfermeiro</h2>
 
           {/* Nome */}
           <div className="w-full">
@@ -278,6 +251,28 @@ export default function CriarRecepcionista() {
                 )}
               />
             </div>
+
+            {/* COREN */}
+            <div className="flex gap-2 items-center">
+              <label>COREN: </label>
+              <Controller 
+                name="coren"
+                control={control}
+                rules={{ 
+                  required: true,
+                  minLength: { value: 12, message: "Tamanho COREN insuficiente" },
+                }}
+                render={({ field }) => (
+                  <input
+                    {...field}
+                    type="text"
+                    autoComplete="off"
+                    onChange={(e) => setValue("coren", handleChangeCOREN(e))}
+                    className={`custom-input ${errors.coren && 'outline-3 outline-[rgb(240,101,58)]'}`}
+                  />
+                )}
+              />
+            </div>
           </div>
         </main>
 
@@ -286,12 +281,12 @@ export default function CriarRecepcionista() {
             <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">Voltar</button>
           </Link>
           
-          <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer" onClick={() => handleSubmit(onSubmit)()}>Criar Recepcionista</button>
+          <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer" onClick={() => handleSubmit(onSubmit)()}>Criar Enfermeiro</button>
 
           
         </div>
       </div>
-      {showModal && <SuccesModal message="Recepcionista Criado!"/>}
+      {showModal && <SuccesModal message="Enfermeiro Criado!"/>}
       
     </div>
   )
