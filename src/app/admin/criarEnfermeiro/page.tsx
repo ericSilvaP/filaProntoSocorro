@@ -36,7 +36,6 @@ export default function CriarEnfermeiro() {
     setValue,
     formState: { errors }
   } = useForm()
-
   
   const onSubmit = () => {
     router.push("/admin/criarLogin")
