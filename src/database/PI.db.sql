@@ -106,4 +106,14 @@ CREATE TABLE IF NOT EXISTS "FilaDePrioridade" (
 	FOREIGN KEY ("classificacao_risco_id") REFERENCES "ClassificacaoDeRisco"("classificacao_risco_id")
 );
 
+CREATE TABLE IF NOT EXISTS "Usuario" (
+  "usuario_id" INTEGER PRIMARY KEY AUTOINCREMENT,
+  "email" VARCHAR(100) NOT NULL UNIQUE,
+  "senha" TEXT NOT NULL, -- hash da senha
+  "papel" TEXT NOT NULL CHECK (papel IN ('medico', 'enfermeira', 'recepcionista', 'admin')),
+  "referencia_id" INTEGER NOT NULL
+);
+
+
+
 COMMIT;
