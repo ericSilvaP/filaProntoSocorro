@@ -1,8 +1,8 @@
 'use client'
 
+import { handleChangeCPF } from "@/app/admin/criarRecepcionista/page"
 import { useRouter } from "next/navigation"
 import React, { useState } from "react"
-import { handleChangeCPF } from "../admin/criarRecepcionista/page"
 
 export function replaceOnlyNumbers(sentence: string): string {
   return sentence.replace(/\D/g, "")

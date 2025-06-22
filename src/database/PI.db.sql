@@ -114,6 +114,4 @@ CREATE TABLE IF NOT EXISTS "Usuario" (
   "referencia_id" INTEGER NOT NULL
 );
 
-
-
 COMMIT;
