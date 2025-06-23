@@ -16,3 +16,10 @@ export function getUserByEmail(email: string) {
   const stmt = db.prepare('SELECT * FROM Usuario WHERE email = @email')
   return stmt.get({ email })
 }
+
+
+export function deleteUserByEmail(email: string) {
+  const stmt = db.prepare("DELETE FROM Usuario WHERE email = ?");
+  const info = stmt.run(email);
+  return info.changes; // número de linhas deletadas
+}

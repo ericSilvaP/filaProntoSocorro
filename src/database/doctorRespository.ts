@@ -1,5 +1,6 @@
 import { db } from "."
 
+
 export function createDoctor(
   especialidade: string,
   crm: string,
@@ -35,18 +36,28 @@ export function createDoctor(
   return info.lastInsertRowid
 }
 
+
 export function getAllDoctors() {
   const stmt = db.prepare('SELECT * FROM Medico')
   return stmt.all()
 }
+
 
 export function getDoctorByCPF(cpf: string) {
   const stmt = db.prepare('SELECT * FROM Medico WHERE cpf = @cpf')
   return stmt.get({ cpf })
 }
 
+
 export function deleteDoctorByCpf(cpf: string) {
   const stmt = db.prepare('DELETE FROM Medico WHERE cpf = ?')
   const info = stmt.run(cpf)
+  return info.changes
+}
+
+
+export function deleteDoctorById(id: number) {
+  const stmt = db.prepare('DELETE FROM Medico WHERE medico_id = ?')
+  const info = stmt.run(id)
   return info.changes
 }
