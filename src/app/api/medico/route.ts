@@ -1,16 +1,16 @@
-import { createNurse, deleteNurseByCpf, getAllNurses } from "@/database/nurseRepository";
+import { getAllDoctors, createDoctor, deleteDoctorByCpf } from "@/database/doctorRespository";
 import { NextResponse } from "next/server";
 
 export async function GET() {
-  const nurses = getAllNurses()
-  return NextResponse.json(nurses)
+  const doctors = getAllDoctors()
+  return NextResponse.json(doctors)
 }
-
 
 export async function POST(req: Request) {
   const body = await req.json()
   const {
-    coren,
+    especialidade,
+    crm,
     nome,
     cpf,
     data_nascimento,
@@ -21,13 +21,14 @@ export async function POST(req: Request) {
     nome_mae
   } = body
 
-  if (!coren || !nome || !cpf || !data_nascimento || !sexo || !estado_civil || !telefone) {
+  if (!especialidade || !crm || !nome || !cpf || !data_nascimento || !sexo || !estado_civil || !telefone) {
     return NextResponse.json({ error: "Dados obrigatórios incompletos" }, { status: 400 })
   }
 
   try {
-    const id = createNurse(
-      coren,
+    const id = createDoctor(
+      especialidade,
+      crm,
       nome,
       cpf,
       data_nascimento,
@@ -38,13 +39,11 @@ export async function POST(req: Request) {
       nome_mae
     )
 
-
-    return NextResponse.json({ enfermeira_id: id })
+    return NextResponse.json({ medico_id: id })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
-
 
 export async function DELETE(
   _req: Request,
@@ -57,13 +56,13 @@ export async function DELETE(
   }
 
   try {
-    const result = deleteNurseByCpf(cpf)
+    const result = deleteDoctorByCpf(cpf)
 
     if (result === 0) {
-      return NextResponse.json({ error: "Enfermeira não encontrada" }, { status: 404 })
+      return NextResponse.json({ error: "Médico não encontrado" }, { status: 404 })
     }
 
-    return NextResponse.json({ message: "Enfermeira deletada com sucesso" })
+    return NextResponse.json({ message: "Médico deletado com sucesso" })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
