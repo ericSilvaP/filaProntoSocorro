@@ -115,4 +115,3 @@ CREATE TABLE IF NOT EXISTS "Usuario" (
 );
 
 COMMIT;
-

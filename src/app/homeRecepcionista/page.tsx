@@ -9,9 +9,11 @@ export default function Home() {
   const [pacientes, setPacientes] = useState([])
 
   useEffect(() => {
-  fetch('/api/pacientes')
+  fetch('/api/users')
     .then(res => res.json())
     .then(data => setPacientes(data))
+  
+  alert(JSON.stringify(pacientes))
   }, [])
 
   let patients = ['Paciente 1', 'Paciente 2', 'Paciente 3', 'Paciente 4', 'Paciente 5', 'Paciente 6', 'Paciente 7', 'Paciente 8', 'Paciente 9', 'Paciente 10',]
@@ -25,7 +27,7 @@ export default function Home() {
                         <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5 shadow-2xl">
                             <SearchBar />
                             <div className="flex flex-col p-1.5 bg-white rounded-2xl px-4 gap-2">
-                                {pacientes.map((p, i) => (i === 0 ?
+                                {pacientes.map((p: any, i) => (i === 0 ?
                                   <div key={i} className="font-bold">
                                     <div className="text-center text-2xl">Próximo</div>
                                     <div className="text-[20px]">
