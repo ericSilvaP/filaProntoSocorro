@@ -9,12 +9,10 @@ export default function Home() {
   const [pacientes, setPacientes] = useState([])
 
   useEffect(() => {
-  fetch('/api/users')
-    .then(res => res.json())
-    .then(data => setPacientes(data))
-  
-  alert(JSON.stringify(pacientes))
-  }, [])
+    fetch('/api/users')
+      .then(res => res.json())
+      .then(data => setPacientes(data))
+    }, [])
 
   let patients = ['Paciente 1', 'Paciente 2', 'Paciente 3', 'Paciente 4', 'Paciente 5', 'Paciente 6', 'Paciente 7', 'Paciente 8', 'Paciente 9', 'Paciente 10',]
 
@@ -31,10 +29,10 @@ export default function Home() {
                                   <div key={i} className="font-bold">
                                     <div className="text-center text-2xl">Próximo</div>
                                     <div className="text-[20px]">
-                                      {p.nome}
+                                      {p.email}
                                     </div>
                                   </div> : 
-                                  <div key={i} className="text-[20px]">{p}</div>
+                                  <div key={i} className="text-[20px]">{p.email}</div>
                                 ))}
                             </div>
                         </div>
