@@ -21,7 +21,18 @@ export class Receptionist extends Users {
     password: string,
     phoneNumber?: number[],
   ) {
-    super(id, cpf, name, birthDate, gender, adress, Roles.RECEPTIONIST, username, password, phoneNumber)
+    super(
+      id,
+      cpf,
+      name,
+      birthDate,
+      gender,
+      adress,
+      Roles.RECEPTIONIST,
+      username,
+      password,
+      phoneNumber,
+    )
   }
 
   registerPatient(
@@ -36,7 +47,18 @@ export class Receptionist extends Users {
     allergies?: string[],
     phoneNumber?: number[],
   ): Patient {
-    return new Patient(id, cpf, name, birthDate, gender, adress, sus, blood_type, allergies, phoneNumber)
+    return new Patient(
+      id,
+      cpf,
+      name,
+      birthDate,
+      gender,
+      adress,
+      sus,
+      blood_type,
+      allergies,
+      phoneNumber,
+    )
   }
 
   createAttendance(id: number, patient: Patient): Attendance {

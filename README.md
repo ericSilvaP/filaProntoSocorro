@@ -1,4 +1,3 @@
-
 # 🏥 Fila de Pronto Socorro
 
 <p align="center">
@@ -17,24 +16,24 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 
 ## 🎓 Disciplinas envolvidas
 
-- **Banco de Dados** – Prof. Rocha  
+- **Banco de Dados** – Prof. Rocha
 - **Estruturas de Dados** – Prof. Dario Calçada
 - **Programação Orientada a Objetos (POO)** – Prof. Eyder Rios
 
 ## 📋 Funcionalidades
 
-* Cadastro de pacientes pela recepção
-* Atribuição de triagem ao atendimento por enfermeiros
-* Fila de prioridade de atendimentos com base no risco da triagem atribuída
-* Atribuição de consultas por médicos
-* Registro completo de atendimentos
-* Geração de métricas de desempenho
+- Cadastro de pacientes pela recepção
+- Atribuição de triagem ao atendimento por enfermeiros
+- Fila de prioridade de atendimentos com base no risco da triagem atribuída
+- Atribuição de consultas por médicos
+- Registro completo de atendimentos
+- Geração de métricas de desempenho
 
 ## 🧰 Tecnologias utilizadas
 
-* [TypeScript][typescript]
-* [NextJS][nextjs]
-* [SQLite][sqlite]
+- [TypeScript][typescript]
+- [NextJS][nextjs]
+- [SQLite][sqlite]
 
 ## 🚀 Como executar o projeto
 
@@ -63,12 +62,12 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 
 ## 📈 Melhorias futuras
 
-* Definição de número de filas operando
-* Integração com banco de dados MySQL
-* Interface gráfica para uso em tempo real
-* API REST para comunicação com front-end
-* Autenticação de usuários por cargo (médico, enfermeiro, recepcionista)
-* Dashboard com gráficos e relatórios
+- Definição de número de filas operando
+- Integração com banco de dados MySQL
+- Interface gráfica para uso em tempo real
+- API REST para comunicação com front-end
+- Autenticação de usuários por cargo (médico, enfermeiro, recepcionista)
+- Dashboard com gráficos e relatórios
 
 ## 📄 Licença
 

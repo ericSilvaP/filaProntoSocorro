@@ -1,18 +1,23 @@
 'use client'
 
-import { isValidCPF, isValidDate } from "@/app/cadastroPessoa/page"
-import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
-import { Controller, useForm } from "react-hook-form"
-import { handleChangeDate, handleChangeCPF, handleChangeRG, handleChangePhone } from "../criarRecepcionista/page"
+import { isValidCPF, isValidDate } from '@/app/cadastroPessoa/page'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { Controller, useForm } from 'react-hook-form'
+import {
+  handleChangeDate,
+  handleChangeCPF,
+  handleChangeRG,
+  handleChangePhone,
+} from '../criarRecepcionista/page'
 
 const handleChangeCRM = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = e.target.value.toUpperCase()
 
-  input = input.replace(/[^A-Z0-9]/g, "")
+  input = input.replace(/[^A-Z0-9]/g, '')
 
-  if (input.length < 3) input = input.replace(/[^A-Z]/, "")
+  if (input.length < 3) input = input.replace(/[^A-Z]/, '')
 
   const match = input.match(/^([A-Z]{0,2})(\d{0,6})/)
 
@@ -33,26 +38,24 @@ export default function CriarMedico() {
     handleSubmit,
     control,
     setValue,
-    formState: { errors }
+    formState: { errors },
   } = useForm()
 
-  
   const onSubmit = () => {
-    router.push("/admin/criarLogin")
+    router.push('/admin/criarLogin')
   }
 
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
       <div className="flex flex-col gap-10">
-
-      <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
+        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
           <h2 className="text-center w-full font-extrabold text-2xl uppercase">Criar Enfermeiro</h2>
 
           {/* Nome */}
           <div className="w-full">
             <div className="flex gap-2 items-center">
               <label>Nome: </label>
-              <Controller 
+              <Controller
                 name="name"
                 control={control}
                 rules={{ required: true }}
@@ -72,7 +75,7 @@ export default function CriarMedico() {
           <div className="w-full">
             <div className="flex gap-2 items-center">
               <label>Nome da mãe: </label>
-              <Controller 
+              <Controller
                 name="mother"
                 control={control}
                 rules={{ required: true }}
@@ -92,7 +95,7 @@ export default function CriarMedico() {
           <div className="w-full">
             <div className="flex gap-2 items-center">
               <label>Nome do pai: </label>
-              <Controller 
+              <Controller
                 name="father"
                 control={control}
                 rules={{ required: true }}
@@ -113,23 +116,23 @@ export default function CriarMedico() {
             {/* Data de nascimento */}
             <div className="flex gap-2 items-center">
               <label>Data de nascimento: </label>
-              <Controller 
+              <Controller
                 name="birthDate"
                 control={control}
-                rules={{ 
+                rules={{
                   required: true,
                   pattern: {
                     value: /^\d{2}\/\d{2}\/\d{4}$/,
-                    message: "Formato inválido (DD/MM/AAAA)"
+                    message: 'Formato inválido (DD/MM/AAAA)',
                   },
-                  validate: value => isValidDate(value) 
+                  validate: (value) => isValidDate(value),
                 }}
                 render={({ field }) => (
                   <input
                     {...field}
                     type="text"
                     autoComplete="off"
-                    onChange={(e) => setValue("birthDate", handleChangeDate(e))}
+                    onChange={(e) => setValue('birthDate', handleChangeDate(e))}
                     className={`custom-input w-[9rem] ${errors.birthDate && 'outline-3 outline-[rgb(240,101,58)]'}`}
                     placeholder="DD/MM/AAAA"
                   />
@@ -140,7 +143,7 @@ export default function CriarMedico() {
             {/* Estado civil */}
             <div className="flex gap-2 items-center">
               <label>Estado civil: </label>
-              <Controller 
+              <Controller
                 name="civilStatus"
                 control={control}
                 rules={{ required: true }}
@@ -160,7 +163,7 @@ export default function CriarMedico() {
             {/* Sexo */}
             <div className="flex gap-2 items-center">
               <label>Sexo: </label>
-              <Controller 
+              <Controller
                 name="sex"
                 control={control}
                 rules={{ required: true }}
@@ -184,19 +187,19 @@ export default function CriarMedico() {
             {/* CPF */}
             <div className="flex gap-2 items-center w-full">
               <label>CPF: </label>
-              <Controller 
+              <Controller
                 name="cpf"
                 control={control}
-                rules={{ 
-                  required: true, 
-                  validate: (value) => isValidCPF(value) 
+                rules={{
+                  required: true,
+                  validate: (value) => isValidCPF(value),
                 }}
                 render={({ field }) => (
                   <input
                     {...field}
                     type="text"
                     autoComplete="off"
-                    onChange={(e) => (setValue("cpf", handleChangeCPF(e)))}
+                    onChange={(e) => setValue('cpf', handleChangeCPF(e))}
                     className={`custom-input w-full ${errors.cpf && 'outline-3 outline-[rgb(240,101,58)]'}`}
                   />
                 )}
@@ -206,41 +209,41 @@ export default function CriarMedico() {
             {/* RG */}
             <div className="flex gap-2 items-center w-full">
               <label>RG: </label>
-              <Controller 
+              <Controller
                 name="rg"
                 control={control}
-                rules={{ 
+                rules={{
                   required: true,
-                  minLength: { value: 9, message: "Tamanho de RG insuficiente" },
+                  minLength: { value: 9, message: 'Tamanho de RG insuficiente' },
                 }}
                 render={({ field }) => (
                   <input
                     {...field}
                     type="text"
                     autoComplete="off"
-                    onChange={(e) => setValue("rg", handleChangeRG(e))}
+                    onChange={(e) => setValue('rg', handleChangeRG(e))}
                     className={`custom-input w-full ${errors.rg && 'outline-3 outline-[rgb(240,101,58)]'}`}
                   />
                 )}
               />
             </div>
-            
+
             {/* Telefone */}
             <div className="flex gap-2 items-center">
               <label>Telefone: </label>
-              <Controller 
+              <Controller
                 name="phone"
                 control={control}
-                rules={{ 
+                rules={{
                   required: true,
-                  minLength: { value: 15, message: "Tamanho Telefone insuficiente" },
+                  minLength: { value: 15, message: 'Tamanho Telefone insuficiente' },
                 }}
                 render={({ field }) => (
                   <input
                     {...field}
                     type="text"
                     autoComplete="off"
-                    onChange={(e) => setValue("phone", handleChangePhone(e))}
+                    onChange={(e) => setValue('phone', handleChangePhone(e))}
                     className={`custom-input ${errors.phone && 'outline-3 outline-[rgb(240,101,58)]'}`}
                   />
                 )}
@@ -250,19 +253,19 @@ export default function CriarMedico() {
             {/* CRM */}
             <div className="flex gap-2 items-center">
               <label>CRM: </label>
-              <Controller 
+              <Controller
                 name="crm"
                 control={control}
-                rules={{ 
+                rules={{
                   required: true,
-                  minLength: { value: 9, message: "Tamanho CRM insuficiente" },
+                  minLength: { value: 9, message: 'Tamanho CRM insuficiente' },
                 }}
                 render={({ field }) => (
                   <input
                     {...field}
                     type="text"
                     autoComplete="off"
-                    onChange={(e) => setValue("crm", handleChangeCRM(e))}
+                    onChange={(e) => setValue('crm', handleChangeCRM(e))}
                     className={`custom-input ${errors.crm && 'outline-3 outline-[rgb(240,101,58)]'}`}
                   />
                 )}
@@ -272,14 +275,20 @@ export default function CriarMedico() {
         </main>
 
         <div className="flex justify-evenly">
-          <Link href={"/admin"}>
-            <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">Voltar</button>
+          <Link href={'/admin'}>
+            <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">
+              Voltar
+            </button>
           </Link>
-          
-          <button  className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer" onClick={() => handleSubmit(onSubmit)()}>Próximo</button>
+
+          <button
+            className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
+            onClick={() => handleSubmit(onSubmit)()}
+          >
+            Próximo
+          </button>
         </div>
       </div>
-      
     </div>
   )
 }

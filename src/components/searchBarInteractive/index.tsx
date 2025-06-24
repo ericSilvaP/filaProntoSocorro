@@ -1,5 +1,10 @@
-
-export function SearchBarInteractive({ value, onChange }: { value: string, onChange: (e: React.ChangeEvent<HTMLInputElement>) => void }) {
+export function SearchBarInteractive({
+  value,
+  onChange,
+}: {
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+}) {
   return (
     <label className="">
       <span>

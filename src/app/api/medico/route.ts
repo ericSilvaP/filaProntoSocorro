@@ -1,5 +1,5 @@
-import { getAllDoctors, createDoctor, deleteDoctorByCpf } from "@/database/doctorRespository";
-import { NextResponse } from "next/server";
+import { getAllDoctors, createDoctor, deleteDoctorByCpf } from '@/database/doctorRespository'
+import { NextResponse } from 'next/server'
 
 export async function GET() {
   const doctors = getAllDoctors()
@@ -18,11 +18,20 @@ export async function POST(req: Request) {
     estado_civil,
     telefone,
     nome_pai,
-    nome_mae
+    nome_mae,
   } = body
 
-  if (!especialidade || !crm || !nome || !cpf || !data_nascimento || !sexo || !estado_civil || !telefone) {
-    return NextResponse.json({ error: "Dados obrigatórios incompletos" }, { status: 400 })
+  if (
+    !especialidade ||
+    !crm ||
+    !nome ||
+    !cpf ||
+    !data_nascimento ||
+    !sexo ||
+    !estado_civil ||
+    !telefone
+  ) {
+    return NextResponse.json({ error: 'Dados obrigatórios incompletos' }, { status: 400 })
   }
 
   try {
@@ -36,7 +45,7 @@ export async function POST(req: Request) {
       estado_civil,
       telefone,
       nome_pai,
-      nome_mae
+      nome_mae,
     )
 
     return NextResponse.json({ medico_id: id })

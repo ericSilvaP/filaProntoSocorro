@@ -5,7 +5,10 @@ import { Attendance } from '../models/nonPeople/Attendance'
 export function getAverageAttendanceTime(attendances: Attendance[]): number {
   const finished = attendances.filter((a) => a.getStatus() === Status.FINISHED)
   if (finished.length === 0) return 0
-  const total = finished.reduce((acc, a) => acc + (a.getEndTime()!.getTime() - a.getStartTime()!.getTime()), 0)
+  const total = finished.reduce(
+    (acc, a) => acc + (a.getEndTime()!.getTime() - a.getStartTime()!.getTime()),
+    0,
+  )
   return total / finished.length
 }
 

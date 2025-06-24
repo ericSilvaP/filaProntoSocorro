@@ -1,5 +1,4 @@
-import { db } from "./index"
-
+import { db } from './index'
 
 export function createDoctor(
   especialidade: string,
@@ -11,7 +10,7 @@ export function createDoctor(
   estado_civil: string,
   telefone: string,
   nome_pai?: string,
-  nome_mae?: string
+  nome_mae?: string,
 ) {
   const stmt = db.prepare(`
     INSERT INTO Medico (
@@ -30,31 +29,27 @@ export function createDoctor(
     estado_civil,
     telefone,
     nome_pai ?? null,
-    nome_mae ?? null
+    nome_mae ?? null,
   )
 
   return info.lastInsertRowid
 }
-
 
 export function getAllDoctors() {
   const stmt = db.prepare('SELECT * FROM Medico')
   return stmt.all()
 }
 
-
 export function getDoctorByCPF(cpf: string) {
   const stmt = db.prepare('SELECT * FROM Medico WHERE cpf = @cpf')
   return stmt.get({ cpf })
 }
-
 
 export function deleteDoctorByCpf(cpf: string) {
   const stmt = db.prepare('DELETE FROM Medico WHERE cpf = ?')
   const info = stmt.run(cpf)
   return info.changes
 }
-
 
 export function deleteDoctorById(id: number) {
   const stmt = db.prepare('DELETE FROM Medico WHERE medico_id = ?')

@@ -1,8 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --primary-color: rgb(56,163,165);
-  --secondary-color: rgb(128,237,153);
+  --primary-color: rgb(56, 163, 165);
+  --secondary-color: rgb(128, 237, 153);
   --terciary-color: #1f5c77;
 }
 
@@ -13,12 +13,12 @@ body {
 .custom-input {
   background-color: white;
   color: black;
-  font-weight: 500;             /* font-medium */
-  padding: 0.375rem;            /* p-1.5 = 6px */
-  border-radius: 0.25rem;       /* rounded = 4px */
-  white-space: nowrap;          /* whitespace-nowrap */
+  font-weight: 500; /* font-medium */
+  padding: 0.375rem; /* p-1.5 = 6px */
+  border-radius: 0.25rem; /* rounded = 4px */
+  white-space: nowrap; /* whitespace-nowrap */
   overflow: hidden;
-  text-overflow: ellipsis;      /* truncate */
+  text-overflow: ellipsis; /* truncate */
   letter-spacing: 0.025em;
 }
 

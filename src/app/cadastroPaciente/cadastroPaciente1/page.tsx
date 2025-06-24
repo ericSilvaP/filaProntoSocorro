@@ -1,15 +1,15 @@
 'use client'
 
-import { handleChangeCPF } from "@/app/admin/criarRecepcionista/page"
-import { useRouter } from "next/navigation"
-import React, { useState } from "react"
+import { handleChangeCPF } from '@/app/admin/criarRecepcionista/page'
+import { useRouter } from 'next/navigation'
+import React, { useState } from 'react'
 
 export function replaceOnlyNumbers(sentence: string): string {
-  return sentence.replace(/\D/g, "")
+  return sentence.replace(/\D/g, '')
 }
 
 export function isValidDate(datestring: string): boolean {
-  const [day, month, year] = datestring.split("/").map(Number)
+  const [day, month, year] = datestring.split('/').map(Number)
 
   if (day < 1 || month < 1 || month > 12) return false
 
@@ -18,43 +18,41 @@ export function isValidDate(datestring: string): boolean {
 }
 
 export function isValidCPF(cpf: string): boolean {
+  let cleanCPF = cpf.replace(/\D/g, '')
 
-    let cleanCPF = cpf.replace(/\D/g, "")
+  if (cleanCPF.length !== 11) return false
 
-    if (cleanCPF.length !== 11) return false
+  let nineFirstDigits = cleanCPF.slice(0, 9).split('')
 
-    let nineFirstDigits = cleanCPF.slice(0, 9).split("")
+  let sum = nineFirstDigits.reduce((acc, n, i) => {
+    return Number(acc) + Number(n) * (10 - i)
+  }, 0)
 
-    let sum = nineFirstDigits.reduce((acc, n, i) => {
-      return Number(acc) + Number(n) * (10 - i)
-    }, 0
-    )
+  let remainder = sum % 11
 
-    let remainder = sum % 11
+  let firstDigit = remainder < 2 ? 0 : 11 - remainder
 
-    let firstDigit = remainder < 2 ? 0 : 11 - remainder
-
-    sum = nineFirstDigits.reduce((acc, n, i) => {
+  sum =
+    nineFirstDigits.reduce((acc, n, i) => {
       const multiplicationFactor = 11 - i
       return Number(acc) + Number(n) * multiplicationFactor
-    }, 0
-    ) + firstDigit * 2
+    }, 0) +
+    firstDigit * 2
 
-    remainder = sum % 11
-    let secondDigit = remainder < 2 ? 0 : 11 - remainder
+  remainder = sum % 11
+  let secondDigit = remainder < 2 ? 0 : 11 - remainder
 
-    const lastTwoDigits = cleanCPF.slice(9)
+  const lastTwoDigits = cleanCPF.slice(9)
 
-    return Number(`${firstDigit}${secondDigit}`) === Number(lastTwoDigits)
-  }
+  return Number(`${firstDigit}${secondDigit}`) === Number(lastTwoDigits)
+}
 
 export default function CadastroPessoa() {
-
   const router = useRouter()
 
   // formatação em tempo real
   const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let input = e.target.value.replace(/\D/g, "") // remove tudo que não for número
+    let input = e.target.value.replace(/\D/g, '') // remove tudo que não for número
 
     if (input.length > 8) input = input.slice(0, 8) // limita a 8 dígitos (DDMMYYYY)
 
@@ -71,7 +69,7 @@ export default function CadastroPessoa() {
   const handleChangeRG = (e: React.ChangeEvent<HTMLInputElement>) => {
     let input = e.target.value.toUpperCase()
 
-    input = input.replace(/[^\dX]/g, "")
+    input = input.replace(/[^\dX]/g, '')
 
     if (input.length > 9) {
       input = replaceOnlyNumbers(e.target.value.slice(0, 11))
@@ -89,8 +87,8 @@ export default function CadastroPessoa() {
   const handleChangeCEP = (e: React.ChangeEvent<HTMLInputElement>) => {
     let input = replaceOnlyNumbers(e.target.value).slice(0, 8)
 
-    input = input.replace(/(\d{2})(\d)/, "$1.$2")
-    input = input.replace(/(\d{3})(\d)/, "$1-$2")
+    input = input.replace(/(\d{2})(\d)/, '$1.$2')
+    input = input.replace(/(\d{3})(\d)/, '$1-$2')
 
     setFormData((prev) => ({ ...prev, cep: input }))
   }
@@ -98,28 +96,28 @@ export default function CadastroPessoa() {
   const handleChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
     let input = replaceOnlyNumbers(e.target.value).slice(0, 11)
 
-    input = input.replace(/(\d{2})(\d)/, "($1) $2")
-    input = input.replace(/(\d{5})(\d)/, "$1-$2")
+    input = input.replace(/(\d{2})(\d)/, '($1) $2')
+    input = input.replace(/(\d{5})(\d)/, '$1-$2')
 
     setFormData((prev) => ({ ...prev, phone: input }))
   }
 
   function replaceOnlyName(sentence: string): string {
-    return sentence.replace(/[^A-Za-zÀ-ÿ\-'\s]/g, "")
+    return sentence.replace(/[^A-Za-zÀ-ÿ\-'\s]/g, '')
   }
 
   const [formData, setFormData] = useState({
-    name: "",
-    birthDate: "",
-    civilStatus: "0",
-    sus: "",
-    cpf: "",
-    rg: "",
-    mother: "",
-    father: "",
-    sex: "0",
-    cep: "",
-    phone: "",
+    name: '',
+    birthDate: '',
+    civilStatus: '0',
+    sus: '',
+    cpf: '',
+    rg: '',
+    mother: '',
+    father: '',
+    sex: '0',
+    cep: '',
+    phone: '',
   })
 
   const [errors, setErrors] = useState({
@@ -137,19 +135,17 @@ export default function CadastroPessoa() {
   })
 
   function handleSubmit() {
-
     let formIsValid = true
 
     // verificação campos vazios
     Object.entries(formData).forEach(([key, value]) => {
-      if (!value.trim() || value === "0") {
+      if (!value.trim() || value === '0') {
         setErrors((prev) => ({ ...prev, [key]: true }))
         formIsValid = false
       } else {
         setErrors((prev) => ({ ...prev, [key]: false }))
       }
     })
-
 
     // validação data de nascimento
     if (formData.birthDate.length === 10) {
@@ -210,22 +206,18 @@ export default function CadastroPessoa() {
       setErrors((prev) => ({ ...prev, sus: false }))
     }
 
-
     if (!formIsValid) return
     alert(JSON.stringify(formData))
-    router.push("/cadastroPessoa2")
+    router.push('/cadastroPessoa2')
   }
 
   return (
     <div className="flex items-center mt-[5rem] flex-col font-[family-name:var(--font-gabarito)]">
-
       <div className="flex flex-col px-10">
         <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
-
           <h2 className="text-center w-full font-extrabold text-2xl">IDENTIFICAÇÃO DO PACIENTE</h2>
 
           <div className="w-full">
-
             <div className="flex gap-2 items-center">
               <label>Nome: </label>
               <input
@@ -241,7 +233,6 @@ export default function CadastroPessoa() {
           </div>
 
           <div className="w-full">
-
             <div className="flex gap-2 items-center">
               <label>Nome da mãe: </label>
               <input
@@ -257,7 +248,6 @@ export default function CadastroPessoa() {
           </div>
 
           <div className="w-full">
-
             <div className="flex gap-2 items-center">
               <label>Nome do pai: </label>
               <input
@@ -273,7 +263,6 @@ export default function CadastroPessoa() {
           </div>
 
           <div className="flex justify-between w-full gap-7">
-
             <div className="flex gap-2 items-center">
               <label>Data de nascimento: </label>
               <input
@@ -311,7 +300,6 @@ export default function CadastroPessoa() {
                 <option value="i">Indefinido</option>
               </select>
             </div>
-
           </div>
 
           <div className="flex justify-between w-full gap-7">
@@ -347,7 +335,6 @@ export default function CadastroPessoa() {
           </div>
 
           <div className="flex justify-between w-full gap-7">
-
             <div className="flex gap-2 items-center">
               <label>Telefone: </label>
               <input
@@ -367,16 +354,14 @@ export default function CadastroPessoa() {
                 onChange={handleChangeCEP}
               />
             </div>
-
           </div>
-
         </main>
 
         <div className="flex justify-end w-full mt-5">
           <button
             className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded"
-
-            onClick={handleSubmit}>
+            onClick={handleSubmit}
+          >
             Próximo
           </button>
         </div>

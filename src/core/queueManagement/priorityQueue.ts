@@ -29,7 +29,10 @@ export class PriorityQueue {
     }
 
     this.queues[servicePriority].push(queueEntry)
-    this.attendenceMap.set(queueEntry.getAttendence().getPatient().getCpf(), queueEntry.getAttendence())
+    this.attendenceMap.set(
+      queueEntry.getAttendence().getPatient().getCpf(),
+      queueEntry.getAttendence(),
+    )
   }
 
   dequeueNext(): QueueEntry | null {

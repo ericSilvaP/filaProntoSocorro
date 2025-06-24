@@ -1,4 +1,4 @@
-import { db } from "./index"
+import { db } from './index'
 
 export function createRecepcionista(
   nome: string,
@@ -8,7 +8,7 @@ export function createRecepcionista(
   estado_civil: string,
   telefone: string,
   nome_pai?: string,
-  nome_mae?: string
+  nome_mae?: string,
 ) {
   const stmt = db.prepare(`
     INSERT INTO Recepcionista (
@@ -25,7 +25,7 @@ export function createRecepcionista(
     estado_civil,
     telefone,
     nome_pai ?? null,
-    nome_mae ?? null
+    nome_mae ?? null,
   )
 
   return info.lastInsertRowid

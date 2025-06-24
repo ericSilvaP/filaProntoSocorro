@@ -1,4 +1,4 @@
-import { db } from "./index"
+import { db } from './index'
 
 export function createNurse(
   coren: string,
@@ -9,7 +9,7 @@ export function createNurse(
   estado_civil: string,
   telefone: string,
   nome_pai?: string,
-  nome_mae?: string
+  nome_mae?: string,
 ) {
   const stmt = db.prepare(`
     INSERT INTO Enfermeira (
@@ -27,16 +27,16 @@ export function createNurse(
     estado_civil,
     telefone,
     nome_pai ?? null,
-    nome_mae ?? null
-  );
+    nome_mae ?? null,
+  )
 
-  return info.lastInsertRowid;
+  return info.lastInsertRowid
 }
 
 export function getAllNurses() {
   const stmt = db.prepare('SELECT * FROM Enfermeira')
   const resp = stmt.all()
-  return resp 
+  return resp
 }
 
 export function getNurseByCPF(cpf: string) {
@@ -53,5 +53,5 @@ export function deleteNurseById(id: number) {
 export function deleteNurseByCpf(cpf: string) {
   const stmt = db.prepare('DELETE FROM Enfermeira WHERE cpf = ?')
   const info = stmt.run(cpf)
-  return info.changes 
+  return info.changes
 }
