@@ -8,6 +8,7 @@ import {
   getUserByEmail,
 } from '@/database/userRepository'
 import { NextResponse } from 'next/server'
+import bcrypt from 'bcrypt'
 
 export async function GET() {
   const users = getAllUsers()
@@ -23,7 +24,8 @@ export async function POST(req: Request) {
   }
 
   try {
-    const id = createUser(email, password, role, reference_id)
+    const encryptedPassword = await bcrypt.hash(password, 10)
+    const id = createUser(email, encryptedPassword, role, reference_id)
     return NextResponse.json({ id })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })

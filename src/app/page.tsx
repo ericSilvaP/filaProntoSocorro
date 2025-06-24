@@ -12,9 +12,37 @@ export default function Home() {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data: unknown) => {
-    alert(JSON.stringify(data))
+  const onSubmit = async (data: any) => {
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: data.email,
+        password: data.password,
+      }),
+    });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      alert(`Erro: ${result.error}`);
+      return;
+    }
+
+    // Se login for bem-sucedido, você pode armazenar os dados do usuário
+    // e redirecionar, por exemplo:
+    alert(`Bem-vindo, ${result.usuario.papel}`);
+    // Exemplo de redirecionamento com o useRouter:
+    // router.push(`/dashboard/${result.usuario.papel}`);
+  } catch (error) {
+    alert("Erro de rede ou servidor.");
+    console.error(error);
   }
+};
+
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'

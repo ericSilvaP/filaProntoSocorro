@@ -27,7 +27,7 @@ import { fileURLToPath } from 'url'
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
-const dbPath = join(__dirname, 'PI.db')
+const dbPath = join(__dirname, 'db.sqlite')
 
 export const db = new Database(dbPath)
 console.log('Banco conectado:', dbPath)
