@@ -1,10 +1,11 @@
 import { getUserByEmail } from "@/database/userRepository";
 import { NextResponse } from "next/server";
+import bcrypt from "bcrypt";
 
 export async function POST(req: Request) {
-  const { email, senha } = await req.json();
+  const { email, password } = await req.json();
 
-  if (!email || !senha) {
+  if (!email || !password) {
     return NextResponse.json({ error: "Email e senha obrigatórios" }, { status: 400 });
   }
 
@@ -14,7 +15,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Usuário não encontrado" }, { status: 404 });
   }
 
-  const senhaCorreta = senha === user.senha
+  const senhaCorreta = await bcrypt.compare(password, user.senha)
 
   if (!senhaCorreta) {
     return NextResponse.json({ error: "Senha incorreta" }, { status: 401 });
