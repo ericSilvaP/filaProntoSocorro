@@ -1,4 +1,4 @@
-import { db } from "./index"
+import { db } from './index'
 
 interface User {
   usuario_id: number;
