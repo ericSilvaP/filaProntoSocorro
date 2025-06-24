@@ -1,4 +1,4 @@
-import { db } from "..";
+import { db } from "./index";
 
 
 export function registerPatient(name: string, nameFather: string, nameMother: string, cardSus: number, cpf: number, birthDate: string, bloodType: string, sex: string, maritalStatus: string, phone: string) 
