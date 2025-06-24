@@ -3,9 +3,8 @@ import { db } from "./index";
 
 export function registerPatient(
   name: string, 
-  
   cardSus: number, 
-  cpf: number, 
+  cpf: string, 
   birthDate: string, 
   bloodType: string, 
   sex: string, 
@@ -39,7 +38,7 @@ export function getAllPatients() {
   return stmt.all();
 }
 
-export function getPatientByCpf(cpf: number) {
+export function getPatientByCpf(cpf: string) {
   const stmt = db.prepare('SELECT * FROM Paciente WHERE cpf = @cpf');
   return stmt.get({ cpf });
 }
@@ -50,7 +49,7 @@ export function deletePatientById(id: number) {
   return info.changes
 }
 
-export function deletePatientByCpf(cpf: number) {
+export function deletePatientByCpf(cpf: string) {
   const stmt = db.prepare('DELETE FROM Paciente WHERE cpf = ?')
   const info = stmt.run(cpf)
   return info.changes
