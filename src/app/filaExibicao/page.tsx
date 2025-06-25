@@ -1,12 +1,10 @@
 'use client'
 
-import { Person } from '@/components/person'
 import { SearchBar } from '@/components/searchBar'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
-  
-  const [pacientes, setPacientes] = useState([])
+  const [pacientes, setPacientes] = useState<string[]>([])
 
   useEffect(() => {
     fetch('/api/users')
@@ -14,6 +12,7 @@ export default function Home() {
       .then((data) => setPacientes(data))
   }, [])
 
+  // Exemplo local (remova se estiver usando pacientes reais)
   let patients = [
     'Paciente 1',
     'Paciente 2',
@@ -25,30 +24,35 @@ export default function Home() {
     'Paciente 8',
     'Paciente 9',
     'Paciente 10',
-  ]
+  ] 
 
   return (
-    <div className="">
-      <main className="flex mt-[5rem] px-10 gap-17 justify-center flex-col md:flex-row text-2xl font-[family-name:var(--font-gabarito)]">
-        <div className="flex flex-col gap-5">
-          <div className="flex flex-col items-center justify-center">
-            <h3 className="text-center font-bold">Fila de Prioridade</h3>
-            <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5 shadow-2xl">
-              <SearchBar />
-              <div className="flex flex-col p-1.5 bg-white rounded-2xl px-4 gap-2">
-                {patients && patients.map((p: any, i) =>
-                  i === 0 ? (
-                    <div key={i} className="font-bold">
-                      <div className="text-center text-2xl">Próximo</div>
-                      <div className="text-[20px]">{p}</div>
-                    </div>
-                  ) : (
-                    <div key={i} className="text-[20px]">
-                      {p}
-                    </div>
-                  ),
-                )}
-              </div>
+    <div className="py-10 px-6 font-[family-name:var(--font-gabarito)]">
+      <main className="max-w-5xl mx-auto flex flex-col md:flex-row gap-10">
+        <div className="w-full md:w-2/3 mx-auto">
+          <h3 className="text-center text-3xl font-extrabold mb-4 text-[#1f5c77] underline-offset-4">
+            Fila de Prioridade
+          </h3>
+
+          <div className="bg-[rgb(56,163,165)] rounded-xl p-6 shadow-lg space-y-4">
+            <div className="bg-white rounded-xl p-4 max-h-[400px] overflow-y-auto space-y-2">
+              {patients.length === 0 && (
+                <p className="text-center text-gray-500">Nenhum paciente na fila</p>
+              )}
+
+              {patients.map((p, i) => (
+                <div
+                  key={i}
+                  className={`p-3 rounded-md ${
+                    i === 0
+                      ? 'bg-lime-100 text-black font-bold text-lg border border-lime-400'
+                      : 'text-gray-800 text-base'
+                  }`}
+                >
+                  {i === 0 && <div className="text-center mb-1 text-[18px] uppercase">Próximo</div>}
+                  {p}
+                </div>
+              ))}
             </div>
           </div>
         </div>

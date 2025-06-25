@@ -16,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="pt-br">
-      <body className={`antialiased bg-white ${gabarito.variable}`}>
+      <body className={`antialiased bg-[#f0f4f5] ${gabarito.variable} `}>
         <AppLayout>{children}</AppLayout>
       </body>
     </html>
