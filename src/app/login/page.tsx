@@ -1,11 +1,14 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
 
 export default function Home() {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -13,36 +16,33 @@ export default function Home() {
   } = useForm()
 
   const onSubmit = async (data: any) => {
-  try {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    });
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      })
 
-    const result = await res.json();
+      const result = await res.json();
 
-    if (!res.ok) {
-      alert(`Erro: ${result.error}`);
-      return;
-    }
+      if (!res.ok) {
+        alert(`Erro: ${result.error}`)
+        return
+      }
 
-    // Se login for bem-sucedido, você pode armazenar os dados do usuário
-    // e redirecionar, por exemplo:
-    alert(`Bem-vindo,`);
-    // Exemplo de redirecionamento com o useRouter:
-    // router.push(`/dashboard/${result.usuario.papel}`);
-  } catch (error) {
-    alert("Erro de rede ou servidor.");
-    console.error(error);
+      if (result.usuario.papel === "admin") router.push('/admin')
+      else router.push(`/filaExibicao`);
+        
+      } catch (error) {
+        alert("Erro de rede ou servidor.");
+        console.error(error);
+      }
   }
-};
-
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'

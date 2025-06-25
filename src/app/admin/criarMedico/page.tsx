@@ -1,9 +1,7 @@
 'use client'
 
-import { isValidCPF, isValidDate } from '@/app/cadastroPessoa/page'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import {
   handleChangeDate,
@@ -11,6 +9,7 @@ import {
   handleChangeRG,
   handleChangePhone,
 } from '../criarRecepcionista/page'
+import { isValidDate, isValidCPF } from '@/app/dashboard/recepcionista/cadastroPaciente/page'
 
 const handleChangeCRM = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = e.target.value.toUpperCase()

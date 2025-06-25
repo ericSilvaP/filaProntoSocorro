@@ -19,5 +19,5 @@ export function middleware(request: NextRequest) {
 // Protege todas as rotas exceto as públicas definidas
 // Melhor deixar rodar apenas nas rotas privadas para evitar overhead
 export const config = {
-  matcher: ['/painel/:path*', '/admin/:path*'], 
+  matcher: ['/dashboard/:path*', '/admin/:path*'], 
 }
