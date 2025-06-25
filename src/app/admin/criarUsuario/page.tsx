@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { isValidDate, isValidCPF, replaceOnlyNumbers } from '@/app/dashboard/recepcionista/cadastroPaciente/page'
 
-
 export const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = e.target.value.replace(/\D/g, '') // remove tudo que não for número
 
@@ -39,19 +38,6 @@ export const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>): string 
 
   return input
 }
-
-export const handleChangeRG = (e: React.ChangeEvent<HTMLInputElement>): string => {
-  let input = e.target.value.toUpperCase()
-
-  input = input.replace(/[^\dX]/g, '')
-
-  if (input.length > 9) {
-    input = replaceOnlyNumbers(e.target.value.slice(0, 11))
-  }
-
-  return input
-}
-
 
 const handleChangeCOREN = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = e.target.value.toUpperCase()
@@ -104,9 +90,25 @@ export default function CriarMedico() {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = () => {
-    router.push('/admin/criarLogin')
+  const onSubmit = (data: any) => {
+    const query = new URLSearchParams({
+      nome: data.name,
+      cpf: data.cpf,
+      phone: data.phone,
+      birthDate: data.birthDate,
+      mother: data.mother,
+      father: data.father,
+      civilStatus: data.civilStatus,
+      sex: data.sex,
+
+      // adiciona CRM ou COREN dependendo do papel
+      ...(role === 'medico' && { crm: data.crm }),
+      ...(role === 'enfermeiro' && { coren: data.coren })
+    }).toString()
+
+    router.push(`/admin/criarLogin?${query}`)
   }
+
 
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
@@ -149,16 +151,6 @@ export default function CriarMedico() {
             placeholder="CPF"
             className={`custom-input ${errors.cpf ? 'error' : ''}`}
             onChange={(e) => setValue("cpf", handleChangeCPF(e))}
-          />
-
-          <input
-            {...register("rg", {
-              required: true,
-              validate: (val) => replaceOnlyNumbers(val).length >= 9
-            })}
-            placeholder="RG"
-            className={`custom-input ${errors.rg ? 'error' : ''}`}
-            onChange={(e) => setValue("rg", handleChangeRG(e))}
           />
 
           <input
