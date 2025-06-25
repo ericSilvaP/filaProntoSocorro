@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
@@ -36,7 +36,7 @@ export default function Home() {
     }
 
     alert(`Bem-vindo,`);
-    router.push(`/dashboard/${result.usuario.papel}`);
+    router.push(`/filaExibicao`);
   } catch (error) {
     alert("Erro de rede ou servidor.");
     console.error(error);

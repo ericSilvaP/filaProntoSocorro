@@ -1,9 +1,8 @@
 'use client'
 
-import { isValidCPF, isValidDate, replaceOnlyNumbers } from '@/app/cadastroPessoa/page'
+import { replaceOnlyNumbers, isValidDate, isValidCPF } from '@/app/dashboard/recepcionista/cadastroPaciente/cadastroPaciente1/page'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 
 export const handleChangeDate = (e: React.ChangeEvent<HTMLInputElement>): string => {
