@@ -24,7 +24,7 @@ export default function SinaisVitais() {
   const pain_levels = Object.values(pain_level)
 
   function onSubmit() {
-    router.push('/enfermeiro/risco')
+    router.push('/dahsboard/enfermeiro/risco')
   }
 
   function replaceNumbersNPoint(data: string) {
@@ -176,7 +176,7 @@ export default function SinaisVitais() {
         {/* Botões */}
         <div className="flex justify-evenly">
           <div>
-            <Link href="/enfermeiro">
+            <Link href="/dashboard/enfermeiro">
               <button
                 className="bg-[rgb(56,163,165)] p-2 text-white text-2xl  font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150"
                 onClick={() => handleSubmit(onSubmit)()}
