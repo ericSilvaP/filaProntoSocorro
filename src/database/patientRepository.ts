@@ -1,33 +1,32 @@
 import { db } from "./index";
 
-
 export function registerPatient(
-  name: string, 
-  cardSus: number, 
+  nome: string, 
+  cartao_sus: string, 
   cpf: string, 
-  birthDate: string, 
-  bloodType: string, 
-  sex: string, 
-  maritalStatus: string, 
-  phone: string,
-  nameFather?: string,
-  nameMother?: string,
+  data_nascimento: string, 
+  tipo_sanguineo: string, 
+  sexo: string, 
+  estado_civil: string, 
+  telefone: string,
+  nome_pai?: string,
+  nome_mae?: string,
 ) {
   const stmt = db.prepare(
-    'INSERT INTO Paciente (name, cardSus, cpf, birthDate, bloodType, sex, maritalStatus, phone, nameFather, nameMother) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    'INSERT INTO Paciente (nome, cartao_sus, cpf, data_nascimento, tipo_sanguineo, sexo, estado_civil, telefone, nome_pai, nome_mae) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
   );
 
   const info = stmt.run(
-    name,
-    cardSus,
+    nome,
+    cartao_sus,
     cpf,
-    birthDate,
-    bloodType,
-    sex,
-    maritalStatus,
-    phone,
-    nameFather ?? null,
-    nameMother ?? null
+    data_nascimento,
+    tipo_sanguineo,
+    sexo,
+    estado_civil,
+    telefone,
+    nome_pai ?? null,
+    nome_mae ?? null
   );
 
   return info.lastInsertRowid;
