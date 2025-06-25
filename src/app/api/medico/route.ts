@@ -31,7 +31,7 @@ export async function POST(req: Request) {
     !estado_civil ||
     !telefone
   ) {
-    return NextResponse.json({ error: 'Dados obrigatórios incompletos' }, { status: 400 })
+    return NextResponse.json({ error: 'Dados obrigatórios incompletos'}, { status: 400 })
   }
 
   try {
@@ -48,7 +48,7 @@ export async function POST(req: Request) {
       nome_mae,
     )
 
-    return NextResponse.json({ medico_id: id })
+    return NextResponse.json({ id: id })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }

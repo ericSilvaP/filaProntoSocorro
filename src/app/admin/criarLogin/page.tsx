@@ -2,14 +2,15 @@
 
 import { SuccesModal } from '@/components/sucessModal'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
 
 export default function CriarLogin() {
   const router = useRouter()
-
+  const searchParams = useSearchParams()
+  
   const {
     register,
     handleSubmit,
@@ -18,12 +19,81 @@ export default function CriarLogin() {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = () => {
-    setShowModal(true)
-    setTimeout(() => {
-      router.push('/admin')
-    }, 2500)
+  const onSubmit = async (data: any) => {
+    try {
+      const role = searchParams.get("papel")
+
+      const rawCPF = searchParams.get("cpf")?.replace(/[^0-9]/g, "")
+      const [day, month, year] = searchParams.get("data_nascimento")!.split("/")
+      const sqlDate = `${year}-${month}-${day}`
+      const rawPhone = searchParams.get("telefone")?.replace(/[^0-9]/g, "")
+
+      const resUser = await fetch(`/api/${role}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          ...(role === 'medico' && { especialidade: searchParams.get("especialidade") }),
+          ...(role === 'medico' && { crm: searchParams.get("crm") }),
+          ...(role === 'enfermeira' && { coren: searchParams.get("coren") }),
+          nome: searchParams.get("nome"),
+          cpf: rawCPF,
+          data_nascimento: sqlDate,
+          sexo: searchParams.get("sexo"),
+          estado_civil: searchParams.get("estado_civil"),
+          telefone: rawPhone,
+          nome_pai: searchParams.get("nome_pai"),
+          nome_mae: searchParams.get("nome_mae"),
+        })
+      })
+
+      const resultUser = await resUser.json()
+
+      if (!resUser.ok || !resultUser.id) {
+        alert(`Erro: ${resultUser.error || "Falha ao criar perfil."}`)
+        return
+      }
+
+      const referenceId = resultUser.id
+
+      const resLogin = await fetch("/api/usuario", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+          role,
+          reference_id: referenceId
+        })
+      })
+
+      const resultLogin = await resLogin.json()
+
+      if (!resLogin.ok) {
+        const resDelete = await fetch(`/api/${role}/${rawCPF}`, { method: 'DELETE' })
+        const resultDelete = await resDelete.json()
+
+        if (!resDelete.ok) {
+          alert(`Erro ao remover perfil após falha: ${resultDelete.error}`)
+          return
+        }
+
+        alert(`Erro ao criar login: ${resultLogin.error}`)
+        return
+      }
+
+      setShowModal(true)
+      setTimeout(() => {
+        router.push('/admin')
+      }, 2500)
+
+    } catch (error) {
+      alert("Erro de rede ou servidor.")
+      console.error(error)
+    }
   }
+
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword)
