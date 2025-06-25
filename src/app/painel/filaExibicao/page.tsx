@@ -5,9 +5,13 @@ import { SearchBar } from '@/components/searchBar'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
+  
   const [pacientes, setPacientes] = useState([])
 
   useEffect(() => {
+    fetch('/api/login')
+      .then(res => res.json())
+
     fetch('/api/users')
       .then((res) => res.json())
       .then((data) => setPacientes(data))

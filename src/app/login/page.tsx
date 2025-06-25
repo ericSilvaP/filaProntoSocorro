@@ -34,7 +34,7 @@ export default function Home() {
 
     // Se login for bem-sucedido, você pode armazenar os dados do usuário
     // e redirecionar, por exemplo:
-    alert(`Bem-vindo, ${result.usuario.papel}`);
+    alert(`Bem-vindo,`);
     // Exemplo de redirecionamento com o useRouter:
     // router.push(`/dashboard/${result.usuario.papel}`);
   } catch (error) {
