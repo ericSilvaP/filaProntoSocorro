@@ -31,7 +31,7 @@ export function registerClinicalAssessment(
   return info.lastInsertRowid;
 }
 
-export function getClinicalAssessment() {
+export function getAllClinicalAssessment() {
   const stmt = db.prepare(
     'SELECT * FROM AvaliacaoClinica'
   );
