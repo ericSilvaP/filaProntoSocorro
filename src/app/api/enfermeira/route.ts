@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       nome_mae,
     )
 
-    return NextResponse.json({ enfermeira_id: id })
+    return NextResponse.json({ id: id })
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 })
   }

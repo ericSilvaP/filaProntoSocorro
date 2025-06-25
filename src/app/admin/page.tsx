@@ -11,7 +11,7 @@ export default function Admin() {
             Criar perfil
           </h1>
           <div className="flex flex-col gap-4">
-            <Link href={'/admin/criarUsuario?papel=enfermeiro'}>
+            <Link href={'/admin/criarUsuario?papel=enfermeira'}>
               <label className="cursor-pointer flex">
                 <span className="bg-[#ef233c] rounded py-3 px-6 hover:opacity-90 transition duration-150 flex-1 text-center">
                   Enfermeiro

@@ -94,16 +94,18 @@ export default function CriarMedico() {
     const query = new URLSearchParams({
       nome: data.name,
       cpf: data.cpf,
-      phone: data.phone,
-      birthDate: data.birthDate,
-      mother: data.mother,
-      father: data.father,
-      civilStatus: data.civilStatus,
-      sex: data.sex,
+      telefone: data.phone,
+      data_nascimento: data.birthDate,
+      nome_mae: data.mother,
+      nome_pai: data.father,
+      estado_civil: data.maritalStatus,
+      sexo: data.sex,
+      papel: `${role}`,
 
       // adiciona CRM ou COREN dependendo do papel
       ...(role === 'medico' && { crm: data.crm }),
-      ...(role === 'enfermeiro' && { coren: data.coren })
+      ...(role === 'medico' && { especialidade: data.speciality }),
+      ...(role === 'enfermeira' && { coren: data.coren })
     }).toString()
 
     router.push(`/admin/criarLogin?${query}`)
@@ -113,7 +115,7 @@ export default function CriarMedico() {
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
       <div className="flex flex-col gap-10">
-        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
+        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold shadow-xl">
           <h2 className="text-center w-full font-extrabold text-2xl uppercase">Criar {role}</h2>
 
           <input {...register("name", { required: true })} placeholder="Nome" className={`custom-input w-full ${errors.name ? 'error' : ''}`} />
@@ -125,12 +127,12 @@ export default function CriarMedico() {
               required: true,
               validate: (val) => isValidDate(val) || "Data inválida"
             })}
-            placeholder="Data de nascimento (DD/MM/AAAA)"
+            placeholder="(DD/MM/AAAA)"
             className={`custom-input ${errors.birthDate ? 'error' : ''}`}
             onChange={(e) => setValue("birthDate", handleChangeDate(e))}
           />
 
-          <select {...register("civilStatus", { validate: val => val !== "0" })} className={`custom-input ${errors.civilStatus ? 'error' : ''}`}>
+          <select {...register("maritalStatus", { validate: val => val !== "0" })} className={`custom-input ${errors.maritalStatus ? 'error' : ''}`}>
             <option value="0">Estado civil</option>
             <option value="c">Casado</option>
             <option value="s">Solteiro</option>
@@ -175,7 +177,7 @@ export default function CriarMedico() {
             />
           )}
 
-          {role === "enfermeiro" && (
+          {role === "enfermeira" && (
             <input
               {...register("coren", {
                 required: true,
@@ -184,6 +186,16 @@ export default function CriarMedico() {
               placeholder="COREN"
               className={`custom-input ${errors.coren ? 'error' : ''}`}
               onChange={(e) => setValue("coren", handleChangeCOREN(e))}
+            />
+          )}
+
+          {role === "medico" && (
+            <input
+              {...register("speciality", {
+                required: true,
+              })}
+              placeholder="Especialidade"
+              className={`custom-input ${errors.coren ? 'error' : ''}`}
             />
           )}
         </main>
