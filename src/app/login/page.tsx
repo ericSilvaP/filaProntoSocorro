@@ -16,33 +16,33 @@ export default function Home() {
   } = useForm()
 
   const onSubmit = async (data: any) => {
-  try {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    });
+    try {
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      })
 
-    const result = await res.json();
+      const result = await res.json();
 
-    if (!res.ok) {
-      alert(`Erro: ${result.error}`);
-      return;
-    }
+      if (!res.ok) {
+        alert(`Erro: ${result.error}`)
+        return
+      }
 
-    alert(`Bem-vindo,`);
-    router.push(`/filaExibicao`);
-  } catch (error) {
-    alert("Erro de rede ou servidor.");
-    console.error(error);
+      if (result.usuario.papel === "admin") router.push('/admin')
+      else router.push(`/filaExibicao`);
+        
+      } catch (error) {
+        alert("Erro de rede ou servidor.");
+        console.error(error);
+      }
   }
-};
-
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'

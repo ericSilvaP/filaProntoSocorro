@@ -1,6 +1,6 @@
 'use client'
 
-import { replaceOnlyNumbers, isValidDate, isValidCPF } from '@/app/dashboard/recepcionista/cadastroPaciente/cadastroPaciente1/page'
+import { replaceOnlyNumbers, isValidDate, isValidCPF } from '@/app/dashboard/recepcionista/cadastroPaciente/page'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'

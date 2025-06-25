@@ -9,7 +9,7 @@ import {
   handleChangeRG,
   handleChangePhone,
 } from '../criarRecepcionista/page'
-import { isValidDate, isValidCPF } from '@/app/dashboard/recepcionista/cadastroPaciente/cadastroPaciente1/page'
+import { isValidDate, isValidCPF } from '@/app/dashboard/recepcionista/cadastroPaciente/page'
 
 const handleChangeCRM = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = e.target.value.toUpperCase()
