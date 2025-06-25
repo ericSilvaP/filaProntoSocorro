@@ -1,121 +1,71 @@
 'use client'
 
-import Image from 'next/image'
-import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { isEmail } from 'validator'
+import { Person } from '@/components/person'
+import { SearchBar } from '@/components/searchBar'
+import { useEffect, useState } from 'react'
 
 export default function Home() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm()
-
-  const onSubmit = async (data: any) => {
-  try {
-    const res = await fetch("/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email: data.email,
-        password: data.password,
-      }),
-    });
-
-    const result = await res.json();
-
-    if (!res.ok) {
-      alert(`Erro: ${result.error}`);
-      return;
-    }
-
-    // Se login for bem-sucedido, você pode armazenar os dados do usuário
-    // e redirecionar, por exemplo:
-    alert(`Bem-vindo,`);
-    // Exemplo de redirecionamento com o useRouter:
-    // router.push(`/dashboard/${result.usuario.papel}`);
-  } catch (error) {
-    alert("Erro de rede ou servidor.");
-    console.error(error);
-  }
-};
-
+  
+  const [pacientes, setPacientes] = useState([])
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden'
-  })
+    fetch('/api/login')
+      .then(res => res.json())
+
+    fetch('/api/users')
+      .then((res) => res.json())
+      .then((data) => setPacientes(data))
+  }, [])
+
+  let patients = [
+    'Paciente 1',
+    'Paciente 2',
+    'Paciente 3',
+    'Paciente 4',
+    'Paciente 5',
+    'Paciente 6',
+    'Paciente 7',
+    'Paciente 8',
+    'Paciente 9',
+    'Paciente 10',
+  ]
 
   return (
-    <div
-      className={`flex justify-center items-center h-full mt-[3rem] font-[family-name:var(--font-gabarito)]`}
-    >
-      <div className="bg-[rgb(56,163,165)] flex flex-col p-[2.5rem] flex-wrap gap-20 rounded-2xl items-center shadow-2xl md:max-w-500px">
-        <div className="flex flex-col">
-          <div className="flex justify-center">
-            <Image
-              src="/systemLogoShadow.svg"
-              alt=""
-              height={150}
-              width={150}
-              className="select-none"
-            />
+    <div className="">
+      <main className="flex mt-[5rem] px-10 gap-17 justify-center flex-col md:flex-row text-2xl font-[family-name:var(--font-gabarito)]">
+        <div className="flex flex-col gap-5">
+          <div className="flex flex-col items-center justify-center">
+            <h3 className="text-center font-bold">Fila de Prioridade</h3>
+            <div className="flex flex-col bg-[rgb(56,163,165)] rounded p-8 gap-5 shadow-2xl">
+              <SearchBar />
+              <div className="flex flex-col p-1.5 bg-white rounded-2xl px-4 gap-2">
+                {pacientes.map((p: any, i) =>
+                  i === 0 ? (
+                    <div key={i} className="font-bold">
+                      <div className="text-center text-2xl">Próximo</div>
+                      <div className="text-[20px]">{p.email}</div>
+                    </div>
+                  ) : (
+                    <div key={i} className="text-[20px]">
+                      {p.email}
+                    </div>
+                  ),
+                )}
+              </div>
+            </div>
           </div>
-          <label className={`text-[rgb(34,87,122)] font-bold text-4xl text-center`}>MedLink</label>
         </div>
-
-        <div className="flex flex-col items-center gap-5">
-          <label
-            className={`bg-white flex items-center p-4 gap-5 w-full ${errors.email ? 'outline-3 outline-[rgb(240,101,58)]' : ''}`}
-          >
-            <Image
-              src={'/mail_32_black.svg'}
-              alt=""
-              height={30}
-              width={30}
-              className="select-none"
-            />
-            <div className="flex text-[20px] h-full items-center translate-y-[1.5px]">Email</div>
-            <input
-              type="text"
-              className="focus-within:outline-0 h-full text-[20px] tracking-wide"
-              {...register('email', {
-                required: true,
-                validate: (value) => isEmail(value),
-              })}
-            />
-          </label>
-
-          <label
-            className={`bg-white flex items-center p-4 gap-5 w-full ${errors.password ? 'outline-3 outline-[rgb(240,101,58)]' : ''}`}
-          >
-            <Image
-              src={'/lock_32_black.svg'}
-              alt=""
-              height={30}
-              width={30}
-              className="select-none"
-            />
-            <label className="text-[20px]">Senha</label>
-            <input
-              type="password"
-              className={`focus-within:outline-0 h-full text-[20px] tracking-wide`}
-              {...register('password', { required: true })}
-            />
-          </label>
+        <div className="flex flex-col items-center justify-center h-full">
+          <h3 className="text-center font-bold">Atendidos Recentemente</h3>
+          <div className="flex flex-col p-8 justify-center items-center bg-[rgb(128,237,153)] gap-8 md:w-auto h-full shadow-2xl">
+            {[1, 2, 3, 4, 5].map((n) => (
+              <div key={n} className="flex justify-center w-full gap-3 items-center">
+                <Person name={`Pessoa ${n}`} />
+              </div>
+            ))}
+          </div>
         </div>
-
-        <div>
-          <button
-            className="bg-[rgb(128,237,153)] shadow-2xl py-3 px-10 font-semibold text-2xl rounded cursor-pointer hover:brightness-110 transition-all duration-150"
-            onClick={() => handleSubmit(onSubmit)()}
-          >
-            Entrar
-          </button>
-        </div>
-      </div>
+      </main>
     </div>
   )
 }
