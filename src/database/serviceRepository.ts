@@ -33,10 +33,10 @@ export function getServiceByAtendimentoId(atendimento_id: number) {
   return stmt.get(atendimento_id);
 }
 
-export function removePatientFromService(paciente_id: number) {
+export function removeServiceByAtendimentoId(atendimento_id: number) {
   const stmt = db.prepare(`
-    DELETE FROM Atendimento WHERE paciente_id = ?
+    DELETE FROM Atendimento WHERE atendimento_id = ?
   `);
-  const info = stmt.run(paciente_id);
+  const info = stmt.run(atendimento_id);
   return info.changes;
 }
