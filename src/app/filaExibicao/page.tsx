@@ -1,6 +1,5 @@
 'use client'
 
-import { Person } from '@/components/person'
 import { SearchBar } from '@/components/searchBar'
 import { useEffect, useState } from 'react'
 
