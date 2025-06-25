@@ -50,7 +50,7 @@ export default function Home() {
 
   return (
     <div
-      className={`flex justify-center items-center h-full mt-[3rem] font-[family-name:var(--font-gabarito)]`}
+      className={`flex justify-center items-center w-full h-[100vh] -translate-y-6 font-[family-name:var(--font-gabarito)]`}
     >
       <div className="bg-[rgb(56,163,165)] flex flex-col p-[2.5rem] flex-wrap gap-20 rounded-2xl items-center shadow-2xl md:max-w-500px">
         <div className="flex flex-col">
