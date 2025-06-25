@@ -11,7 +11,7 @@ export default function Admin() {
             Criar perfil
           </h1>
           <div className="flex flex-col gap-4">
-            <Link href={'/admin/criarEnfermeiro'}>
+            <Link href={'/admin/criarUsuario?papel=enfermeiro'}>
               <label className="cursor-pointer flex">
                 <span className="bg-[#ef233c] rounded py-3 px-6 hover:opacity-90 transition duration-150 flex-1 text-center">
                   Enfermeiro
@@ -19,7 +19,7 @@ export default function Admin() {
               </label>
             </Link>
 
-            <Link href={'/admin/criarRecepcionista'}>
+            <Link href={'/admin/criarUsuario?papel=recepcionista'}>
               <label className="cursor-pointer flex">
                 <span className="bg-[#ffba08] rounded py-3 px-6 hover:opacity-90 transition duration-150 flex-1 text-center">
                   Recepcionista
@@ -27,7 +27,7 @@ export default function Admin() {
               </label>
             </Link>
 
-            <Link href={'/admin/criarMedico'}>
+            <Link href={'/admin/criarUsuario?papel=medico'}>
               <label className="cursor-pointer flex">
                 <span className="bg-[#7cb518] rounded py-3 px-6 hover:opacity-90 transition duration-150 flex-1 text-center">
                   Médico
