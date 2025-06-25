@@ -1,11 +1,14 @@
 'use client'
 
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
 
 export default function Home() {
+  const router = useRouter()
+
   const {
     register,
     handleSubmit,
@@ -32,11 +35,8 @@ export default function Home() {
       return;
     }
 
-    // Se login for bem-sucedido, você pode armazenar os dados do usuário
-    // e redirecionar, por exemplo:
     alert(`Bem-vindo,`);
-    // Exemplo de redirecionamento com o useRouter:
-    // router.push(`/dashboard/${result.usuario.papel}`);
+    router.push(`/dashboard/${result.usuario.papel}`);
   } catch (error) {
     alert("Erro de rede ou servidor.");
     console.error(error);
