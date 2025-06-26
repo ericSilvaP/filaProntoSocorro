@@ -21,7 +21,7 @@ export async function POST(req: Request) {
     nome_mae 
   } = body
 
-  if (!nome || !cartao_sus || !cpf || !data_nascimento || !tipo_sanguineo || !sexo || !estado_civil || !telefone) {
+  if (!nome || !cartao_sus || !cpf || !data_nascimento || !sexo || !estado_civil || !telefone) {
     return NextResponse.json({ error: 'Dados obrigatórios incompletos' }, { status: 400 })
   }
 
@@ -31,12 +31,12 @@ export async function POST(req: Request) {
     cartao_sus,
     cpf,
     data_nascimento,
-    tipo_sanguineo,
     sexo,
     estado_civil,
     telefone,
-    nome_pai ?? null,
-    nome_mae ?? null
+    tipo_sanguineo,
+    nome_pai,
+    nome_mae
     )
 
     return NextResponse.json({ id: id })
