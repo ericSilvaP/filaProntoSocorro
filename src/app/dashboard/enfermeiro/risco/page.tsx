@@ -22,14 +22,17 @@ export default function Risco() {
     try {
       const urlParams = Object.fromEntries(searchParams.entries())
 
+      const prioridade = parseInt(data.risk_level)
+
       const atendimento_id = parseInt(urlParams.atendimento_id || '')
-      const classificacao_risco_id = parseInt(data.risk_level)+1
+      const classificacao_risco_id = prioridade+1
       const pressao_arterial = urlParams.blood_pressure || ''
       const frequencia_cardiaca = parseFloat(urlParams.heart_rate || '')
       const frequencia_respiratoria = parseFloat(urlParams.respiratory_rate || '')
       const temperatura = parseFloat(urlParams.temperature || '')
       const saturacao_oxigenio = parseFloat(urlParams.oxygen_saturation || '')
       const nivel_dor = urlParams.pain_level ? parseInt(urlParams.pain_level) : 0
+      const paciente_id = urlParams.paciente_id ? parseInt(urlParams.paciente_id) : 0
 
       if (
         isNaN(atendimento_id) ||
@@ -58,6 +61,7 @@ export default function Risco() {
 
       console.log("Enviando body:", body)
 
+      // inserção nova triagem
       const res = await fetch(`/api/avaliacaoClinica`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -72,6 +76,7 @@ export default function Risco() {
         return
       }
 
+      // atribuição risco para atendimento
       const resUpdateAtendimento = await fetch(`/api/atendimento/update-by-id/${String(atendimento_id)}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -82,6 +87,20 @@ export default function Risco() {
       
       if (!resUpdateAtendimento.ok) {
         alert(`Erro na mudança de prioridade: ${resultUpdAtendimento.error}`)
+        return
+      }
+
+      // atualiza prioridade na fila
+      const resUpdFila = await fetch(`/api/filaDePrioridade/update-by-paciente-id/${String(atendimento_id)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({prioridade: prioridade})
+      })
+
+      const resultUpdtFila = await resUpdFila.json()
+
+      if (!resUpdFila.ok) {
+        alert(`Erro na mudança de prioridade: ${resultUpdtFila.error}`)
         return
       }
 

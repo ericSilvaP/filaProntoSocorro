@@ -27,7 +27,8 @@ export default function HomeEnfermeiro() {
     const query = new URLSearchParams({
       nome: queue[patientIndex].getAttendence().getPatient().getName(),
       cpf: queue[patientIndex].getAttendence().getPatient().getCpf(),
-      atendimento_id: String(queue[patientIndex].getAttendence().getId())
+      atendimento_id: String(queue[patientIndex].getAttendence().getId()),
+      paciente_id: String(queue[patientIndex].getAttendence().getPatient().getId())
     }).toString()
 
     router.push(`/dashboard/enfermeiro/sinaisVitais?${query}`)

@@ -28,6 +28,7 @@ export default function SinaisVitais() {
   const atendimento_id = searchParams.get("atendimento_id") || ""
   const nome = searchParams.get("nome") || ""
   const cpf = searchParams.get("cpf") || ""
+  const paciente_id = searchParams.get("paciente_id") || ""
 
   const query = new URLSearchParams({
     atendimento_id,
@@ -39,6 +40,7 @@ export default function SinaisVitais() {
     temperature: data.temperature,
     oxygen_saturation: data.oxygen_saturation,
     pain_level: data.pain_level,
+    paciente_id: paciente_id
   }).toString()
 
   router.push(`/dashboard/enfermeiro/risco?${query}`)

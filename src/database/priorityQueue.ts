@@ -22,14 +22,14 @@ export function updatePriorityInQueue(
   prioridade: number
 ) {
   const stmt = db.prepare(`
-    UPDATE Atendimento
+    UPDATE FilaDePrioridade
     SET prioridade = ?
-    WHERE id = ?
-  `);
+    WHERE atendimento_id = ?
+  `)
 
-  const result = stmt.run(prioridade, atendimento_id);
+  const result = stmt.run(prioridade, atendimento_id)
 
-  return result.changes;
+  return result.changes
 }
 
 

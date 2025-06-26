@@ -26,6 +26,10 @@ export class Patient extends Person {
     return this.blood_type
   }
 
+  getId(): number {
+    return this.id
+  }
+
   setName(newName: string): void {
     this.name = newName
   }

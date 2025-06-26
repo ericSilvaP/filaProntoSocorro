@@ -8,7 +8,7 @@ export async function PUT(
   const atendimento_Id = Number(params.id);
   if (isNaN(atendimento_Id)) {
     return NextResponse.json(
-      { error: "ID de atendimento inválido" },
+      { error: `ID de atendimento inválido - ${params.id}` },
       { status: 400 }
     );
   }
