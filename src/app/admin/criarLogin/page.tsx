@@ -10,7 +10,10 @@ import { isEmail } from 'validator'
 export default function CriarLogin() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  
+  const [showPassword, setShowPassword] = useState(true)
+  const [showRepeatedPassword, setRepeatedShowPassword] = useState(true)
+  const [showModal, setShowModal] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -103,15 +106,11 @@ export default function CriarLogin() {
     setRepeatedShowPassword(!showRepeatedPassword)
   }
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [showRepeatedPassword, setRepeatedShowPassword] = useState(false)
-  const [showModal, setShowModal] = useState(false)
-
   return (
     <div
       className={`flex justify-center items-center h-full mt-[3rem] font-[family-name:var(--font-gabarito)]`}
     >
-      <div className="bg-[rgb(56,163,165)] flex flex-col p-[2rem] flex-wrap gap-20 rounded-2xl items-center shadow-2xl md:max-w-500px">
+      <div className="bg-[rgb(56,163,165)] flex flex-col p-6 lg:p-8 gap-10 lg:gap-20 rounded-2xl items-center shadow-2xl w-[95%] max-w-[500px]">
         <div className="flex flex-col">
           <div className="flex justify-center">
             <Image
@@ -135,7 +134,7 @@ export default function CriarLogin() {
 
           <label
             className={`bg-white flex items-center p-4 gap-5 w-full ${errors.email ? 'outline-3 outline-[rgb(240,101,58)]' : ''}`}
-          >
+          > 
             <Image
               src={'/mail_32_black.svg'}
               alt=""
@@ -148,12 +147,14 @@ export default function CriarLogin() {
             </div>
             <input
               type="text"
-              className="focus-within:outline-0 h-full text-[18px] tracking-wide flex-8"
+              className="focus-within:outline-0 h-full text-[18px] tracking-wide flex-7 translate-x-3"
+              autoComplete="off"
               {...register('email', {
                 required: true,
                 validate: (value) => isEmail(value),
               })}
             />
+
           </label>
 
           <label
@@ -166,7 +167,7 @@ export default function CriarLogin() {
               width={30}
               className="select-none"
             />
-            <label className="text-[18px] flex-2">Senha</label>
+            <label className="text-[18px] flex-3">Senha</label>
             <Controller
               name="password"
               control={control}
@@ -179,7 +180,7 @@ export default function CriarLogin() {
                 <input
                   {...field}
                   type={showPassword ? 'password' : 'text'}
-                  className={`focus-within:outline-0 h-full text-[18px] tracking-wide flex-8`}
+                  className={`focus-within:outline-0 h-full text-[18px] tracking-wide flex-7`}
                 />
               )}
             />
@@ -223,10 +224,10 @@ export default function CriarLogin() {
               width={30}
               className="select-none"
             />
-            <label className="text-[18px] flex-2">Confirmar Senha</label>
+            <label className="text-[18px] flex-3">Confirmar Senha</label>
             <input
               type={showRepeatedPassword ? 'password' : 'text'}
-              className={`focus-within:outline-0 h-full text-[18px] tracking-wide flex-8`}
+              className={`focus-within:outline-0 h-full text-[18px] tracking-wide flex-7`}
               {...register('repeatPassword', { required: true })}
             />
             {!showRepeatedPassword && (

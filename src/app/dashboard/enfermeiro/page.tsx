@@ -17,11 +17,14 @@ export default function HomeEnfermeiro() {
   } = useForm()
 
   function onSubmit(data: any) {
+    const patientIndex = data.patientIndex as number
+    
     const query = new URLSearchParams({
-      name: data.patient,
+      name: patients[patientIndex].name,
+      cpf: patients[patientIndex].cpf
     }).toString()
 
-    router.push(`/enfermeiro/sinaisVitais?${query}`)
+    router.push(`/dashboard/enfermeiro/sinaisVitais?${query}`)
   }
 
   const [searchInput, setSearchInput] = useState('')
@@ -29,25 +32,26 @@ export default function HomeEnfermeiro() {
   const [noSearchResult, setNoSearchResult] = useState(false)
 
   let patients = [
-    'Paciente 1',
-    'Paciente 2',
-    'Paciente 3',
-    'Paciente 4',
-    'Paciente 5',
-    'Paciente 6',
-    'Paciente 7',
-    'Paciente 8',
-    'Paciente 9',
-    'Paciente 10',
+    { name: 'Ana Paula Silva', cpf: '12345678901' },
+    { name: 'Bruno Oliveira Costa', cpf: '23456789012' },
+    { name: 'Carlos Eduardo Lima', cpf: '34567890123' },
+    { name: 'Daniela Souza Rocha', cpf: '45678901234' },
+    { name: 'Eduardo Martins Lopes', cpf: '56789012345' },
+    { name: 'Fernanda Alves Pinto', cpf: '67890123456' },
+    { name: 'Gustavo Ferreira Melo', cpf: '78901234567' },
+    { name: 'Helena Duarte Braga', cpf: '89012345678' },
+    { name: 'Igor Santos Barros', cpf: '90123456789' },
+    { name: 'Juliana Mendes Prado', cpf: '01234567890' },
   ]
 
+
   const filteredPatients = patients.filter((p) =>
-    p.toLowerCase().includes(searchTerm.toLowerCase()),
+    p.name.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
   function searchPatient() {
     setSearchTerm(searchInput.trim())
-    setValue('patient', '') // reseta valor de pacientes no formulario
+    setValue('name', '') // reseta valor de pacientes no formulario
     setNoSearchResult(false)
     if (filteredPatients.length === 0 || searchInput.length === 0) setNoSearchResult(true)
   }
@@ -85,29 +89,28 @@ export default function HomeEnfermeiro() {
             <div className="flex-7 text-[18px] font-bold">Nome</div>
             <div className="flex-3 text-[18px] font-bold">CPF</div>
           </div>
-
-          {filteredPatients.map((p, i) => (
-            <label className="flex" key={i}>
-              <input
-                type="radio"
-                value="49271947878"
-                className="peer hidden"
-                {...register('patient', { required: true })}
-              />
-              <div
-                className={`flex w-full peer-checked:bg-blue-200 bg-white p-1.5 rounded transition-colors duration-150`}
-              >
-                <div className={`flex-7 truncate whitespace-nowrap overflow-hidden`}>{p}</div>
-                <div className="flex-3">492.719.478-78</div>
-              </div>
-            </label>
-          ))}
+          
+          <div className='flex flex-col gap-2 max-h-[350px] overflow-y-auto'>
+            {filteredPatients.map((p, i) => (
+              <label className="flex" key={i}>
+                <input
+                  type="radio"
+                  value={i}
+                  className="peer hidden"
+                  {...register('patientIndex', { required: true })}
+                />
+                <div
+                  className={`flex w-full peer-checked:bg-blue-200 bg-white p-1.5 rounded transition-colors duration-150`}
+                >
+                  <div className={`flex-7 truncate whitespace-nowrap overflow-hidden`}>{p.name}</div>
+                  <div className="flex-3">{p.cpf}</div>
+                </div>
+              </label>
+            ))}
+          </div>
         </div>
 
         <div className="flex justify-evenly w-full">
-          <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">
-            Editar
-          </button>
           <button
             className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
             onClick={() => handleSubmit(onSubmit)()}

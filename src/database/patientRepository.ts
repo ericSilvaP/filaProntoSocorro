@@ -1,14 +1,14 @@
-import { db } from './index'
+import { db } from "./index";
 
 export function registerPatient(
   nome: string, 
-  cartao_sus: string, 
+  cartao_sus: number, 
   cpf: string, 
   data_nascimento: string, 
-  tipo_sanguineo: string, 
   sexo: string, 
   estado_civil: string, 
   telefone: string,
+  tipo_sanguineo?: string, 
   nome_pai?: string,
   nome_mae?: string,
 ) {

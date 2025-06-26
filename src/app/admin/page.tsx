@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 export default function Admin() {
   return (
-    <div className="flex justify-center mt-[3rem]">
+    <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
       <div className="flex flex-col gap-10">
         <div className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl font-bold shadow-2xl">
           <h1 className="text-center w-full font-extrabold text-2xl tracking-wider">
