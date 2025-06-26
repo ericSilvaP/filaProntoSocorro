@@ -10,14 +10,9 @@ import { SuccesModal } from '@/components/sucessModal'
 import { useRouter } from 'next/navigation'
 
 export default function CriarAtendimento() {
-  Patient
-  const [searchInput, setSearchInput] = useState('')
-  const [searchTerm, setSearchTerm] = useState('')
-  const [noSearchResult, setNoSearchResult] = useState(false)
-  const [patients, setPatients] = useState<Paciente[]>([])
-  const [showModal, setShowModal] = useState(false)
-  const router = useRouter()
-  
+  type FormData = {
+    paciente: string
+  }
 
   interface Paciente {
     paciente_id: number
@@ -33,14 +28,21 @@ export default function CriarAtendimento() {
     telefone: string
   }
 
+  const [searchInput, setSearchInput] = useState('')
+  const [searchTerm, setSearchTerm] = useState('')
+  const [noSearchResult, setNoSearchResult] = useState(false)
+  const [patients, setPatients] = useState<Paciente[]>([])
+  const [showModal, setShowModal] = useState(false)
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     setValue,
     formState: { errors },
-  } = useForm()
+  } = useForm<FormData>()
 
-  async function onSubmit(data: any) {
+
+  async function onSubmit(data: FormData) {
 
     try {
 
