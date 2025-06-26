@@ -28,7 +28,7 @@ export default function Home() {
         }),
       })
 
-      const result = await res.json();
+      const result = await res.json()
 
       if (!res.ok) {
         alert(`Erro: ${result.error}`)
@@ -36,11 +36,11 @@ export default function Home() {
       }
 
       if (result.usuario.papel === "admin") router.push('/admin')
-      else router.push(`/filaExibicao`);
+      else router.push(`/filaExibicao`)
         
       } catch (error) {
-        alert("Erro de rede ou servidor.");
-        console.error(error);
+        alert("Erro de rede ou servidor.")
+        console.error(error)
       }
   }
 
