@@ -4,19 +4,16 @@ import { db } from "./index"
 export function insertInPriorityQueue(
   atendimento_id: number,
   paciente_id: number,
-  classificacao_risco_id: number
 ) {
   const stmt = db.prepare(`
     INSERT INTO FilaDePrioridade (
-      atendimento_id, paciente_id, 
-      classificacao_risco_id
-    ) VALUES (?, ?, ?)
+      atendimento_id, paciente_id 
+    ) VALUES (?, ?)
   `);
 
   const info = stmt.run(
     atendimento_id,
-    paciente_id,
-    classificacao_risco_id
+    paciente_id
   );
   return info.lastInsertRowid;
 }
