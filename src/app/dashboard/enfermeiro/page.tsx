@@ -1,13 +1,18 @@
 'use client'
 
 import { SearchBarInteractive } from '@/components/searchBarInteractive'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { Attendance } from '@/core/models/nonPeople/Attendance'
+import { Patient } from '@/core/models/people/Patient'
+import { PriorityQueue } from '@/core/queueManagement/priorityQueue'
+import { QueueEntry } from '@/core/queueManagement/queueEntry'
 
 export default function HomeEnfermeiro() {
   const router = useRouter()
+  const [queue, setQueue] = useState<QueueEntry[]>([])
 
   const {
     register,
@@ -45,16 +50,56 @@ export default function HomeEnfermeiro() {
   ]
 
 
-  const filteredPatients = patients.filter((p) =>
-    p.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  const filteredPatients = queue.filter((p) =>
+    p.getAttendence().getPatient().getName().toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
   function searchPatient() {
     setSearchTerm(searchInput.trim())
     setValue('name', '') // reseta valor de pacientes no formulario
     setNoSearchResult(false)
-    if (filteredPatients.length === 0 || searchInput.length === 0) setNoSearchResult(true)
+    if (filteredPatients.length === 0) setNoSearchResult(true)
   }
+
+  useEffect(() => {
+      const prioQueue = new PriorityQueue(5)
+      fetch('/api/filaDePrioridade')
+        .then((res) => res.json())
+        .then((data: any[]) => {
+          data.forEach((entry) => {
+            // evita pacientes com prioridade
+            if (typeof entry.prioridade === 'number') return
+
+            const patient = new Patient(
+              entry.paciente_id,
+              entry.cpf,
+              entry.nome,
+              new Date(entry.data_nascimento),
+              entry.sexo,
+              entry.telefone,
+              entry.sus,
+              entry.tipo_sanguineo
+            )
+  
+            // Obter recepcionista id do cookie
+            const recepId = parseInt(
+              document.cookie
+                .split('; ')
+                .find((row) => row.startsWith('reference_id='))
+                ?.split('=')[1] || '0'
+            )
+  
+            const startDate = entry.inicio ? new Date(entry.inicio) : new Date()
+  
+            const attendance = new Attendance(entry.atendimento_id, patient, recepId, startDate)
+  
+            const queueEntry = new QueueEntry(attendance, 0)
+            prioQueue.enqueue(queueEntry)
+          })
+  
+          setQueue(prioQueue.getQueues().flat())
+        })
+    }, [])
 
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
@@ -102,8 +147,8 @@ export default function HomeEnfermeiro() {
                 <div
                   className={`flex w-full peer-checked:bg-blue-200 bg-white p-1.5 rounded transition-colors duration-150`}
                 >
-                  <div className={`flex-7 truncate whitespace-nowrap overflow-hidden`}>{p.name}</div>
-                  <div className="flex-3">{p.cpf}</div>
+                  <div className={`flex-7 truncate whitespace-nowrap overflow-hidden`}>{p.getAttendence().getPatient().getName()}</div>
+                  <div className="flex-3">{p.getAttendence().getPatient().getCpf()}</div>
                 </div>
               </label>
             ))}

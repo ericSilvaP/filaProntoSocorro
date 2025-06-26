@@ -25,10 +25,8 @@ export default function Home() {
     fetch('/api/filaDePrioridade')
       .then((res) => res.json())
       .then((data: any[]) => {
-
-        alert(JSON.stringify(data[0]))
-
         data.forEach((entry) => {
+          if (entry.prioridade === undefined || entry.prioridade === null) return
           // Criar paciente com sus e tipo sanguíneo do backend
           const patient = new Patient(
             entry.paciente_id,
@@ -53,7 +51,7 @@ export default function Home() {
 
           const attendance = new Attendance(entry.atendimento_id, patient, recepId, startDate)
 
-          const queueEntry = new QueueEntry(attendance, entry.prioridade || 0)
+          const queueEntry = new QueueEntry(attendance, entry.prioridade)
           prioQueue.enqueue(queueEntry)
         })
 

@@ -2,30 +2,29 @@ import { db } from "./index";
 
 export function registerService(
   paciente_id: number, 
-  consulta_id: number,
   recepcionista_id: number,
-  inicio: string,
-  fim: string
 ) {
   const stmt = db.prepare(`
     INSERT INTO Atendimento (
       paciente_id, 
-      consulta_id,
       recepcionista_id,
-      inicio,
-      fim
-    ) VALUES (?, ?, ?, ?, ?)
+      status,
+      inicio
+    ) VALUES (?, ?, ?, ?)
   `);
+
+  const now = new Date()
+  now.setHours(now.getHours() - 3) // ajusta UTC-3
+
+  const sqlNowDate = now.toISOString().slice(0, 19).replace("T", " ")
 
   const info = stmt.run(
     paciente_id,
-    consulta_id,
     recepcionista_id,
-    inicio,
-    fim
-  );
-
-  return info.lastInsertRowid;
+    0,
+    sqlNowDate
+  )
+  return info.lastInsertRowid
 }
 
 
