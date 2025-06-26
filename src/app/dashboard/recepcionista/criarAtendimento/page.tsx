@@ -1,11 +1,13 @@
 'use client'
 
 import { SearchBarInteractive } from '@/components/searchBarInteractive'
-import { use, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Image from 'next/image'
 import { Patient } from '@/core/models/people/Patient'
 import { getCookie } from '@/lib/cookies'
+import { SuccesModal } from '@/components/sucessModal'
+import { useRouter } from 'next/navigation'
 
 export default function CriarAtendimento() {
   Patient
@@ -13,6 +15,9 @@ export default function CriarAtendimento() {
   const [searchTerm, setSearchTerm] = useState('')
   const [noSearchResult, setNoSearchResult] = useState(false)
   const [patients, setPatients] = useState<Paciente[]>([])
+  const [showModal, setShowModal] = useState(false)
+  const router = useRouter()
+  
 
   interface Paciente {
     paciente_id: number
@@ -38,16 +43,14 @@ export default function CriarAtendimento() {
   async function onSubmit(data: any) {
 
     try {
-      let rawCPF = data.cpf.replace(/[^0-9]/g, "") as string 
-      // pegar paciente por cpf
-      const resByCPF = await fetch(`/api/paciente/get-by-cpf/${rawCPF}`)
-      const paciente = await resByCPF.json()
+
+      const paciente_id = data.paciente
 
       const recepcionista_id = Number(getCookie("referenceId"))
 
-      if (!recepcionista_id || !paciente.paciente_id) {
-        alert(`Erro ao identificar paciente ou usuário logado.`);
-        return;
+      if (!recepcionista_id || !paciente_id) {
+        alert(`Erro ao identificar paciente ou usuário logado.`)
+        return
       }
 
       // inserir paciente na fila
@@ -55,10 +58,15 @@ export default function CriarAtendimento() {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          paciente_id: paciente.paciente_id,
+          paciente_id: paciente_id,
           recepcionista_id: recepcionista_id
         })
       })
+
+      // sucesso 
+      setShowModal(true)
+      setTimeout(() => router.push('/filaExibicao'), 2500)
+      
     } catch (error) {
       console.error(`Erro ao buscar paciente: ${error}`)
     }
@@ -84,7 +92,7 @@ export default function CriarAtendimento() {
 
   function searchPatient() {
     setSearchTerm(searchInput.trim())
-    setValue('cpf', '') // reseta valor de pacientes no formulario
+    setValue('paciente', '') // reseta valor de pacientes no formulario
     setNoSearchResult(false)
     if (filteredPatients.length === 0 || searchInput.length === 0) setNoSearchResult(true)
   }
@@ -114,7 +122,7 @@ export default function CriarAtendimento() {
             <div className="text-red-500 text-center font-normal">Sem resultado da pesquisa</div>
           )}
 
-          {errors.cpf && (
+          {errors.paciente && (
             <div className="text-red-500 text-center font-normal">Selecione um paciente</div>
           )}
 
@@ -129,9 +137,9 @@ export default function CriarAtendimento() {
               <label className="flex" key={i}>
                 <input
                   type="radio"
-                  value={p.cpf}
+                  value={p.paciente_id}
                   className="peer hidden"
-                  {...register('cpf', { required: true })}
+                  {...register('paciente', { required: true })}
                 />
                 <div
                   className={`flex w-full peer-checked:bg-blue-200 bg-white p-1.5 rounded transition-colors duration-150`}
@@ -156,6 +164,8 @@ export default function CriarAtendimento() {
           </button>
         </div>
       </div>
+      
+      {showModal && <SuccesModal message="Atendimento Criado!" />}
     </div>
   )
 }
