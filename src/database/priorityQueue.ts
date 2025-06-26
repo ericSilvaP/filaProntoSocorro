@@ -28,29 +28,17 @@ export function getPriorityQueue() {
   return stmt.all();
 }
 
+export function getPatientPriorityQueueAtnId(paciente_id: number) {
+  const stmt = db.prepare(
+    'SELECT * FROM FilaDePrioridade WHERE paciente_id = ?'
+  );
+  return stmt.all(paciente_id);
+}
+
 export function deletePatientFromPriorityQueue(paciente_id: number) {
   const stmt = db.prepare(`
     DELETE FROM FilaDePrioridade WHERE paciente_id = ?
   `);
   const info = stmt.run(paciente_id);
   return info.changes;
-}
-
-export function deletePatientFromPriorityQueueByCpf(cpf: string) {
-  const paciente = db.prepare(`
-    SELECT id FROM Paciente WHERE cpf = ?
-  `).get(cpf) as { id: number } | undefined;
-
-  if (!paciente) {
-    throw new Error("Paciente com o CPF informado não encontrado.");
-  }
-
-  const stmt = db.prepare(`
-    DELETE FROM FilaDePrioridade 
-    WHERE paciente_id = (
-      SELECT id FROM Paciente WHERE cpf = ?
-    )
-  `)
-  const info = stmt.run(cpf)
-  return info.changes
 }
