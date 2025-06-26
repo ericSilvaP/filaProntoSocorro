@@ -1,20 +1,23 @@
 import { db } from "./index";
 
 export function registerService(
-  atendimento_id: number, 
   paciente_id: number, 
-  classificacao_risco_id: number
+  recepcionista_id: number,
 ) {
   const stmt = db.prepare(`
     INSERT INTO Atendimento (
-      atendimento_id, paciente_id, 
-      classificacao_risco_id
+      paciente_id, 
+      recepcionista_id,
+      inicio
     ) VALUES (?, ?, ?)
   `);
+
+  const sqlNowDate = new Date().toISOString().slice(0, 19).replace("T", " ");
+
   const info = stmt.run(
-    atendimento_id,
     paciente_id,
-    classificacao_risco_id
+    recepcionista_id,
+    sqlNowDate
   );
   return info.lastInsertRowid;
 }

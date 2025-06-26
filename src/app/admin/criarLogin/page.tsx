@@ -1,6 +1,7 @@
 'use client'
 
 import { SuccesModal } from '@/components/sucessModal'
+import { strToSqlDate } from '@/lib/validations'
 import Image from 'next/image'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useState } from 'react'
@@ -27,8 +28,8 @@ export default function CriarLogin() {
       const role = searchParams.get("papel")
 
       const rawCPF = searchParams.get("cpf")?.replace(/[^0-9]/g, "")
-      const [day, month, year] = searchParams.get("data_nascimento")!.split("/")
-      const sqlDate = `${year}-${month}-${day}`
+      
+      const sqlDate = strToSqlDate(searchParams.get("data_nascimento")!)
       const rawPhone = searchParams.get("telefone")?.replace(/[^0-9]/g, "")
 
       const resUser = await fetch(`/api/${role}`, {

@@ -2,8 +2,8 @@ import { NextResponse } from "next/server"
 import { getAllPatients, registerPatient } from "@/database/patientRepository"
 
 export async function GET() {
-  const recepcionistas = getAllPatients()
-  return NextResponse.json(recepcionistas)
+  const pacientes = getAllPatients()
+  return NextResponse.json(pacientes)
 }
 
 export async function POST(req: Request) {
