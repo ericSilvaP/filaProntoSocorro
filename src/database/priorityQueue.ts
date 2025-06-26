@@ -19,11 +19,19 @@ export function insertInPriorityQueue(
 }
 
 export function getPriorityQueue() {
-  const stmt = db.prepare(
-    'SELECT * FROM FilaDePrioridade'
-  );
-  return stmt.all();
+  const stmt = db.prepare(`
+    SELECT
+      f.atendimento_id,
+      f.paciente_id,
+      f.prioridade,
+      p.nome
+    FROM FilaDePrioridade f
+    JOIN Paciente p ON f.paciente_id = p.paciente_id
+    ORDER BY f.prioridade ASC
+  `)
+  return stmt.all()
 }
+
 
 export function getPatientPriorityQueueAtnId(paciente_id: number) {
   const stmt = db.prepare(
