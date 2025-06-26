@@ -31,6 +31,7 @@ export async function POST(req: Request) {
     }
   })
 
+  setCookie(response, "referenceId", user.referencia_id);
   setCookie(response, "userId", user.usuario_id);
   setCookie(response, "userRole", user.papel);
 

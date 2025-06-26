@@ -5,6 +5,7 @@ import { use, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Image from 'next/image'
 import { Patient } from '@/core/models/people/Patient'
+import { getCookie } from '@/lib/cookies'
 
 export default function CriarAtendimento() {
   Patient
@@ -35,17 +36,28 @@ export default function CriarAtendimento() {
   } = useForm()
 
   async function onSubmit(data: any) {
+
     try {
       let rawCPF = data.cpf.replace(/[^0-9]/g, "") as string 
       // pegar paciente por cpf
       const resByCPF = await fetch(`/api/paciente/get-by-cpf/${rawCPF}`)
-      const result = await resByCPF.json()
+      const paciente = await resByCPF.json()
+
+      const recepcionista_id = Number(getCookie("referenceId"))
+
+      if (!recepcionista_id || !paciente.paciente_id) {
+        alert(`Erro ao identificar paciente ou usuário logado.`);
+        return;
+      }
 
       // inserir paciente na fila
-      const resInsert = await fetch(`api/atendimento`, {
+      const resInsert = await fetch(`/api/atendimento`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(result)
+        body: JSON.stringify({
+          paciente_id: paciente.paciente_id,
+          recepcionista_id: recepcionista_id
+        })
       })
     } catch (error) {
       console.error(`Erro ao buscar paciente: ${error}`)

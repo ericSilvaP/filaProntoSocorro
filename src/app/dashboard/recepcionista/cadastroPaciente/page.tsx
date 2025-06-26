@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { BloodType } from '@/types/bloodType'
-import { isValidDate, replaceOnlyNumbers, isValidCPF } from '@/lib/validations'
+import { isValidDate, replaceOnlyNumbers, isValidCPF, strToSqlDate } from '@/lib/validations'
 import { SuccesModal } from '@/components/sucessModal'
 
 export default function CadastroPessoa() {
@@ -15,6 +15,10 @@ export default function CadastroPessoa() {
 
   const onSubmit = async (data: any) => {
     try {
+      const rawCPF = data.cpf.replace(/[^0-9]/g, "")
+      const sqlDate = strToSqlDate(data.birthDate)
+      const rawPhone = data.phone.replace(/[^0-9]/g, "")
+
       const res = await fetch("/api/paciente", {
         method: "POST",
         headers: {
@@ -23,12 +27,12 @@ export default function CadastroPessoa() {
         body: JSON.stringify({
           nome: data.name,
           cartao_sus: data.sus,
-          cpf: data.cpf,
-          data_nascimento: data.birthDate,
+          cpf: rawCPF,
+          data_nascimento: sqlDate,
           tipo_sanguineo: data.bloodType === "desconhecido" ? null : data.bloodType,
           sexo: data.sex,
           estado_civil: data.maritalStatus,
-          telefone: data.phone,
+          telefone: rawPhone,
           nome_pai: data.father,
           nome_mae: data.mother
         })
