@@ -1,12 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
 
 export default function SinaisVitais() {
   const router = useRouter()
-
+  const searchParams = useSearchParams()
   const {
     register,
     handleSubmit,
@@ -21,11 +21,29 @@ export default function SinaisVitais() {
     EXTREME = 'Incapacitante',
   }
 
+  
   const pain_levels = Object.values(pain_level)
+  
+  function onSubmit(data: any) {
+  const atendimento_id = searchParams.get("atendimento_id") || ""
+  const nome = searchParams.get("nome") || ""
+  const cpf = searchParams.get("cpf") || ""
 
-  function onSubmit() {
-    router.push('/dahsboard/enfermeiro/risco')
-  }
+  const query = new URLSearchParams({
+    atendimento_id,
+    nome,
+    cpf,
+    heart_rate: data.heart_rate,
+    respiratory_rate: data.respiratory_rate,
+    blood_pressure: data.blood_pressure,
+    temperature: data.temperature,
+    oxygen_saturation: data.oxygen_saturation,
+    pain_level: data.pain_level,
+  }).toString()
+
+  router.push(`/dashboard/enfermeiro/risco?${query}`)
+}
+
 
   function replaceNumbersNPoint(data: string) {
     return data.replace(/[^\d\.]/, '')

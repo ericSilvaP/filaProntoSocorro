@@ -35,12 +35,12 @@ export function updateAvaliacaoClinica(
   const stmt = db.prepare(`
     UPDATE Atendimento
     SET avaliacao_clinica_id = ?
-    WHERE id = ?
-  `);
+    WHERE atendimento_id = ?
+  `)
 
-  const result = stmt.run(avaliacao_clinica_id, atendimento_id);
+  const result = stmt.run(avaliacao_clinica_id, atendimento_id)
 
-  return result.changes;
+  return result.changes
 }
 
 

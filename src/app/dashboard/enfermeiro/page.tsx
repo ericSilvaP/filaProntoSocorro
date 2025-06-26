@@ -25,8 +25,9 @@ export default function HomeEnfermeiro() {
     const patientIndex = data.patientIndex as number
     
     const query = new URLSearchParams({
-      name: patients[patientIndex].name,
-      cpf: patients[patientIndex].cpf
+      nome: queue[patientIndex].getAttendence().getPatient().getName(),
+      cpf: queue[patientIndex].getAttendence().getPatient().getCpf(),
+      atendimento_id: String(queue[patientIndex].getAttendence().getId())
     }).toString()
 
     router.push(`/dashboard/enfermeiro/sinaisVitais?${query}`)
@@ -35,20 +36,6 @@ export default function HomeEnfermeiro() {
   const [searchInput, setSearchInput] = useState('')
   const [searchTerm, setSearchTerm] = useState('')
   const [noSearchResult, setNoSearchResult] = useState(false)
-
-  let patients = [
-    { name: 'Ana Paula Silva', cpf: '12345678901' },
-    { name: 'Bruno Oliveira Costa', cpf: '23456789012' },
-    { name: 'Carlos Eduardo Lima', cpf: '34567890123' },
-    { name: 'Daniela Souza Rocha', cpf: '45678901234' },
-    { name: 'Eduardo Martins Lopes', cpf: '56789012345' },
-    { name: 'Fernanda Alves Pinto', cpf: '67890123456' },
-    { name: 'Gustavo Ferreira Melo', cpf: '78901234567' },
-    { name: 'Helena Duarte Braga', cpf: '89012345678' },
-    { name: 'Igor Santos Barros', cpf: '90123456789' },
-    { name: 'Juliana Mendes Prado', cpf: '01234567890' },
-  ]
-
 
   const filteredPatients = queue.filter((p) =>
     p.getAttendence().getPatient().getName().toLowerCase().includes(searchTerm.toLowerCase()),
