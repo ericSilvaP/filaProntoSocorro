@@ -1,33 +1,33 @@
-import { db } from './index'
+import { db } from "./index";
 
 export function registerPatient(
-  name: string,
-  nameFather: string,
-  nameMother: string,
-  cardSus: number,
-  cpf: number,
-  birthDate: string,
-  bloodType: string,
-  sex: string,
-  maritalStatus: string,
-  phone: string,
+  nome: string, 
+  cartao_sus: number, 
+  cpf: string, 
+  data_nascimento: string, 
+  tipo_sanguineo: string, 
+  sexo: string, 
+  estado_civil: string, 
+  telefone: string,
+  nome_pai?: string,
+  nome_mae?: string,
 ) {
   const stmt = db.prepare(
-    'INSERT INTO Paciente (name, nameFather, nameMother, cardSus, cpf, birthDate, bloodType, sex, maritalStatus, phone) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-  )
+    'INSERT INTO Paciente (nome, cartao_sus, cpf, data_nascimento, tipo_sanguineo, sexo, estado_civil, telefone, nome_pai, nome_mae) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+  );
 
   const info = stmt.run(
-    name,
-    nameFather,
-    nameMother,
-    cardSus,
+    nome,
+    cartao_sus,
     cpf,
-    birthDate,
-    bloodType,
-    sex,
-    maritalStatus,
-    phone,
-  )
+    data_nascimento,
+    tipo_sanguineo,
+    sexo,
+    estado_civil,
+    telefone,
+    nome_pai ?? null,
+    nome_mae ?? null
+  );
 
   return info.lastInsertRowid
 }
@@ -37,7 +37,19 @@ export function getAllPatients() {
   return stmt.all()
 }
 
-export function getPatientByCpf(cpf: number) {
-  const stmt = db.prepare('SELECT * FROM Paciente WHERE cpf = @cpf')
-  return stmt.get({ cpf })
+export function getPatientByCpf(cpf: string) {
+  const stmt = db.prepare('SELECT * FROM Paciente WHERE cpf = @cpf');
+  return stmt.get({ cpf });
+}
+
+export function deletePatientById(id: number) {
+  const stmt = db.prepare('DELETE FROM Paciente WHERE paciente_id = ?')
+  const info = stmt.run(id)
+  return info.changes
+}
+
+export function deletePatientByCpf(cpf: string) {
+  const stmt = db.prepare('DELETE FROM Paciente WHERE cpf = ?')
+  const info = stmt.run(cpf)
+  return info.changes
 }
