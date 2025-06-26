@@ -10,13 +10,20 @@ export class Patient extends Person {
     name: string,
     birthDate: Date,
     gender: Gender,
-    adress: string,
+    phoneNumber: number,
     private sus: number,
     private blood_type: BloodType,
-    private allergies?: string[],
-    phoneNumber?: number[],
   ) {
-    super(id, cpf, name, birthDate, gender, adress, phoneNumber)
+    super(id, cpf, name, birthDate, gender, phoneNumber)
+  }
+
+  // Getters
+  getSus(): number {
+    return this.sus
+  }
+
+  getBloodType(): BloodType {
+    return this.blood_type
   }
 
   setName(newName: string): void {

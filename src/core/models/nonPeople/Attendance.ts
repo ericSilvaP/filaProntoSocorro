@@ -3,21 +3,19 @@ import { Status } from '@/types/status'
 import { Consultation } from './Consultation'
 import { Triage } from './Triage'
 import { Patient } from '../people/Patient'
-import { Receptionist } from '../people/Receptionist'
 
 export class Attendance {
-  public readonly start_time: Date
   private end_time?: Date
   private status: number
-
+  
   constructor(
     private id: number,
     private patient: Patient,
-    private recepcionist: Receptionist,
+    private recepcionist: number,
+    private start_time: Date,
     private triage?: Triage,
     private consultation?: Consultation,
   ) {
-    this.start_time = new Date()
     this.status = Status.WAITINGTRIAGE
   }
 
@@ -64,7 +62,7 @@ export class Attendance {
     return this.end_time
   }
 
-  getRecepcionist(): Receptionist {
+  getRecepcionist(): number {
     return this.recepcionist
   }
 
