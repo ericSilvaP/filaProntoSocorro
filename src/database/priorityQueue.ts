@@ -1,6 +1,5 @@
 import { db } from "./index"
 
-// Inserção
 export function insertInPriorityQueue(
   atendimento_id: number,
   paciente_id: number,
@@ -16,6 +15,29 @@ export function insertInPriorityQueue(
     paciente_id
   );
   return info.lastInsertRowid;
+}
+
+export function updatePriorityInQueue(
+  atendimento_id: number,
+  prioridade: number
+) {
+  const stmt = db.prepare(`
+    UPDATE Atendimento
+    SET prioridade = ?
+    WHERE id = ?
+  `);
+
+  const result = stmt.run(prioridade, atendimento_id);
+
+  return result.changes;
+}
+
+
+export function getAllService() {
+  const stmt = db.prepare(
+    'SELECT * FROM Atendimento'
+  );
+  return stmt.all();
 }
 
 export function getPriorityQueue() {
