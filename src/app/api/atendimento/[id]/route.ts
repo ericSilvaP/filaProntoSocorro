@@ -1,4 +1,4 @@
-import { removeServiceByAtendimentoId } from "@/database/serviceRepository";
+import { removePatientFromService } from "@/database/serviceRepository";
 import { NextResponse } from "next/server";
 
 export async function DELETE(
@@ -15,7 +15,7 @@ export async function DELETE(
   }
 
   try {
-    const result = await removeServiceByAtendimentoId(atendimentoId);
+    const result = await removePatientFromService(atendimentoId);
     
     if (result === 0) {
       return NextResponse.json(

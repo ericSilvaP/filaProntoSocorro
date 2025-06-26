@@ -1,23 +1,49 @@
 import { db } from "./index";
 
 export function registerService(
-  atendimento_id: number, 
   paciente_id: number, 
-  classificacao_risco_id: number
+  consulta_id: number,
+  recepcionista_id: number,
+  inicio: string,
+  fim: string
 ) {
   const stmt = db.prepare(`
     INSERT INTO Atendimento (
-      atendimento_id, paciente_id, 
-      classificacao_risco_id
-    ) VALUES (?, ?, ?)
+      paciente_id, 
+      consulta_id,
+      recepcionista_id,
+      inicio,
+      fim
+    ) VALUES (?, ?, ?, ?, ?)
   `);
+
   const info = stmt.run(
-    atendimento_id,
     paciente_id,
-    classificacao_risco_id
+    consulta_id,
+    recepcionista_id,
+    inicio,
+    fim
   );
+
   return info.lastInsertRowid;
 }
+
+
+export function updateAvaliacaoClinica(
+  atendimento_id: number,
+  avaliacao_clinica_id: number
+) {
+  const stmt = db.prepare(`
+    UPDATE Atendimento
+    SET avaliacao_clinica_id = ?
+    WHERE id = ?
+  `);
+
+  const result = stmt.run(avaliacao_clinica_id, atendimento_id);
+
+  return result.changes;
+}
+
 
 export function getAllService() {
   const stmt = db.prepare(
