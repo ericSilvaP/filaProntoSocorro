@@ -8,15 +8,20 @@ export function registerService(
     INSERT INTO Atendimento (
       paciente_id, 
       recepcionista_id,
+      status,
       inicio
-    ) VALUES (?, ?, ?)
+    ) VALUES (?, ?, ?, ?)
   `);
 
-  const sqlNowDate = new Date().toISOString().slice(0, 19).replace("T", " ");
+  const now = new Date()
+  now.setHours(now.getHours() - 3) // ajusta UTC-3
+
+  const sqlNowDate = now.toISOString().slice(0, 19).replace("T", " ")
 
   const info = stmt.run(
     paciente_id,
     recepcionista_id,
+    0,
     sqlNowDate
   );
   return info.lastInsertRowid;

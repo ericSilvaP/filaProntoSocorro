@@ -55,8 +55,8 @@ export default function CriarAtendimento() {
         return
       }
 
-      // inserir paciente na fila
-      const resInsert = await fetch(`/api/atendimento`, {
+      // criar atendimento
+      const resService = await fetch(`/api/atendimento`, {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
@@ -64,6 +64,30 @@ export default function CriarAtendimento() {
           recepcionista_id: recepcionista_id
         })
       })
+
+      const resultService = await resService.json()
+
+      if (!resService.ok || !resultService.id) {
+        alert(`Erro: ${resultService.error || "Falha ao criar atendimento"}`)
+        return
+      }
+
+      // inserir atendimento na fila
+      const resQueue = await fetch(`/api/filaDePrioridade`,{
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          atendimento_id: resultService.id,
+          paciente_id: paciente_id
+        })
+      })
+
+      const resultQueue = await resQueue.json()
+
+      if (!resQueue.ok) {
+        alert(`Erro ao inserir paciente na fila: ${resultQueue.error || 'Tente novamente'}`)
+        return
+      }
 
       // sucesso 
       setShowModal(true)
