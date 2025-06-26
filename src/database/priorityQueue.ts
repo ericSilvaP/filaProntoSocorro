@@ -1,5 +1,6 @@
 import { db } from "./index"
 
+// Inserção
 export function insertInPriorityQueue(
   atendimento_id: number,
   paciente_id: number,
@@ -27,22 +28,23 @@ export function getPriorityQueue() {
   return stmt.all();
 }
 
-export function getPriorityQueueByCpf(cpf: string) {
+export function deletePatientFromPriorityQueue(paciente_id: number) {
   const stmt = db.prepare(`
-    'SELECT * FROM FilaDePrioridade 
-    WHERE cpf = @cpf'
+    DELETE FROM FilaDePrioridade WHERE paciente_id = ?
   `);
-  return stmt.get({ cpf });
-  
-}
-
-export function deletePatientFromPriorityQueue(patientId: number) {
-  const stmt = db.prepare('DELETE FROM FilaDePrioridade WHERE paciente_id = ?')
-  const info = stmt.run(patientId)
-  return info.changes
+  const info = stmt.run(paciente_id);
+  return info.changes;
 }
 
 export function deletePatientFromPriorityQueueByCpf(cpf: string) {
+  const paciente = db.prepare(`
+    SELECT id FROM Paciente WHERE cpf = ?
+  `).get(cpf) as { id: number } | undefined;
+
+  if (!paciente) {
+    throw new Error("Paciente com o CPF informado não encontrado.");
+  }
+
   const stmt = db.prepare(`
     DELETE FROM FilaDePrioridade 
     WHERE paciente_id = (

@@ -2,6 +2,7 @@ import { db } from "./index";
 
 export function registerPatient(
   nome: string, 
+<<<<<<< HEAD
   cartao_sus: number, 
   cpf: string, 
   data_nascimento: string, 
@@ -9,6 +10,15 @@ export function registerPatient(
   estado_civil: string, 
   telefone: string,
   tipo_sanguineo?: string, 
+=======
+  cartao_sus: string, 
+  cpf: string, 
+  data_nascimento: string, 
+  tipo_sanguineo: string, 
+  sexo: string, 
+  estado_civil: string, 
+  telefone: string,
+>>>>>>> 4292bf8 (service creation in db)
   nome_pai?: string,
   nome_mae?: string,
 ) {
