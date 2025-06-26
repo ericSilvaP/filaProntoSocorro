@@ -10,19 +10,17 @@ export async function GET() {
 export async function POST(req: Request) {
   const body = await req.json();
   const {
-    atendimento_id,
     paciente_id,
-    classificacao_risco_id
+    recepcionista_id
   } = body
 
-  if (!atendimento_id || !paciente_id || !classificacao_risco_id) {
+  if  (!paciente_id || !recepcionista_id) {
     return NextResponse.json({ error: "Dados obrigatórios incompletos" }, { status: 400 })
   }
   try {
       const id = await registerService(
-        atendimento_id,
         paciente_id,
-        classificacao_risco_id
+        recepcionista_id
       );
     return NextResponse.json({ id }, { status: 201 });
   } catch (error) {

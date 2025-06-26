@@ -1,6 +1,7 @@
 import { getUserByEmail } from "@/database/userRepository";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import { setCookie } from "@/lib/cookies";
 
 export async function POST(req: Request) {
   const { email, password } = await req.json()
@@ -30,13 +31,8 @@ export async function POST(req: Request) {
     }
   })
 
-  response.cookies.set("userRole", user.papel, {
-    path: "/",
-    httpOnly: false, 
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 60 * 60 * 2, // 2 horas
-  })
+  setCookie(response, "userId", user.usuario_id);
+  setCookie(response, "userRole", user.papel);
 
   return response;
 }
