@@ -34,8 +34,22 @@ export default function CriarAtendimento() {
     formState: { errors },
   } = useForm()
 
-  function onSubmit(data: unknown) {
-    alert(JSON.stringify(data))
+  async function onSubmit(data: any) {
+    try {
+      let rawCPF = data.cpf.replace(/[^0-9]/g, "") as string 
+      // pegar paciente por cpf
+      const resByCPF = await fetch(`/api/paciente/get-by-cpf/${rawCPF}`)
+      const result = await resByCPF.json()
+
+      // inserir paciente na fila
+      const resInsert = await fetch(`api/atendimento`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(result)
+      })
+    } catch (error) {
+      console.error(`Erro ao buscar paciente: ${error}`)
+    }
   }
 
   const filteredPatients = patients.filter((p) =>
@@ -58,7 +72,7 @@ export default function CriarAtendimento() {
 
   function searchPatient() {
     setSearchTerm(searchInput.trim())
-    setValue('patient', '') // reseta valor de pacientes no formulario
+    setValue('cpf', '') // reseta valor de pacientes no formulario
     setNoSearchResult(false)
     if (filteredPatients.length === 0 || searchInput.length === 0) setNoSearchResult(true)
   }
@@ -88,7 +102,7 @@ export default function CriarAtendimento() {
             <div className="text-red-500 text-center font-normal">Sem resultado da pesquisa</div>
           )}
 
-          {errors.patient && (
+          {errors.cpf && (
             <div className="text-red-500 text-center font-normal">Selecione um paciente</div>
           )}
 
@@ -103,9 +117,9 @@ export default function CriarAtendimento() {
               <label className="flex" key={i}>
                 <input
                   type="radio"
-                  value="49271947878"
+                  value={p.cpf}
                   className="peer hidden"
-                  {...register('patient', { required: true })}
+                  {...register('cpf', { required: true })}
                 />
                 <div
                   className={`flex w-full peer-checked:bg-blue-200 bg-white p-1.5 rounded transition-colors duration-150`}
