@@ -1,6 +1,5 @@
 import { db } from "./index"
 
-// Inserção
 export function insertInPriorityQueue(
   atendimento_id: number,
   paciente_id: number,
