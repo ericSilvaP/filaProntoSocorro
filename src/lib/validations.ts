@@ -22,3 +22,9 @@ export function isValidCPF(cpf: string): boolean {
   const d2 = r < 2 ? 0 : 11 - r
   return cleanCPF.endsWith(`${d1}${d2}`)
 }
+
+export function strToSqlDate(date: string) {
+  const [day, month, year] = date.split("/");
+  const sqlDate = `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  return sqlDate;
+}

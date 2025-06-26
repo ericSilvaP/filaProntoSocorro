@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS "Atendimento" (
   "recepcionista_id" INTEGER NOT NULL,
   "avaliacao_clinica_id" INTEGER,
   "inicio" DATETIME NOT NULL,
+  "status" INTEGER NOT NULL CHECK (status IN (0,1,2,3,4,5)),
   "fim" DATETIME,
   FOREIGN KEY("avaliacao_clinica_id") REFERENCES "AvaliacaoClinica"("avaliacao_clinica_id"),
   FOREIGN KEY("consulta_id") REFERENCES "Consulta"("consulta_id"),
@@ -100,10 +101,9 @@ CREATE TABLE IF NOT EXISTS "Recepcionista" (
 CREATE TABLE IF NOT EXISTS "FilaDePrioridade" (
   "atendimento_id" INTEGER PRIMARY KEY,
   "paciente_id" INTEGER NOT NULL,
-  "classificacao_risco_id" INTEGER NOT NULL,
+  "prioridade" INTEGER CHECK (prioridade in (0,1,2,3,4)),
   FOREIGN KEY ("atendimento_id") REFERENCES "Atendimento"("atendimento_id"),
-  FOREIGN KEY ("paciente_id") REFERENCES "Paciente"("paciente_id"),
-  FOREIGN KEY ("classificacao_risco_id") REFERENCES "ClassificacaoDeRisco"("classificacao_risco_id")
+  FOREIGN KEY ("paciente_id") REFERENCES "Paciente"("paciente_id")
 );
 
 CREATE TABLE IF NOT EXISTS "Usuario" (

@@ -1,20 +1,59 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { BloodType } from '@/types/bloodType'
-import { isValidDate, replaceOnlyNumbers, isValidCPF } from '@/lib/validations'
+import { isValidDate, replaceOnlyNumbers, isValidCPF, strToSqlDate } from '@/lib/validations'
+import { SuccesModal } from '@/components/sucessModal'
 
-// utilitários
 export default function CadastroPessoa() {
   const router = useRouter()
   const { register, handleSubmit, setValue, formState: { errors } } = useForm()
   const bloodTypes = Object.values(BloodType)
+  const [showModal, setShowModal] = useState(false)
 
   const onSubmit = async (data: any) => {
-    alert(data)
-    router.push('/filaExibicao')
+    try {
+      const rawCPF = data.cpf.replace(/[^0-9]/g, "")
+      const sqlDate = strToSqlDate(data.birthDate)
+      const rawPhone = data.phone.replace(/[^0-9]/g, "")
+
+      const res = await fetch("/api/paciente", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nome: data.name,
+          cartao_sus: data.sus,
+          cpf: rawCPF,
+          data_nascimento: sqlDate,
+          tipo_sanguineo: data.bloodType === "desconhecido" ? null : data.bloodType,
+          sexo: data.sex,
+          estado_civil: data.maritalStatus,
+          telefone: rawPhone,
+          nome_pai: data.father,
+          nome_mae: data.mother
+        })
+      })
+
+      const result = await res.json()
+      
+      if (!res.ok) {
+        alert(`Erro: ${result.error}`)
+        return
+      }
+
+      // sucesso
+      setShowModal(true)
+      setTimeout(() => router.push('/filaExibicao'), 2500)
+      
+    } catch (error) {
+      alert("Erro de rede ou servidor.")
+      console.error(error)
+    }
+
   }
 
   return (
@@ -42,7 +81,7 @@ export default function CadastroPessoa() {
             }}
           />
 
-          <select {...register("civilStatus", { validate: val => val !== "0" })} className={`custom-input ${errors.civilStatus ? 'error' : ''}`}>
+          <select {...register("maritalStatus", { validate: val => val !== "0" })} className={`custom-input ${errors.maritalStatus ? 'error' : ''}`}>
             <option value="0">Estado civil</option>
             <option value="c">Casado</option>
             <option value="s">Solteiro</option>
@@ -102,11 +141,11 @@ export default function CadastroPessoa() {
               <label className="flex gap-2">
                   <input
                     type="radio"
-                    value={"i"}
+                    value={"desconhecido"}
                     className="scale-150"
                     {...register('bloodType', { required: true })}
                   />
-                  <div>Não Sei</div>
+                  <div>Desconhecido</div>
                 </label>
               {bloodTypes.map((bt) => (
                 <label className="flex gap-2" key={bt}>
@@ -129,6 +168,9 @@ export default function CadastroPessoa() {
           </button>
         </div>
       </div>
+
+      {showModal && <SuccesModal message="Paciente Cadastrado!" />}
+      
     </div>
   )
 }

@@ -1,11 +1,15 @@
-import { getPatientByCpf } from '@/database/patientRepository'
-import { NextResponse } from 'next/server'
+export const runtime = "nodejs";
 
-export async function GET(_req: Request, { params }: { params: { cpf: string } }) {
-  const cpf = decodeURIComponent(params.cpf)
-  const receptionist = getPatientByCpf(cpf)
+import { getPatientByCpf } from '@/database/patientRepository';
+import { NextResponse } from 'next/server';
 
-  if (!receptionist) return NextResponse.json({ error: 'Not found' }, { status: 404 })
+export async function GET(_req: Request, context: { params: { cpf: string } }) {
+  const cpf = decodeURIComponent(context.params.cpf);
+  const patient = getPatientByCpf(cpf);
 
-  return NextResponse.json(receptionist)
+  if (!patient) {
+    return NextResponse.json({ error: 'Not found' }, { status: 404 });
+  }
+
+  return NextResponse.json(patient);
 }

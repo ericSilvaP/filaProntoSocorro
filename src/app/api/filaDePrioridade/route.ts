@@ -10,19 +10,17 @@ export async function GET() {
 export async function POST(req: Request) {
   const body = await req.json();
   const {
-    idQueue,
-    patientId,
-    riskRatingId
+    atendimento_id,
+    paciente_id
   } = body
 
-  if (!idQueue || !patientId || !riskRatingId) {
+  if (!atendimento_id || !paciente_id) {
     return NextResponse.json({ error: "Dados obrigatórios incompletos" }, { status: 400 })
   }
   try {
       const id = insertInPriorityQueue(
-        idQueue,
-        patientId,
-        riskRatingId
+        atendimento_id,
+        paciente_id
       );
     return NextResponse.json({ id }, { status: 201 });
   } catch (error) {
