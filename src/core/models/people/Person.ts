@@ -7,8 +7,7 @@ export abstract class Person {
     protected name: string,
     protected birthDate: Date,
     protected gender: Gender,
-    protected adress: string,
-    protected phoneNumber?: number[] | undefined,
+    protected phoneNumber: number,
   ) {}
 
   getCpf(): string {
@@ -27,11 +26,7 @@ export abstract class Person {
     return this.gender
   }
 
-  getAdress(): string {
-    return this.adress
-  }
-
-  getPhones(): number[] | undefined {
+  getPhones(): number {
     return this.phoneNumber
   }
 

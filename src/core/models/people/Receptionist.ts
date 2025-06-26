@@ -3,39 +3,14 @@ import { Gender } from '@/types/gender'
 import { Roles } from '@/types/roles'
 
 import { Patient } from './Patient'
-import { Users } from './Users'
 import { LegalQueue } from '../../queueManagement/LegalQueue'
 import { PriorityQueue } from '../../queueManagement/priorityQueue'
 import { QueueEntry } from '../../queueManagement/queueEntry'
 import { Attendance } from '../nonPeople/Attendance'
 
-export class Receptionist extends Users {
-  constructor(
-    id: number,
-    cpf: string,
-    name: string,
-    birthDate: Date,
-    gender: Gender,
-    adress: string,
-    username: string,
-    password: string,
-    phoneNumber?: number[],
-  ) {
-    super(
-      id,
-      cpf,
-      name,
-      birthDate,
-      gender,
-      adress,
-      Roles.RECEPTIONIST,
-      username,
-      password,
-      phoneNumber,
-    )
-  }
+export class Receptionist {
 
-  registerPatient(
+  /*registerPatient(
     id: number,
     cpf: string,
     name: string,
@@ -59,11 +34,11 @@ export class Receptionist extends Users {
       allergies,
       phoneNumber,
     )
-  }
+  }*/
 
-  createAttendance(id: number, patient: Patient): Attendance {
+  /*createAttendance(id: number, patient: Patient): Attendance {
     return new Attendance(id, patient, this)
-  }
+  }*/
 
   enqueuePriorityQueue(priorityQueue: PriorityQueue, attendance: Attendance): void {
     const queueEntry = new QueueEntry(attendance, attendance.getTriage()!.getRisk())
@@ -72,9 +47,5 @@ export class Receptionist extends Users {
 
   nextLegalQueue(legalQueue: LegalQueue): number | null {
     return legalQueue.dequeue()
-  }
-
-  toString(): string {
-    return `Id: ${this.id}, Name: ${this.name}, Data de Nascimento: ${this.birthDate.toLocaleDateString()}`
   }
 }

@@ -41,10 +41,25 @@ export function getAllService() {
 }
 
 export function getPriorityQueue() {
-  const stmt = db.prepare(
-    'SELECT * FROM FilaDePrioridade'
-  );
-  return stmt.all();
+  const stmt = db.prepare(`
+    SELECT
+      f.atendimento_id,
+      f.paciente_id,
+      f.prioridade,
+      a.inicio,
+      p.nome,
+      p.cartao_sus AS sus,
+      p.tipo_sanguineo,
+      p.data_nascimento,
+      p.sexo,
+      p.cpf,
+      p.telefone
+    FROM FilaDePrioridade f
+    JOIN Paciente p ON f.paciente_id = p.paciente_id
+    JOIN Atendimento a ON a.atendimento_id = f.atendimento_id
+    ORDER BY f.prioridade ASC
+  `)
+  return stmt.all()
 }
 
 export function getPatientPriorityQueueAtnId(paciente_id: number) {
