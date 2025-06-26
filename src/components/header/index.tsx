@@ -52,17 +52,20 @@ export function Header() {
           </div>
 
           <ul className="flex flex-col p-4 gap-4 font-semibold">
-            {navButtons.map((e, i) => (
-              <Link href={e.link}>
-                <li
-                  key={i}
-                  className="cursor-pointer text-lg text-[rgb(56,163,165)] hover:text-[rgb(128,237,153)] transition-colors"
-                  onClick={toggleMenu}
-                >
-                  {e.text}
-                </li>
-              </Link>
-            ))}
+            <div className='flex flex-col gap-4'>
+              {navButtons.map((e, i) => (
+                <Link href={e.link}>
+                  <li
+                    key={i}
+                    className="cursor-pointer text-lg text-[rgb(56,163,165)] hover:text-[rgb(128,237,153)] transition-colors"
+                    onClick={toggleMenu}
+                  >
+                    {e.text}
+                  </li>
+                </Link>
+              ))}
+            </div>
+            <li className="cursor-pointer text-2xl text-[rgb(56,163,165)] hover:text-[rgb(128,237,153)] transition-colors" onClick={logout}>SAIR</li>
           </ul>
         </div>
       </div>
