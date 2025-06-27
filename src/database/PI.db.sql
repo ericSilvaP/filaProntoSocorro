@@ -36,15 +36,6 @@ CREATE TABLE IF NOT EXISTS "ClassificacaoDeRisco" (
   "tempo_max_espera_segundos" INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS "Consulta" (
-  "consulta_id" INTEGER PRIMARY KEY AUTOINCREMENT,
-  "medico_id" INTEGER NOT NULL,
-  "inicio" DATETIME NOT NULL,
-  "fim" DATETIME,
-  "diagnostico" TEXT,
-  FOREIGN KEY("medico_id") REFERENCES "Medico"("medico_id")
-);
-
 CREATE TABLE IF NOT EXISTS "Enfermeira" (
   "enfermeira_id" INTEGER PRIMARY KEY AUTOINCREMENT,
   "coren" VARCHAR(7) NOT NULL,
@@ -53,7 +44,7 @@ CREATE TABLE IF NOT EXISTS "Enfermeira" (
   "data_nascimento" DATE NOT NULL,
   "sexo" CHAR(1) NOT NULL,
   "estado_civil" VARCHAR(30),
-  "telefone" VARCHAR(15) NOT NULL,
+  "telefone" VARCHAR(11) NOT NULL,
   "nome_pai" VARCHAR(100),
   "nome_mae" VARCHAR(100)
 );
@@ -67,7 +58,7 @@ CREATE TABLE IF NOT EXISTS "Medico" (
   "data_nascimento" DATE NOT NULL,
   "sexo" CHAR(1) NOT NULL,
   "estado_civil" VARCHAR(30),
-  "telefone" VARCHAR(15) NOT NULL,
+  "telefone" VARCHAR(11) NOT NULL,
   "nome_pai" VARCHAR(100),
   "nome_mae" VARCHAR(100)
 );
@@ -77,13 +68,13 @@ CREATE TABLE IF NOT EXISTS "Paciente" (
   "nome" VARCHAR(100) NOT NULL,
   "nome_pai" VARCHAR(100),
   "nome_mae" VARCHAR(100),
-  "cartao_sus" CHAR(15),
+  "cartao_sus" CHAR(11),
   "cpf" CHAR(11) NOT NULL UNIQUE,
   "data_nascimento" DATE NOT NULL,
   "tipo_sanguineo" VARCHAR(3) CHECK(tipo_sanguineo IN ('A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-')),
   "sexo" CHAR(1) NOT NULL,
   "estado_civil" VARCHAR(30) NOT NULL,
-  "telefone" VARCHAR(15)
+  "telefone" VARCHAR(11)
 );
 
 CREATE TABLE IF NOT EXISTS "Recepcionista" (
@@ -93,7 +84,7 @@ CREATE TABLE IF NOT EXISTS "Recepcionista" (
   "data_nascimento" DATE NOT NULL,
   "sexo" CHAR(1) NOT NULL,
   "estado_civil" VARCHAR(30),
-  "telefone" VARCHAR(15) NOT NULL,
+  "telefone" VARCHAR(11) NOT NULL,
   "nome_pai" VARCHAR(100),
   "nome_mae" VARCHAR(100)
 );

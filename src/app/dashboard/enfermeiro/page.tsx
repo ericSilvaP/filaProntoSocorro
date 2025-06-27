@@ -9,6 +9,7 @@ import { Attendance } from '@/core/models/nonPeople/Attendance'
 import { Patient } from '@/core/models/people/Patient'
 import { PriorityQueue } from '@/core/queueManagement/priorityQueue'
 import { QueueEntry } from '@/core/queueManagement/queueEntry'
+import { formatCPF } from '@/lib/handleChange'
 
 export default function HomeEnfermeiro() {
   const router = useRouter()
@@ -136,7 +137,7 @@ export default function HomeEnfermeiro() {
                   className={`flex w-full peer-checked:bg-blue-200 bg-white p-1.5 rounded transition-colors duration-150`}
                 >
                   <div className={`flex-7 truncate whitespace-nowrap overflow-hidden`}>{p.getAttendence().getPatient().getName()}</div>
-                  <div className="flex-3">{p.getAttendence().getPatient().getCpf()}</div>
+                  <div className="flex-3">{formatCPF(p.getAttendence().getPatient().getCpf())}</div>
                 </div>
               </label>
             ))}

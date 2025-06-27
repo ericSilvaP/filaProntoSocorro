@@ -39,21 +39,19 @@ export default function CadastroPessoa() {
       })
 
       const result = await res.json()
-      
+
       if (!res.ok) {
         alert(`Erro: ${result.error}`)
         return
       }
 
-      // sucesso
       setShowModal(true)
       setTimeout(() => router.push('/filaExibicao'), 2500)
-      
+
     } catch (error) {
       alert("Erro de rede ou servidor.")
       console.error(error)
     }
-
   }
 
   return (
@@ -62,9 +60,26 @@ export default function CadastroPessoa() {
         <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
           <h2 className="text-center w-full font-extrabold text-2xl">IDENTIFICAÇÃO DO PACIENTE</h2>
 
-          <input {...register("name", { required: true })} placeholder="Nome" className={`custom-input w-full ${errors.name ? 'error' : ''}`} />
-          <input {...register("mother", { required: true })} placeholder="Nome da mãe" className={`custom-input w-full ${errors.mother ? 'error' : ''}`} />
-          <input {...register("father", { required: true })} placeholder="Nome do pai" className={`custom-input w-full ${errors.father ? 'error' : ''}`} />
+          <input
+            {...register("name", { required: true })}
+            placeholder="Nome"
+            autoComplete="off"
+            className={`custom-input w-full ${errors.name ? 'error' : ''}`}
+          />
+
+          <input
+            {...register("mother", { required: true })}
+            placeholder="Nome da mãe"
+            autoComplete="off"
+            className={`custom-input w-full ${errors.mother ? 'error' : ''}`}
+          />
+
+          <input
+            {...register("father", { required: true })}
+            placeholder="Nome do pai"
+            autoComplete="off"
+            className={`custom-input w-full ${errors.father ? 'error' : ''}`}
+          />
 
           <input
             {...register("birthDate", {
@@ -72,6 +87,7 @@ export default function CadastroPessoa() {
               validate: (val) => isValidDate(val) || "Data inválida"
             })}
             placeholder="(DD/MM/AAAA)"
+            autoComplete="off"
             className={`custom-input ${errors.birthDate ? 'error' : ''}`}
             onChange={(e) => {
               let input = replaceOnlyNumbers(e.target.value).slice(0, 8)
@@ -100,10 +116,13 @@ export default function CadastroPessoa() {
               validate: (val) => isValidCPF(val) || "CPF inválido"
             })}
             placeholder="CPF"
+            autoComplete="off"
             className={`custom-input ${errors.cpf ? 'error' : ''}`}
             onChange={(e) => {
               let input = replaceOnlyNumbers(e.target.value).slice(0, 11)
-              input = input.replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d)/, "$1.$2").replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+              input = input.replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d{1,2})$/, "$1-$2")
               setValue("cpf", input)
             }}
           />
@@ -114,6 +133,7 @@ export default function CadastroPessoa() {
               validate: (val) => replaceOnlyNumbers(val).length === 15
             })}
             placeholder="SUS"
+            autoComplete="off"
             className={`custom-input ${errors.sus ? 'error' : ''}`}
             onChange={(e) => {
               const val = replaceOnlyNumbers(e.target.value).slice(0, 15)
@@ -127,6 +147,7 @@ export default function CadastroPessoa() {
               validate: (val) => replaceOnlyNumbers(val).length === 11
             })}
             placeholder="Telefone"
+            autoComplete="off"
             className={`custom-input ${errors.phone ? 'error' : ''}`}
             onChange={(e) => {
               let input = replaceOnlyNumbers(e.target.value).slice(0, 11)
@@ -139,14 +160,14 @@ export default function CadastroPessoa() {
             <div>Tipo de sangue:</div>
             <div className="w-[750px] flex gap-8">
               <label className="flex gap-2">
-                  <input
-                    type="radio"
-                    value={"desconhecido"}
-                    className="scale-150"
-                    {...register('bloodType', { required: true })}
-                  />
-                  <div>Desconhecido</div>
-                </label>
+                <input
+                  type="radio"
+                  value={"desconhecido"}
+                  className="scale-150"
+                  {...register('bloodType', { required: true })}
+                />
+                <div>Desconhecido</div>
+              </label>
               {bloodTypes.map((bt) => (
                 <label className="flex gap-2" key={bt}>
                   <input
@@ -170,7 +191,6 @@ export default function CadastroPessoa() {
       </div>
 
       {showModal && <SuccesModal message="Paciente Cadastrado!" />}
-      
     </div>
   )
 }
