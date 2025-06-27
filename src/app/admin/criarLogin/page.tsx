@@ -181,6 +181,7 @@ export default function CriarLogin() {
                 <input
                   {...field}
                   type={showPassword ? 'password' : 'text'}
+                  autoComplete='off'
                   className={`focus-within:outline-0 h-full text-[18px] tracking-wide flex-7`}
                 />
               )}
@@ -188,7 +189,7 @@ export default function CriarLogin() {
             {!showPassword && (
               <button
                 onClick={togglePasswordVisibility}
-                className="h-[55px] w-[55px] cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
               >
                 <Image
                   src={'/visibilityOn_32_black.svg'}
@@ -202,7 +203,7 @@ export default function CriarLogin() {
             {showPassword && (
               <button
                 onClick={togglePasswordVisibility}
-                className="h-[55px] w-[55px] cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
               >
                 <Image
                   src={'/visibilityOff_32_black.svg'}
@@ -227,6 +228,7 @@ export default function CriarLogin() {
             />
             <label className="text-[18px] flex-3">Confirmar Senha</label>
             <input
+              autoComplete='off'
               type={showRepeatedPassword ? 'password' : 'text'}
               className={`focus-within:outline-0 h-full text-[18px] tracking-wide flex-7`}
               {...register('repeatPassword', { required: true })}
@@ -234,7 +236,7 @@ export default function CriarLogin() {
             {!showRepeatedPassword && (
               <button
                 onClick={togglePasswordRepeatedVisibility}
-                className="h-[55px] w-[55px] cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
               >
                 <Image
                   src={'/visibilityOn_32_black.svg'}
@@ -248,7 +250,7 @@ export default function CriarLogin() {
             {showRepeatedPassword && (
               <button
                 onClick={togglePasswordRepeatedVisibility}
-                className="h-[55px] w-[55px] cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
               >
                 <Image
                   src={'/visibilityOff_32_black.svg'}

@@ -3,7 +3,13 @@
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
-import { handleChangeDate, handleChangeCPF, handleChangePhone, handleChangeCRM, handleChangeCOREN } from '@/lib/handleChange'
+import {
+  handleChangeDate,
+  handleChangeCPF,
+  handleChangePhone,
+  handleChangeCRM,
+  handleChangeCOREN
+} from '@/lib/handleChange'
 import { isValidDate, isValidCPF, replaceOnlyNumbers } from '@/lib/validations'
 
 export default function CriarMedico() {
@@ -29,8 +35,6 @@ export default function CriarMedico() {
       estado_civil: data.maritalStatus,
       sexo: data.sex,
       papel: `${role}`,
-
-      // adiciona CRM ou COREN dependendo do papel
       ...(role === 'medico' && { crm: data.crm }),
       ...(role === 'medico' && { especialidade: data.speciality }),
       ...(role === 'enfermeira' && { coren: data.coren })
@@ -39,16 +43,30 @@ export default function CriarMedico() {
     router.push(`/admin/criarLogin?${query}`)
   }
 
-
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
       <div className="flex flex-col gap-10">
         <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold shadow-xl">
           <h2 className="text-center w-full font-extrabold text-2xl uppercase">Criar {role}</h2>
 
-          <input {...register("name", { required: true })} placeholder="Nome" className={`custom-input w-full ${errors.name ? 'error' : ''}`} />
-          <input {...register("mother", { required: true })} placeholder="Nome da mãe" className={`custom-input w-full ${errors.mother ? 'error' : ''}`} />
-          <input {...register("father", { required: true })} placeholder="Nome do pai" className={`custom-input w-full ${errors.father ? 'error' : ''}`} />
+          <input
+            {...register("name", { required: true })}
+            placeholder="Nome"
+            autoComplete="off"
+            className={`custom-input w-full ${errors.name ? 'error' : ''}`}
+          />
+          <input
+            {...register("mother", { required: true })}
+            placeholder="Nome da mãe"
+            autoComplete="off"
+            className={`custom-input w-full ${errors.mother ? 'error' : ''}`}
+          />
+          <input
+            {...register("father", { required: true })}
+            placeholder="Nome do pai"
+            autoComplete="off"
+            className={`custom-input w-full ${errors.father ? 'error' : ''}`}
+          />
 
           <input
             {...register("birthDate", {
@@ -56,17 +74,24 @@ export default function CriarMedico() {
               validate: (val) => isValidDate(val) || "Data inválida"
             })}
             placeholder="(DD/MM/AAAA)"
+            autoComplete="off"
             className={`custom-input ${errors.birthDate ? 'error' : ''}`}
             onChange={(e) => setValue("birthDate", handleChangeDate(e))}
           />
 
-          <select {...register("maritalStatus", { validate: val => val !== "0" })} className={`custom-input ${errors.maritalStatus ? 'error' : ''}`}>
+          <select
+            {...register("maritalStatus", { validate: val => val !== "0" })}
+            className={`custom-input ${errors.maritalStatus ? 'error' : ''}`}
+          >
             <option value="0">Estado civil</option>
             <option value="c">Casado</option>
             <option value="s">Solteiro</option>
           </select>
 
-          <select {...register("sex", { validate: val => val !== "0" })} className={`custom-input ${errors.sex ? 'error' : ''}`}>
+          <select
+            {...register("sex", { validate: val => val !== "0" })}
+            className={`custom-input ${errors.sex ? 'error' : ''}`}
+          >
             <option value="0">Sexo</option>
             <option value="m">Masculino</option>
             <option value="f">Feminino</option>
@@ -79,6 +104,7 @@ export default function CriarMedico() {
               validate: (val) => isValidCPF(val) || "CPF inválido"
             })}
             placeholder="CPF"
+            autoComplete="off"
             className={`custom-input ${errors.cpf ? 'error' : ''}`}
             onChange={(e) => setValue("cpf", handleChangeCPF(e))}
           />
@@ -89,6 +115,7 @@ export default function CriarMedico() {
               validate: (val) => replaceOnlyNumbers(val).length === 11
             })}
             placeholder="Telefone"
+            autoComplete="off"
             className={`custom-input ${errors.phone ? 'error' : ''}`}
             onChange={(e) => setValue("phone", handleChangePhone(e))}
           />
@@ -100,6 +127,7 @@ export default function CriarMedico() {
                 minLength: { value: 9, message: "Tamanho CRM insuficiente" }
               })}
               placeholder="CRM"
+              autoComplete="off"
               className={`custom-input ${errors.crm ? 'error' : ''}`}
               onChange={(e) => setValue("crm", handleChangeCRM(e))}
             />
@@ -112,6 +140,7 @@ export default function CriarMedico() {
                 minLength: { value: 12, message: "Tamanho COREN insuficiente" }
               })}
               placeholder="COREN"
+              autoComplete="off"
               className={`custom-input ${errors.coren ? 'error' : ''}`}
               onChange={(e) => setValue("coren", handleChangeCOREN(e))}
             />
@@ -119,11 +148,10 @@ export default function CriarMedico() {
 
           {role === "medico" && (
             <input
-              {...register("speciality", {
-                required: true,
-              })}
+              {...register("speciality", { required: true })}
               placeholder="Especialidade"
-              className={`custom-input ${errors.coren ? 'error' : ''}`}
+              autoComplete="off"
+              className={`custom-input ${errors.speciality ? 'error' : ''}`}
             />
           )}
         </main>

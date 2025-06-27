@@ -24,12 +24,19 @@ export const handleChangePhone = (e: React.ChangeEvent<HTMLInputElement>) => {
   return input
 }
 
+export function formatCPF(cpfStr: string) {
+  let formatedCPF = cpfStr
+
+  formatedCPF = formatedCPF.replace(/(\d{3})(\d)/, '$1.$2')
+  formatedCPF = formatedCPF.replace(/(\d{3})(\d)/, '$1.$2')
+  formatedCPF = formatedCPF.replace(/(\d{3})(\d)/, '$1-$2')
+  return formatedCPF
+}
+
 export const handleChangeCPF = (e: React.ChangeEvent<HTMLInputElement>): string => {
   let input = replaceOnlyNumbers(e.target.value.slice(0, 14))
 
-  input = input.replace(/(\d{3})(\d)/, '$1.$2')
-  input = input.replace(/(\d{3})(\d)/, '$1.$2')
-  input = input.replace(/(\d{3})(\d)/, '$1-$2')
+  input = formatCPF(input)  
 
   return input
 }

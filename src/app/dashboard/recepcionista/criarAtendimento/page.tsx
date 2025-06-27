@@ -8,6 +8,7 @@ import { Patient } from '@/core/models/people/Patient'
 import { getCookie } from '@/lib/cookies'
 import { SuccesModal } from '@/components/sucessModal'
 import { useRouter } from 'next/navigation'
+import { formatCPF } from '@/lib/handleChange'
 
 export default function CriarAtendimento() {
   type FormData = {
@@ -60,8 +61,8 @@ export default function CriarAtendimento() {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          paciente_id: paciente_id,
-          recepcionista_id: recepcionista_id
+          paciente_id: 1,
+          recepcionista_id: 1
         })
       })
 
@@ -171,7 +172,7 @@ export default function CriarAtendimento() {
                   className={`flex w-full peer-checked:bg-blue-200 bg-white p-1.5 rounded transition-colors duration-150`}
                 >
                   <div className={`flex-7 truncate whitespace-nowrap overflow-hidden`}>{p.nome}</div>
-                  <div className="flex-3">{p.cpf}</div>
+                  <div className="flex-3">{formatCPF(p.cpf)}</div>
                 </div>
               </label>
             ))}

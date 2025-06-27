@@ -20,7 +20,7 @@ export function Header() {
       method: "POST"
     })
 
-    router.push("login")
+    router.push("/login")
   }
 
   function toggleMenu() {
