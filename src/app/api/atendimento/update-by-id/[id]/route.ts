@@ -8,13 +8,13 @@ export async function PUT(
   const atendimento_Id = Number(params.id);
   if (isNaN(atendimento_Id)) {
     return NextResponse.json(
-      { error: "ID de atendimento inválido" },
-      { status: 400 }
-    );
+      { error: `ID de atendimento inválido - ${params.id}` },
+      { status: 401 }
+    )
   }
 
-  const body = await req.json();
-  const { avaliacao_clinica_id } = body;
+  const body = await req.json()
+  const { avaliacao_clinica_id } = body
 
   if (!avaliacao_clinica_id) {
     return NextResponse.json(
@@ -24,7 +24,7 @@ export async function PUT(
   }
 
   try {
-    const result = updateAvaliacaoClinica(atendimento_Id, avaliacao_clinica_id);
+    const result = updateAvaliacaoClinica(atendimento_Id, avaliacao_clinica_id)
 
     if (result === 0) {
       return NextResponse.json(

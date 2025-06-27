@@ -2,13 +2,14 @@
 
 import { SuccesModal } from '@/components/sucessModal'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 export default function Risco() {
   const router = useRouter()
-
+  const searchParams = useSearchParams()
+  
   const {
     register,
     handleSubmit,
@@ -16,10 +17,112 @@ export default function Risco() {
   } = useForm()
 
   const [showModal, setShowModal] = useState(false)
+  async function onSubmit(data: any) {
+    try {
+      const urlParams = Object.fromEntries(searchParams.entries())
 
-  function onSubmit() {
-    setShowModal(true)
-    setTimeout(() => router.push('/'), 2000)
+      const prioridade = parseInt(data.risk_level)
+
+      const atendimento_id = parseInt(urlParams.atendimento_id || '')
+      const classificacao_risco_id = prioridade+1
+      const pressao_arterial = urlParams.blood_pressure || ''
+      const frequencia_cardiaca = parseFloat(urlParams.heart_rate || '')
+      const frequencia_respiratoria = parseFloat(urlParams.respiratory_rate || '')
+      const temperatura = parseFloat(urlParams.temperature || '')
+      const saturacao_oxigenio = parseFloat(urlParams.oxygen_saturation || '')
+      const nivel_dor = urlParams.pain_level ? parseInt(urlParams.pain_level) : 0
+      const paciente_id = urlParams.paciente_id ? parseInt(urlParams.paciente_id) : 0
+
+      if (
+        isNaN(atendimento_id) ||
+        isNaN(classificacao_risco_id) ||
+        pressao_arterial.trim() === '' ||
+        isNaN(frequencia_cardiaca) ||
+        isNaN(frequencia_respiratoria) ||
+        isNaN(temperatura) ||
+        isNaN(saturacao_oxigenio) ||
+        isNaN(nivel_dor)
+      ) {
+        alert("Erro: há campos inválidos ou vazios.")
+        return
+      }
+
+      const body = {
+        atendimento_id,
+        classificacao_risco_id,
+        pressao_arterial,
+        frequencia_cardiaca,
+        frequencia_respiratoria,
+        temperatura,
+        saturacao_oxigenio,
+        nivel_dor
+      }
+
+      console.log("Enviando body:", body)
+
+      // inserção nova triagem
+      const res = await fetch(`/api/avaliacaoClinica`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body)
+      })
+
+      const result = await res.json()
+
+      if (!res.ok) {
+        console.error("Erro:", result)
+        alert(`Erro ao salvar: ${result.error || 'Erro desconhecido'}`)
+        return
+      }
+
+      // atribuição risco para atendimento
+      const resUpdateAtendimento = await fetch(`/api/atendimento/update-by-id/${String(atendimento_id)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({avaliacao_clinica_id: result.id})
+      })
+
+      const resultUpdAtendimento = await resUpdateAtendimento.json()
+      
+      if (!resUpdateAtendimento.ok) {
+        alert(`Erro na atribuição de risco: ${resultUpdAtendimento.error}`)
+        return
+      }
+
+      // atualiza prioridade na fila
+      const resUpdFila = await fetch(`/api/filaDePrioridade/update-by-paciente-id/${String(atendimento_id)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({prioridade: prioridade})
+      })
+
+      const resultUpdtFila = await resUpdFila.json()
+      
+      if (!resUpdFila.ok) {
+        alert(`Erro na mudança de prioridade: ${resultUpdtFila.error}`)
+        return
+      }
+
+      // atualiza status para aguardando atendimento
+      const resUpdStatus = await fetch(`/api/atendimento/update-status/${String(atendimento_id)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({status: 1})
+      })
+
+      const resultUpdStatus = await resUpdStatus.json()
+      
+      if (!resUpdStatus.ok) {
+        alert(`Erro na mudança de status: ${resultUpdStatus.error}`)
+        return
+      }
+
+      setShowModal(true)
+      setTimeout(() => router.push('/filaExibicao'), 2000)
+    } catch (error: any) {
+      console.error("Erro:", error)
+      alert("Erro inesperado: " + error.message)
+    }
   }
 
   return (

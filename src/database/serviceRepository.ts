@@ -2,30 +2,29 @@ import { db } from "./index";
 
 export function registerService(
   paciente_id: number, 
-  consulta_id: number,
   recepcionista_id: number,
-  inicio: string,
-  fim: string
 ) {
   const stmt = db.prepare(`
     INSERT INTO Atendimento (
       paciente_id, 
-      consulta_id,
       recepcionista_id,
-      inicio,
-      fim
-    ) VALUES (?, ?, ?, ?, ?)
+      status,
+      inicio
+    ) VALUES (?, ?, ?, ?)
   `);
+
+  const now = new Date()
+  now.setHours(now.getHours() - 3) // ajusta UTC-3
+
+  const sqlNowDate = now.toISOString().slice(0, 19).replace("T", " ")
 
   const info = stmt.run(
     paciente_id,
-    consulta_id,
     recepcionista_id,
-    inicio,
-    fim
-  );
-
-  return info.lastInsertRowid;
+    0,
+    sqlNowDate
+  )
+  return info.lastInsertRowid
 }
 
 
@@ -36,14 +35,28 @@ export function updateAvaliacaoClinica(
   const stmt = db.prepare(`
     UPDATE Atendimento
     SET avaliacao_clinica_id = ?
-    WHERE id = ?
-  `);
+    WHERE atendimento_id = ?
+  `)
 
-  const result = stmt.run(avaliacao_clinica_id, atendimento_id);
+  const result = stmt.run(avaliacao_clinica_id, atendimento_id)
 
-  return result.changes;
+  return result.changes
 }
 
+export function updateStatus(
+  atendimento_id: number,
+  status: number
+) {
+  const stmt = db.prepare(`
+    UPDATE Atendimento
+    SET status = ?
+    WHERE atendimento_id = ?
+  `)
+
+  const result = stmt.run(status, atendimento_id)
+
+  return result.changes
+}
 
 export function getAllService() {
   const stmt = db.prepare(

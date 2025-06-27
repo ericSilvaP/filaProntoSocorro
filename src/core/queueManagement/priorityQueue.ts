@@ -21,6 +21,15 @@ export class PriorityQueue {
     }
   }
 
+  top() {
+    if (this.expiredQueue) return this.expiredQueue[0]
+    if (this.queues[0]) return this.queues[0][0]
+    if (this.queues[1]) return this.queues[1][0]
+    if (this.queues[2]) return this.queues[2][0]
+    if (this.queues[3]) return this.queues[3][0]
+    if (this.queues[4]) return this.queues[4][0]
+  }
+
   enqueue(queueEntry: QueueEntry): void {
     const servicePriority: number = queueEntry.getPriorityLevel()
     if (servicePriority > this.nQueues - 1) {

@@ -8,7 +8,7 @@ export async function PUT(
   const atendimento_Id = Number(params.id);
   if (isNaN(atendimento_Id)) {
     return NextResponse.json(
-      { error: "ID de atendimento inválido" },
+      { error: `ID de atendimento inválido - ${params.id}` },
       { status: 400 }
     );
   }
@@ -16,7 +16,7 @@ export async function PUT(
   const body = await req.json();
   const { prioridade } = body;
 
-  if (!prioridade) {
+  if (prioridade === null || prioridade === undefined) {
     return NextResponse.json(
       { error: "prioridade é obrigatório" },
       { status: 400 }
