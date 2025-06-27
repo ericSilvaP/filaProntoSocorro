@@ -53,9 +53,9 @@ export default function SinaisVitais() {
 
   return (
     <div className="mt-[3rem] flex justify-center font-[family-name:var(--font-gabarito)]">
-      <div className="flex flex-col gap-10">
-        <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl">
-          <h1 className="text-center w-full font-extrabold text-2xl tracking-wider">
+      <div className="flex flex-col gap-8">
+        <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-3 flex-wrap max-w-[72rem] text-[13px]">
+          <h1 className="text-center w-full font-extrabold text-xl tracking-wider">
             Sinais Vitais
           </h1>
 
@@ -175,15 +175,15 @@ export default function SinaisVitais() {
           </div>
 
           {/* Nível de Dor */}
-          <div className="flex items-center flex-wrap gap-2">
+          <div className="flex items-center gap-2">
             <div className="text-white w-full">Nível de Dor:</div>
-            <div className="flex justify-between gap-6">
+            <div className="flex justify-between gap-3">
               {pain_levels.map((pl, i) => (
-                <label className="flex gap-3" key={pl}>
+                <label className="flex gap-1.5" key={pl}>
                   <input
                     type="radio"
                     value={i}
-                    className="scale-200"
+                    className="scale-100"
                     {...register('pain_level', { required: true })}
                   />
                   <div>{pl}</div>
@@ -198,7 +198,7 @@ export default function SinaisVitais() {
           <div>
             <Link href="/dashboard/enfermeiro">
               <button
-                className="bg-[rgb(56,163,165)] p-2 text-white text-2xl  font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150"
+                className="bg-[rgb(56,163,165)] p-1.5 text-white text-[15px] font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150"
                 onClick={() => handleSubmit(onSubmit)()}
               >
                 Voltar
@@ -207,7 +207,7 @@ export default function SinaisVitais() {
           </div>
           <div>
             <button
-              className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150"
+              className="bg-[rgb(56,163,165)] p-1.5 text-white text-[15px] font-bold rounded min-w-[8rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150"
               onClick={() => handleSubmit(onSubmit)()}
             >
               Próximo

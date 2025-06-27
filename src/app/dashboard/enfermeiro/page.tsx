@@ -92,9 +92,9 @@ export default function HomeEnfermeiro() {
 
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
-      <div className="flex flex-col items-center w-[80vw] lg:w-[60vw] gap-6">
-        <h1 className="text-center font-bold text-[20px] uppercase">PACIENTES PARA TRIAGEM</h1>
-        <div className="flex flex-col bg-[#1f5c77] p-6 gap-2 w-full shadow-2xl">
+      <div className="flex flex-col items-center max-w-[60rem] lg:w-[60rem] gap-6 text-[13px]">
+        <h1 className="text-center font-bold text-[18px] uppercase">PACIENTES PARA TRIAGEM</h1>
+        <div className="flex flex-col bg-[#1f5c77] p-3 gap-2 w-full shadow-2xl md:max-w-[50rem]">
           <div className="flex">
             <div className="w-full">
               <SearchBarInteractive
@@ -120,8 +120,8 @@ export default function HomeEnfermeiro() {
           )}
 
           <div className="text-white flex">
-            <div className="flex-7 text-[18px] font-bold">Nome</div>
-            <div className="flex-3 text-[18px] font-bold">CPF</div>
+            <div className="flex-7 font-bold">Nome</div>
+            <div className="flex-3 font-bold">CPF</div>
           </div>
           
           <div className='flex flex-col gap-2 max-h-[350px] overflow-y-auto'>
@@ -146,7 +146,7 @@ export default function HomeEnfermeiro() {
 
         <div className="flex justify-evenly w-full">
           <button
-            className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
+            className="bg-[rgb(56,163,165)] p-2 text-white text-[15px] font-bold rounded min-w-[8rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
             onClick={() => handleSubmit(onSubmit)()}
           >
             Avaliar

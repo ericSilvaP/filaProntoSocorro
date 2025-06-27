@@ -127,15 +127,15 @@ export default function Risco() {
 
   return (
     <div className="mt-[3rem] flex justify-center font-[family-name:var(--font-gabarito)]">
-      <div className="flex flex-col gap-10">
-        <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-7 flex-wrap max-w-[72rem] text-xl font-bold shadow-2xl">
-          <h1 className="text-center w-full font-extrabold text-2xl tracking-wider">
+      <div className="flex flex-col gap-8">
+        <main className="bg-[#1f5c77] py-6 px-[5rem] rounded-lg text-white flex flex-col gap-3 flex-wrap max-w-[72rem] text-[13px] font-bold shadow-2xl">
+          <h1 className="text-center w-full font-extrabold text-xl tracking-wider">
             Classificação de Risco
           </h1>
           {errors.risk_level && (
             <div className="text-red-500 text-center font-normal">Selecione um risco</div>
           )}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <label className="cursor-pointer flex">
               <input
                 type="radio"
@@ -143,7 +143,7 @@ export default function Risco() {
                 className="peer hidden"
                 {...register('risk_level', { required: true })}
               />
-              <span className="bg-[#ef233c] rounded py-3 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
+              <span className="bg-[#ef233c] rounded py-1.5 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
                 Emergência
               </span>
             </label>
@@ -155,7 +155,7 @@ export default function Risco() {
                 className="peer hidden"
                 {...register('risk_level', { required: true })}
               />
-              <span className="bg-[#e85d04] rounded py-3 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
+              <span className="bg-[#e85d04] rounded py-1.5 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
                 Muito Urgente
               </span>
             </label>
@@ -167,7 +167,7 @@ export default function Risco() {
                 className="peer hidden"
                 {...register('risk_level', { required: true })}
               />
-              <span className="bg-[#ffba08] rounded py-3 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
+              <span className="bg-[#ffba08] rounded py-1.5 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
                 Urgente
               </span>
             </label>
@@ -179,7 +179,7 @@ export default function Risco() {
                 className="peer hidden"
                 {...register('risk_level', { required: true })}
               />
-              <span className="bg-[#7cb518] rounded py-3 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
+              <span className="bg-[#7cb518] rounded py-1.5 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
                 Pouco Urgente
               </span>
             </label>
@@ -191,7 +191,7 @@ export default function Risco() {
                 className="peer hidden"
                 {...register('risk_level', { required: true })}
               />
-              <span className="bg-[#5c95ff] rounded py-3 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
+              <span className="bg-[#5c95ff] rounded py-1.5 px-6 hover:opacity-90 transition duration-150 peer-checked:outline flex-1 text-center">
                 Não Urgente
               </span>
             </label>
@@ -200,14 +200,14 @@ export default function Risco() {
         <div className="flex justify-evenly">
           <div>
             <Link href="/dashboard/enfermeiro/sinaisVitais">
-              <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl  font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150">
+              <button className="bg-[rgb(56,163,165)] p-2 text-white text-[15px]  font-bold rounded min-w-[8rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150">
                 Voltar
               </button>
             </Link>
           </div>
           <div>
             <button
-              className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150"
+              className="bg-[rgb(56,163,165)] p-2 text-white text-[15px] font-bold rounded min-w-[8rem] cursor-pointer shadow-2xl hover:opacity-[90%] transition duration-150"
               onClick={() => handleSubmit(onSubmit)()}
             >
               Finalizar
