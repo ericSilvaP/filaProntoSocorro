@@ -91,11 +91,7 @@ export default function Home() {
                     return (
                       <div
                         key={entry.getAttendence().getId()}
-                        className={`flex justify-between items-center p-2 rounded-md ${
-                          i === 0
-                            ? 'bg-lime-100 text-black font-semibold border border-lime-400'
-                            : 'text-gray-800'
-                        }`}
+                        className={`flex justify-between items-center p-2 rounded-md text-gray-800`}
                       >
                         <span className="truncate max-w-[40%]">{patient.getName()}</span>
                         <span>{getColorByPriority(entry.getPriorityLevel()).colorName}</span>
