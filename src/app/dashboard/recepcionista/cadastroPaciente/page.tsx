@@ -55,10 +55,10 @@ export default function CadastroPessoa() {
   }
 
   return (
-    <div className="flex items-center mt-[5rem] flex-col font-[family-name:var(--font-gabarito)]">
+    <div className="flex items-center mt-[3rem] flex-col font-[family-name:var(--font-gabarito)]">
       <div className="flex flex-col px-10">
-        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold">
-          <h2 className="text-center w-full font-extrabold text-2xl">IDENTIFICAÇÃO DO PACIENTE</h2>
+        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-2 flex-wrap max-w-[55rem] text-[13px] font-bold">
+          <h2 className="text-center w-full font-extrabold text-[18px]">IDENTIFICAÇÃO DO PACIENTE</h2>
 
           <input
             {...register("name", { required: true })}
@@ -159,7 +159,7 @@ export default function CadastroPessoa() {
           <div className="flex w-full gap-10">
             <div>Tipo de sangue:</div>
             <div className="w-[750px] flex gap-8">
-              <label className="flex gap-2">
+              <label className="flex gap-2 items-center">
                 <input
                   type="radio"
                   value={"desconhecido"}
@@ -169,7 +169,7 @@ export default function CadastroPessoa() {
                 <div>Desconhecido</div>
               </label>
               {bloodTypes.map((bt) => (
-                <label className="flex gap-2" key={bt}>
+                <label className="flex gap-2 items-center" key={bt}>
                   <input
                     type="radio"
                     value={bt}
@@ -184,7 +184,7 @@ export default function CadastroPessoa() {
         </main>
 
         <div className="flex justify-end w-full mt-5">
-          <button onClick={handleSubmit(onSubmit)} className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded">
+          <button onClick={handleSubmit(onSubmit)} className="bg-[rgb(56,163,165)] p-1.5 text-white text-[18px] font-bold rounded">
             Cadastrar Paciente
           </button>
         </div>

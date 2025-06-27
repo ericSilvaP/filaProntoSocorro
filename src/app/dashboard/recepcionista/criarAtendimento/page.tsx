@@ -125,11 +125,11 @@ export default function CriarAtendimento() {
   }
 
   return (
-    <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
-      <div className="flex flex-col items-center w-[80vw] lg:w-[60vw] gap-6">
-        <h1 className="text-center font-bold text-[20px]">PACIENTES CADASTRADOS</h1>
+    <div className="flex justify-center mt-[2rem] font-[family-name:var(--font-gabarito)]">
+      <div className="flex flex-col items-center w-[45rem] lg:w-[55rem] gap-4 text-[11px]">
+        <h1 className="text-center font-bold text-[18px]">PACIENTES CADASTRADOS</h1>
         <div className="flex flex-col bg-[#1f5c77] p-6 gap-2 w-full shadow-2xl">
-          <div className="flex">
+          <div className="flex items-center">
             <div className="w-full">
               <SearchBarInteractive
                 value={searchInput}
@@ -139,9 +139,9 @@ export default function CriarAtendimento() {
             <button
               type="button"
               onClick={searchPatient}
-              className="p-2 text-white text-2xl font-bold rounded hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
+              className="p-2 text-white text-xl font-bold rounded hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
             >
-              <Image src="/search.svg" alt="" height={40} width={40} />
+              <Image src="/search.svg" alt="" height={30} width={30} />
             </button>
           </div>
 
@@ -154,11 +154,11 @@ export default function CriarAtendimento() {
           )}
 
           <div className="text-white flex">
-            <div className="flex-7 text-[18px] font-bold">Nome</div>
-            <div className="flex-3 text-[18px] font-bold">CPF</div>
+            <div className="flex-7 text-[15px] font-bold">Nome</div>
+            <div className="flex-3 text-[15px] font-bold">CPF</div>
           </div>
           
-          <div className='flex flex-col gap-2 max-h-[400px] overflow-y-auto'>
+          <div className='flex flex-col gap-2 max-h-[220px] overflow-y-auto'>
 
             {filteredPatients.map((p, i) => (
               <label className="flex" key={i}>
@@ -180,11 +180,8 @@ export default function CriarAtendimento() {
         </div>
 
         <div className="flex justify-evenly w-full">
-          <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">
-            Editar
-          </button>
           <button
-            className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
+            className="bg-[rgb(56,163,165)] p-1.5 text-white text-[15px] font-bold rounded min-w-[8rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
             onClick={() => handleSubmit(onSubmit)()}
           >
             Criar atendimento

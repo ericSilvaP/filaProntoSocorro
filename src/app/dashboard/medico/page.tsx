@@ -14,14 +14,12 @@ export default function Medico() {
   const [queue, setQueue] = useState<QueueEntry[]>([])
   const [calledPatient, setCalledPatient] = useState(false)
   const [minCall, setMinCall] = useState(0)
-  const [minAttend, setMinAttend] = useState(0)
   const [showSuccesModal, setShowSuccesModal] = useState(false)
 
   const toggleModal = () => {
     setShowModalPatientOff(!showModalPatientOff)
   }
 
-  
   const prioQueue = new PriorityQueue(5)
   useEffect(() => {
     fetch('/api/filaDePrioridade')
@@ -98,10 +96,6 @@ export default function Medico() {
       return
     }
   }
-  
-  useEffect(() => {
-    updateStatus(10, 1)
-  }, [])
 
   async function deleteFromQueueDb(atendimento_id: number, ) {
     const res = await fetch(`/api/filaDePrioridade/${atendimento_id}`, {
@@ -172,12 +166,12 @@ export default function Medico() {
 
 
   return (
-    <div className="flex justify-center gap-3 lg:gap-50 mt-[3rem] font-[family-name:var(--font-gabarito)]">
-      <div className="flex flex-col gap-10">
-        <div className="">
-          <h1 className="text-center font-bold text-2xl">Para Chamar</h1>
+    <div className="flex justify-center gap-3 lg:gap-50 mt-[2rem] font-[family-name:var(--font-gabarito)]">
+      <div className="flex gap-8 text-[15px]">
+        <div className="flex flex-col flex-wrap items-center">
+          <h1 className="text-center font-bold text-xl">Para Chamar</h1>
 
-          <div className="bg-[rgb(56,163,165)] p-5 flex justify-center items-center flex-col w-2xl gap-5 shadow-2xl rounded-2xl">
+          <div className="bg-[rgb(56,163,165)] p-3 flex justify-center items-center flex-col min-w-[30rem] gap-5 shadow-2xl rounded-2xl">
             <div className="flex w-full flex-col items-center">
               <h2 className="font-bold text-white">Próximo</h2>
               <div className="bg-white w-[75%] flex p-6">
@@ -208,7 +202,7 @@ export default function Medico() {
             </div>
             <div>
               <button
-                className={`min-w-[9rem] py-1.5 px-5 rounded font-bold ${
+                className={`min-w-[8rem] py-1.5 px-5 rounded font-bold ${
                   calledPatient || queue.length === 0
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-[rgb(128,237,153)] cursor-pointer'
@@ -223,9 +217,9 @@ export default function Medico() {
         </div>
 
         <div className="">
-          <h1 className="text-center font-bold text-2xl">Para Atender</h1>
+          <h1 className="text-center font-bold text-xl">Para Atender</h1>
 
-          <div className="bg-[rgb(56,163,165)] p-5 flex justify-center items-center flex-col w-2xl gap-5 shadow-2xl rounded-2xl">
+          <div className="bg-[rgb(56,163,165)] p-3 flex justify-center items-center flex-col min-w-[30rem] gap-5 shadow-2xl rounded-2xl">
             <div className="flex w-full flex-col items-center">
               <h2 className="font-bold text-white">Aguardando</h2>
               <div className="bg-white w-[75%] flex p-6">
@@ -256,7 +250,7 @@ export default function Medico() {
             <div className="flex justify-evenly w-full">
               <div>
                 <button
-                  className={`min-w-[9rem] py-1.5 px-5 rounded font-bold ${
+                  className={`min-w-[8rem] py-1.5 px-5 rounded font-bold ${
                     !calledPatient ? 'bg-gray-400 cursor-not-allowed' : 'bg-[rgb(128,237,153)] cursor-pointer'
                   }`}
                   onClick={calledPatient ? toggleModal : undefined}
@@ -268,7 +262,7 @@ export default function Medico() {
 
               <div>
                 <button
-                  className={`min-w-[9rem] py-1.5 px-5 rounded font-bold ${
+                  className={`min-w-[8rem] py-1.5 px-5 rounded font-bold ${
                     !calledPatient ? 'bg-gray-400 cursor-not-allowed' : 'bg-[rgb(128,237,153)] cursor-pointer'
                   }`}
                   onClick={() => {
@@ -298,7 +292,7 @@ export default function Medico() {
             <p className="text-[1.2rem] font-medium">Dispensar {queue[0].getAttendence().getPatient().getName()}?</p>
             <div className="flex w-full justify-evenly">
               <button
-                className="bg-[rgb(128,237,153)] py-1.5 px-5 rounded font-bold cursor-pointer min-w-[9rem]"
+                className="bg-[rgb(128,237,153)] py-1.5 px-5 rounded font-bold cursor-pointer min-w-[8rem]"
                 onClick={() => {
                   toggleModal()
                 }}
@@ -306,7 +300,7 @@ export default function Medico() {
                 Não
               </button>
               <button
-                className="bg-[rgb(128,237,153)] py-1.5 px-5 rounded font-bold cursor-pointer min-w-[9rem]"
+                className="bg-[rgb(128,237,153)] py-1.5 px-5 rounded font-bold cursor-pointer min-w-[8rem]"
                 onClick={() => {
                   releaseFirstPatient()
                   togglePatient()

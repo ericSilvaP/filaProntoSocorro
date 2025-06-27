@@ -17,7 +17,7 @@ export function registerClinicalAssessment(
       frequencia_respiratoria, temperatura, 
       saturacao_oxigenio, nivel_dor
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `);
+  `)
   const info = stmt.run(
     atendimento_id,
     classificacao_risco_id,
@@ -27,7 +27,7 @@ export function registerClinicalAssessment(
     temperatura,
     saturacao_oxigenio,
     nivel_dor
-  );
+  )
   return info.lastInsertRowid;
 }
 

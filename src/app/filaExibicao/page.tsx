@@ -67,14 +67,14 @@ export default function Home() {
 
   return (
     <div className="py-10 px-6 font-[family-name:var(--font-gabarito)]">
-      <main className="max-w-5xl mx-auto flex flex-col md:flex-row gap-10">
-        <div className="w-full md:w-2/3 mx-auto">
-          <h3 className="text-center text-3xl font-extrabold mb-4 text-[#1f5c77] underline-offset-4">
+      <main className="max-w-5xl mx-auto flex flex-col md:flex-row gap-8 text-[13px]">
+        <div className="w-full md:w-[40rem] mx-auto">
+          <h3 className="text-center text-xl font-extrabold mb-4 text-[#1f5c77] underline-offset-4">
             Fila de Prioridade
           </h3>
 
           <div className="bg-[rgb(56,163,165)] rounded-xl p-6 shadow-lg space-y-4">
-            <div className="bg-white rounded-xl p-4 max-h-[400px] overflow-y-auto">
+            <div className="bg-white rounded-xl p-4 max-h-[300px] overflow-y-auto">
               {queue.length === 0 ? (
                 <p className="text-center text-gray-500">Nenhum paciente na fila</p>
               ) : (
@@ -97,11 +97,6 @@ export default function Home() {
                             : 'text-gray-800'
                         }`}
                       >
-                        {i === 0 && (
-                          <div className="absolute left-1/2 transform -translate-x-1/2 text-sm text-lime-800 font-bold -mt-6 mb-1">
-                            Próximo
-                          </div>
-                        )}
                         <span className="truncate max-w-[40%]">{patient.getName()}</span>
                         <span>{getColorByPriority(entry.getPriorityLevel()).colorName}</span>
                         <span>

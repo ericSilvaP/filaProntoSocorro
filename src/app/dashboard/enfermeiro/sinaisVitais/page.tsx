@@ -47,8 +47,8 @@ export default function SinaisVitais() {
 }
 
 
-  function replaceNumbersNPoint(data: string) {
-    return data.replace(/[^\d\.]/, '')
+  function replaceNumbersNSlash(data: string) {
+    return data.replace(/[^\d\/]/, '')
   }
 
   return (
@@ -70,7 +70,7 @@ export default function SinaisVitais() {
                 <input
                   {...field}
                   onChange={(e) => {
-                    const formatted = replaceNumbersNPoint(e.target.value)
+                    const formatted = replaceNumbersNSlash(e.target.value)
                     field.onChange(formatted)
                   }}
                   value={field.value}
@@ -93,7 +93,7 @@ export default function SinaisVitais() {
                 <input
                   {...field}
                   onChange={(e) => {
-                    const formatted = replaceNumbersNPoint(e.target.value)
+                    const formatted = replaceNumbersNSlash(e.target.value)
                     field.onChange(formatted)
                   }}
                   value={field.value}
@@ -116,7 +116,7 @@ export default function SinaisVitais() {
                 <input
                   {...field}
                   onChange={(e) => {
-                    const formatted = replaceNumbersNPoint(e.target.value)
+                    const formatted = replaceNumbersNSlash(e.target.value)
                     field.onChange(formatted)
                   }}
                   value={field.value}
@@ -139,7 +139,7 @@ export default function SinaisVitais() {
                 <input
                   {...field}
                   onChange={(e) => {
-                    const formatted = replaceNumbersNPoint(e.target.value)
+                    const formatted = replaceNumbersNSlash(e.target.value)
                     field.onChange(formatted)
                   }}
                   value={field.value}
@@ -162,7 +162,7 @@ export default function SinaisVitais() {
                 <input
                   {...field}
                   onChange={(e) => {
-                    const formatted = replaceNumbersNPoint(e.target.value)
+                    const formatted = replaceNumbersNSlash(e.target.value)
                     field.onChange(formatted)
                   }}
                   value={field.value}
