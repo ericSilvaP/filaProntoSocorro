@@ -2,18 +2,23 @@
 
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { isEmail } from 'validator'
 
 export default function Home() {
   const router = useRouter()
+  const [showPassword, setShowPassword] = useState(true)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm()
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword)
+  }
 
   const onSubmit = async (data: any) => {
     try {
@@ -79,6 +84,7 @@ export default function Home() {
             />
             <div className="flex text-[20px] h-full items-center translate-y-[1.5px]">Email</div>
             <input
+              autoComplete='off'
               type="text"
               className="focus-within:outline-0 h-full text-[20px] tracking-wide"
               {...register('email', {
@@ -100,10 +106,39 @@ export default function Home() {
             />
             <label className="text-[20px]">Senha</label>
             <input
-              type="password"
+              autoComplete='off'
+              type={showPassword ? 'password' : 'text'}
               className={`focus-within:outline-0 h-full text-[20px] tracking-wide`}
               {...register('password', { required: true })}
             />
+            {!showPassword && (
+              <button
+                onClick={togglePasswordVisibility}
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+              >
+                <Image
+                  src={'/visibilityOn_32_black.svg'}
+                  alt=""
+                  height={30}
+                  width={30}
+                  className="select-none"
+                />
+              </button>
+            )}
+            {showPassword && (
+              <button
+                onClick={togglePasswordVisibility}
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+              >
+                <Image
+                  src={'/visibilityOff_32_black.svg'}
+                  alt=""
+                  height={30}
+                  width={30}
+                  className="select-none"
+                />
+              </button>
+            )}
           </label>
         </div>
 

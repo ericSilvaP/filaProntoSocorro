@@ -181,6 +181,7 @@ export default function CriarLogin() {
                 <input
                   {...field}
                   type={showPassword ? 'password' : 'text'}
+                  autoComplete='off'
                   className={`focus-within:outline-0 h-full text-[18px] tracking-wide flex-7`}
                 />
               )}
@@ -227,6 +228,7 @@ export default function CriarLogin() {
             />
             <label className="text-[18px] flex-3">Confirmar Senha</label>
             <input
+              autoComplete='off'
               type={showRepeatedPassword ? 'password' : 'text'}
               className={`focus-within:outline-0 h-full text-[18px] tracking-wide flex-7`}
               {...register('repeatPassword', { required: true })}
