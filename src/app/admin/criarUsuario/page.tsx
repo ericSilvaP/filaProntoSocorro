@@ -46,8 +46,8 @@ export default function CriarMedico() {
   return (
     <div className="flex justify-center mt-[3rem] font-[family-name:var(--font-gabarito)]">
       <div className="flex flex-col gap-10">
-        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-5 flex-wrap max-w-[72rem] text-xl font-bold shadow-xl">
-          <h2 className="text-center w-full font-extrabold text-2xl uppercase">Criar {role}</h2>
+        <main className="bg-[#1f5c77] p-6 rounded-lg text-white flex gap-3 flex-wrap max-w-[50rem] text-[13px] font-bold shadow-xl">
+          <h2 className="text-center w-full font-extrabold text-[18px] uppercase">Criar {role}</h2>
 
           <input
             {...register("name", { required: true })}
@@ -158,13 +158,13 @@ export default function CriarMedico() {
 
         <div className="flex justify-evenly">
           <Link href={'/admin'}>
-            <button className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">
+            <button className="bg-[rgb(56,163,165)] p-2 text-white text-[15px] font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer">
               Voltar
             </button>
           </Link>
 
           <button
-            className="bg-[rgb(56,163,165)] p-2 text-white text-2xl font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
+            className="bg-[rgb(56,163,165)] p-2 text-white text-[15px] font-bold rounded min-w-[9rem] shadow-2xl hover:opacity-70 transition-opacity duration-150 ease-in-out cursor-pointer"
             onClick={() => handleSubmit(onSubmit)()}
           >
             Próximo
