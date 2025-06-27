@@ -6,14 +6,20 @@ import { QueueEntry } from '@/core/queueManagement/queueEntry'
 import { Attendance } from '@/core/models/nonPeople/Attendance'
 import { Patient } from '@/core/models/people/Patient'
 
-function getColorByPriority(priority: number): string {
-  const colors = ['Vermelho', 'Laranja', 'Amarelo', 'Verde', 'Azul'];
+export function getColorByPriority(priority: number): { colorName: string; colorCode: string } {
+  const colors = [
+    { colorName: 'Emergência', colorCode: '#ef233c' },      // Vermelho
+    { colorName: 'Muito Urgente', colorCode: '#e85d04' },   // Laranja
+    { colorName: 'Urgente', colorCode: '#ffba08' },         // Amarelo
+    { colorName: 'Pouco Urgente', colorCode: '#7cb518' },   // Verde
+    { colorName: 'Não Urgente', colorCode: '#5c95ff' }      // Azul
+  ]
 
   if (priority < 0 || priority > 4) {
-    throw new Error('Prioridade inválida. Deve estar entre 0 e 4.');
+    throw new Error('Prioridade inválida. Deve estar entre 0 e 4.')
   }
 
-  return colors[priority];
+  return colors[priority]
 }
 
 
@@ -26,7 +32,7 @@ export default function Home() {
       .then((res) => res.json())
       .then((data: any[]) => {
         data.forEach((entry) => {
-          if (entry.prioridade === undefined || entry.prioridade === null) return
+          if (entry.prioridade === undefined || entry.prioridade === null || entry.status === 4 || entry.status === 5) return
           // Criar paciente com sus e tipo sanguíneo do backend
           const patient = new Patient(
             entry.paciente_id,
@@ -97,7 +103,7 @@ export default function Home() {
                           </div>
                         )}
                         <span className="truncate max-w-[40%]">{patient.getName()}</span>
-                        <span>{getColorByPriority(entry.getPriorityLevel())}</span>
+                        <span>{getColorByPriority(entry.getPriorityLevel()).colorName}</span>
                         <span>
                           {`${String(initialDate.getHours()).padStart(2, '0')}:${String(initialDate.getMinutes()).padStart(2, '0')}:${String(initialDate.getSeconds()).padStart(2, '0')}`}
                         </span>

@@ -43,6 +43,20 @@ export function updateAvaliacaoClinica(
   return result.changes
 }
 
+export function updateStatus(
+  atendimento_id: number,
+  status: number
+) {
+  const stmt = db.prepare(`
+    UPDATE Atendimento
+    SET status = ?
+    WHERE atendimento_id = ?
+  `)
+
+  const result = stmt.run(status, atendimento_id)
+
+  return result.changes
+}
 
 export function getAllService() {
   const stmt = db.prepare(

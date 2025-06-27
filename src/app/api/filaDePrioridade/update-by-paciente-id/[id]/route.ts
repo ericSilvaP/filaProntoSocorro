@@ -16,7 +16,7 @@ export async function PUT(
   const body = await req.json();
   const { prioridade } = body;
 
-  if (!prioridade) {
+  if (prioridade === null || prioridade === undefined) {
     return NextResponse.json(
       { error: "prioridade é obrigatório" },
       { status: 400 }

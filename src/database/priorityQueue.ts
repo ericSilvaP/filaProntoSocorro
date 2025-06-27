@@ -47,6 +47,7 @@ export function getPriorityQueue() {
       f.paciente_id,
       f.prioridade,
       a.inicio,
+      a.status,
       p.nome,
       p.cartao_sus AS sus,
       p.tipo_sanguineo,
@@ -66,13 +67,13 @@ export function getPatientPriorityQueueAtnId(paciente_id: number) {
   const stmt = db.prepare(
     'SELECT * FROM FilaDePrioridade WHERE paciente_id = ?'
   );
-  return stmt.all(paciente_id);
+  return stmt.all(paciente_id)
 }
 
-export function deletePatientFromPriorityQueue(paciente_id: number) {
+export function deletePatientFromPriorityQueue(atendimento_id: number) {
   const stmt = db.prepare(`
-    DELETE FROM FilaDePrioridade WHERE paciente_id = ?
-  `);
-  const info = stmt.run(paciente_id);
-  return info.changes;
+    DELETE FROM FilaDePrioridade WHERE atendimento_id = ?
+  `)
+  const info = stmt.run(atendimento_id)
+  return info.changes
 }

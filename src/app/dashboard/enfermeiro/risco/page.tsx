@@ -10,7 +10,6 @@ export default function Risco() {
   const router = useRouter()
   const searchParams = useSearchParams()
   
-
   const {
     register,
     handleSubmit,
@@ -86,7 +85,7 @@ export default function Risco() {
       const resultUpdAtendimento = await resUpdateAtendimento.json()
       
       if (!resUpdateAtendimento.ok) {
-        alert(`Erro na mudança de prioridade: ${resultUpdAtendimento.error}`)
+        alert(`Erro na atribuição de risco: ${resultUpdAtendimento.error}`)
         return
       }
 
@@ -98,9 +97,23 @@ export default function Risco() {
       })
 
       const resultUpdtFila = await resUpdFila.json()
-
+      
       if (!resUpdFila.ok) {
         alert(`Erro na mudança de prioridade: ${resultUpdtFila.error}`)
+        return
+      }
+
+      // atualiza status para aguardando atendimento
+      const resUpdStatus = await fetch(`/api/atendimento/update-status/${String(atendimento_id)}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({status: 1})
+      })
+
+      const resultUpdStatus = await resUpdStatus.json()
+      
+      if (!resUpdStatus.ok) {
+        alert(`Erro na mudança de status: ${resultUpdStatus.error}`)
         return
       }
 
