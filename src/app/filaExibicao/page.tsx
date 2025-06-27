@@ -81,7 +81,7 @@ export default function Home() {
                 <>
                   <div className="flex justify-between font-bold text-[17px] border-b pb-1 mb-2 text-[#1f5c77]">
                     <span>Nome</span>
-                    <span>Prioridade</span>
+                    <span className='translate-x-[52px]'>Prioridade</span>
                     <span>Hora de Entrada</span>
                   </div>
 

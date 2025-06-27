@@ -31,6 +31,12 @@ export default function Medico() {
 
           const prioridade = entry.prioridade
 
+          if (prioridade === 0) {
+            updateStatus(entry.atendimento_id, 4)
+            deleteFromQueueDb(entry.atendimento_id)
+            return
+          }
+
           const patient = new Patient(
             entry.paciente_id,
             entry.cpf,
@@ -178,11 +184,6 @@ export default function Medico() {
 
                   {(queue.length > minCall || (calledPatient && queue.length !== 1)) && (
                     <>
-                      <div className="flex-3 flex justify-center items-center">
-                        <div className="rounded-full size-[6rem] bg-[rgb(128,237,153)] flex justify-center items-center">
-                          <Image src={'/person_40_anil.svg'} alt="" height={60} width={60} />
-                        </div>
-                      </div>
                       <div className="flex-7 flex flex-col gap-1.5">
                         <div>
                           <strong>Nome</strong>: {queue[minCall].getAttendence().getPatient().getName()}
@@ -225,11 +226,7 @@ export default function Medico() {
               <div className="bg-white w-[75%] flex p-6">
                   {(queue.length > 0 && calledPatient) && (
                     <>
-                      <div className="flex-3 flex justify-center items-center">
-                        <div className="rounded-full size-[6rem] bg-[rgb(128,237,153)] flex justify-center items-center">
-                          <Image src={'/person_40_anil.svg'} alt="" height={60} width={60} />
-                        </div>
-                      </div> 
+                    
                       <div className="flex-7 flex flex-col gap-1.5">
                         <div>
                           <strong>Nome</strong>: {queue[0].getAttendence().getPatient().getName()}
