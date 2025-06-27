@@ -61,8 +61,8 @@ export default function CriarAtendimento() {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
-          paciente_id: paciente_id,
-          recepcionista_id: recepcionista_id
+          paciente_id: 1,
+          recepcionista_id: 1
         })
       })
 

@@ -188,7 +188,7 @@ export default function CriarLogin() {
             {!showPassword && (
               <button
                 onClick={togglePasswordVisibility}
-                className="h-[55px] w-[55px] cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
               >
                 <Image
                   src={'/visibilityOn_32_black.svg'}
@@ -202,7 +202,7 @@ export default function CriarLogin() {
             {showPassword && (
               <button
                 onClick={togglePasswordVisibility}
-                className="h-[55px] w-[55px] cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
               >
                 <Image
                   src={'/visibilityOff_32_black.svg'}
@@ -234,7 +234,7 @@ export default function CriarLogin() {
             {!showRepeatedPassword && (
               <button
                 onClick={togglePasswordRepeatedVisibility}
-                className="h-[55px] w-[55px] cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
               >
                 <Image
                   src={'/visibilityOn_32_black.svg'}
@@ -248,7 +248,7 @@ export default function CriarLogin() {
             {showRepeatedPassword && (
               <button
                 onClick={togglePasswordRepeatedVisibility}
-                className="h-[55px] w-[55px] cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
+                className="cursor-pointer hover:bg-[rgba(0,0,0,0.2)] transition ease-in-out duration-300 rounded-full flex justify-center"
               >
                 <Image
                   src={'/visibilityOff_32_black.svg'}

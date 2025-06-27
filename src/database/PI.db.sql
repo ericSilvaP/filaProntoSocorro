@@ -3,14 +3,12 @@ BEGIN TRANSACTION;
 CREATE TABLE IF NOT EXISTS "Atendimento" (
   "atendimento_id" INTEGER PRIMARY KEY AUTOINCREMENT,
   "paciente_id" INTEGER NOT NULL,
-  "consulta_id" INTEGER,
   "recepcionista_id" INTEGER NOT NULL,
   "avaliacao_clinica_id" INTEGER,
   "inicio" DATETIME NOT NULL,
   "status" INTEGER NOT NULL CHECK (status IN (0,1,2,3,4,5)),
   "fim" DATETIME,
   FOREIGN KEY("avaliacao_clinica_id") REFERENCES "AvaliacaoClinica"("avaliacao_clinica_id"),
-  FOREIGN KEY("consulta_id") REFERENCES "Consulta"("consulta_id"),
   FOREIGN KEY("paciente_id") REFERENCES "Paciente"("paciente_id"),
   FOREIGN KEY("recepcionista_id") REFERENCES "Recepcionista"("recepcionista_id")
 );
