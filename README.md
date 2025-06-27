@@ -25,9 +25,11 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 - Cadastro de pacientes pela recepção
 - Atribuição de triagem ao atendimento por enfermeiros
 - Fila de prioridade de atendimentos com base no risco da triagem atribuída
-- Atribuição de consultas por médicos
 - Registro completo de atendimentos
-- Geração de métricas de desempenho
+- Integração com banco de dados SQLite (local)
+- Interface gráfica para uso em tempo real
+- API REST para comunicação com front-end
+- Autenticação de usuários por cargo (médico, enfermeiro, recepcionista, admin)
 
 ## 🧰 Tecnologias utilizadas
 
@@ -37,7 +39,7 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 
 ## 🚀 Como executar o projeto
 
-> Requisitos: Node.js 18+ e TypeScript instalados globalmente
+> Requisitos: Node.js 20+ e TypeScript instalados globalmente
 
 1. Clone o repositório:
 
@@ -49,7 +51,7 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
 2. Instale as dependências:
 
    ```bash
-   npm install ts-node
+   npm install next
    ```
 
 3. Execute o projeto:
@@ -59,15 +61,6 @@ Projeto integrador do Bloco 2 do curso de **Tecnólogo em Sistemas de Computaç�
    ```
 
 > Obs: O banco de dados será integrado nas próximas versões.
-
-## 📈 Melhorias futuras
-
-- Definição de número de filas operando
-- Integração com banco de dados MySQL
-- Interface gráfica para uso em tempo real
-- API REST para comunicação com front-end
-- Autenticação de usuários por cargo (médico, enfermeiro, recepcionista)
-- Dashboard com gráficos e relatórios
 
 ## 📄 Licença
 
